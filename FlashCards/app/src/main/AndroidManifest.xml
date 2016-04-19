@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CreateDeckActivity" />
+        <activity android:name=".PlayDeckActivity"></activity>
     </application>
 
 </manifest>
