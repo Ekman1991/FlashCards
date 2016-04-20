@@ -13,36 +13,31 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
+    public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
 
     private ListView lv;
-
+    protected ArrayList<Deck> your_array_list;
+    CardFactory factory = new CardFactory();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        Deck deck = new Deck("Swift");
         lv = (ListView) findViewById(R.id.listView);
 
-        List<String> your_array_list = new ArrayList<String>();
-        your_array_list.add("Swift");
-        your_array_list.add("Objective-C");
-        your_array_list.add("Java");
-        your_array_list.add("Design Patterns");
-        your_array_list.add("Math");
-        your_array_list.add("Physics");
-        your_array_list.add("Geometry");
-        your_array_list.add("English");
-        your_array_list.add("Swedish");
+        your_array_list = new ArrayList<Deck>();
+        your_array_list.add(deck);
+
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<Deck> arrayAdapter = new ArrayAdapter<Deck>(
                 this,
                 android.R.layout.simple_list_item_1,
                 your_array_list );
@@ -51,11 +46,25 @@ public class MainActivity extends AppCompatActivity {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
-                String selectedFromList = (String)(lv.getItemAtPosition(myItemInt));
-                Log.d("ClickedDeck", selectedFromList);
+                Deck selectedFromList = (Deck)(lv.getItemAtPosition(myItemInt));
+                Intent intent = new Intent(MainActivity.this, PlayDeckActivity.class);
+                intent.putExtra("D",selectedFromList);
+                startActivity(intent);
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        //Updates the ArrayAdapter upon resume of MainActivity.
+        super.onResume();
+        ArrayAdapter<Deck> arrayAdapter = new ArrayAdapter<Deck>(
+                this,
+                android.R.layout.simple_list_item_1,
+                your_array_list );
+
+        lv.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -86,9 +95,15 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intentMain = new Intent(MainActivity.this ,
                 CreateDeckActivity.class);
-        MainActivity.this.startActivity(intentMain);
-
+        MainActivity.this.startActivityForResult(intentMain, 1);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Returns input text from CreateDeckActivity and adds it into the deck arraylist
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String deck = data.getStringExtra(EXTRA_MESSAGE);
+            your_array_list.add(new Deck(deck));
+        }
+    }
 }

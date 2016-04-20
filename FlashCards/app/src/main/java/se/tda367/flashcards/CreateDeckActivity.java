@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class CreateDeckActivity extends AppCompatActivity {
 
@@ -26,5 +28,13 @@ public class CreateDeckActivity extends AppCompatActivity {
 
     }
 
-
+    //Saves deck into the array in MainActivity
+    public void saveDeck (View v) {
+        Intent intent = new Intent(this, MainActivity.class);
+        EditText editText = (EditText)findViewById(R.id.createDeckTextField);
+        String message = editText.getText().toString();
+        intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }

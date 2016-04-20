@@ -25,15 +25,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:onClick="saveDeck"
         android:id="@+id/createDeckSaveButton"
         android:layout_alignTop="@+id/createDeckCancelButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <EditText
-        android:layout_width="400px"
-        android:layout_height="100px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/createDeckTextField"
+        android:textAlignment="center"
+        android:hint="@string/create_deck_field"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:imeOptions="actionDone"
+        android:inputType="textImeMultiLine" />
 </RelativeLayout>
