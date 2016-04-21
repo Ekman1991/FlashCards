@@ -17,16 +17,21 @@ public class Card {
         this.difficulty = 0;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getQuestion()
+    {
+        return this.question;
     }
 
     public String getAnswer() {
-        return answer;
+        return this.answer;
     }
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public int getDifficulty(int difficulty) {
+        return this.difficulty;
     }
 
 }
