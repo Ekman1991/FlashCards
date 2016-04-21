@@ -1,5 +1,7 @@
 package se.tda367.flashcards;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,8 +10,90 @@ import static org.junit.Assert.*;
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+
+    private Deck deck;
+    private Card card1;
+    private Card card2;
+    private Card card3;
+
+    /**
+     * Sets up the test fixture.
+     * (Called before every test case method.)
+     */
+    @Before
+    public void setUp() {
+
+        deck = new Deck("TestDeck");
+
+        card1 = new Card("Dog", "Animal");
+        card2 = new Card("Cat", "Animal");
+        card3 = new Card("Parrot", "Animal");
+
+        deck.addCard(card1);
+        deck.addCard(card2);
+        deck.addCard(card3);
+        
     }
+
+    /**
+     * Tears down the test fixture.
+     * (Called after every test case method.)
+     */
+    @After
+    public void tearDown() {
+        deck = null;
+        card1 = null;
+        card2 = null;
+        card3 = null;
+    }
+
+    @Test
+    public void createDeck_nameIsCorrect() throws Exception {
+
+        assertEquals(deck.getName(), "TestDeck");
+
+    }
+
+    @Test
+    public void createDeck_sizeIsCorrect() throws Exception {
+
+        assertEquals(deck.getSize(), 3);
+
+    }
+
+    @Test
+    public void createDeck_playIsOutOfBounds() throws Exception {
+
+        assertEquals(deck.play(0, deck.getSize() + 1), "Error");
+
+    }
+
+    @Test
+    public void createDeck_playIsCorrectQuestion() throws Exception {
+
+        assertEquals(deck.play(0, 0), "Dog");
+
+    }
+
+    @Test
+    public void createDeck_playIsCorrectAnswer() throws Exception {
+
+        assertEquals(deck.play(1, 0), "Animal");
+
+    }
+
+    @Test
+    public void createCard_isCorrectQuestion() throws Exception {
+
+        assertEquals(card1.getQuestion(), "Dog");
+
+    }
+
+    @Test
+    public void createCard_isCorrectAnswer() throws Exception {
+
+        assertEquals(card1.getAnswer(), "Animal");
+
+    }
+
 }
