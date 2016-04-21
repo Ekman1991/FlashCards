@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.util.Log;
 
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
@@ -18,12 +17,11 @@ public class PlayDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_deck);
         Intent intent = getIntent();
-        currentDeck = (Deck)intent.getParcelableExtra("D");
+        currentDeck = intent.getParcelableExtra("D");
         textView = (TextView) findViewById(R.id.textView);
         textView.setText(currentDeck.play(0, position));
         showQuestion = true;
         deckSize = currentDeck.getSize();
-        Log.d("decksize", Integer.toString(deckSize));
     }
 
     public void setAnswerOrQuestion() {
@@ -33,14 +31,14 @@ public class PlayDeckActivity extends AppCompatActivity {
         } else {
             textView.setText(currentDeck.play(1, position));
             showQuestion = false;
-            Log.d("Position", Integer.toString(position));
             position++;
         }
     }
 
     public void finishedDeck(View v) {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     public void flipCard(View v) {

@@ -3,10 +3,8 @@ package se.tda367.flashcards;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class CreateDeckActivity extends AppCompatActivity {
 
@@ -18,14 +16,10 @@ public class CreateDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_createdeck);
     }
 
-
-
     public void cancelSaveDeck(View v) {
-
-        Intent intentMain = new Intent(CreateDeckActivity.this ,
-                MainActivity.class);
-        CreateDeckActivity.this.startActivity(intentMain);
-
+        Intent intent = new Intent(this, MainActivity.class);
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 
     //Saves deck into the array in MainActivity

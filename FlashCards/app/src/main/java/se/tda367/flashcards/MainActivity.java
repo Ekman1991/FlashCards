@@ -11,12 +11,11 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
+    private final int OPEN_CREATE_DECK = 1;
 
     private ListView lv;
     protected ArrayList<Deck> your_array_list;
@@ -25,14 +24,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState == null) {
+            Deck deck = new Deck("Swift");
+            your_array_list = new ArrayList<Deck>();
+            your_array_list.add(deck);
+        }  else {
+            your_array_list = savedInstanceState.getParcelableArrayList("Deck");
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Deck deck = new Deck("Swift");
         lv = (ListView) findViewById(R.id.listView);
-
-        your_array_list = new ArrayList<Deck>();
-        your_array_list.add(deck);
-
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -47,12 +50,11 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 Deck selectedFromList = (Deck)(lv.getItemAtPosition(myItemInt));
-                Intent intent = new Intent(MainActivity.this, PlayDeckActivity.class);
+                Intent intent = new Intent(MainActivity.this, DeckActivity.class);
                 intent.putExtra("D",selectedFromList);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
-
     }
 
     @Override
@@ -63,8 +65,19 @@ public class MainActivity extends AppCompatActivity {
                 this,
                 android.R.layout.simple_list_item_1,
                 your_array_list );
-
         lv.setAdapter(arrayAdapter);
+        int size = your_array_list.size();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList("Deck", your_array_list);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -92,10 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonOnClick(View v) {
         Log.d("YourTag", "YourOutput");
-
         Intent intentMain = new Intent(MainActivity.this ,
                 CreateDeckActivity.class);
-        MainActivity.this.startActivityForResult(intentMain, 1);
+        MainActivity.this.startActivityForResult(intentMain, OPEN_CREATE_DECK);
     }
 
     @Override
@@ -104,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             String deck = data.getStringExtra(EXTRA_MESSAGE);
             your_array_list.add(new Deck(deck));
+        } else if(requestCode == 2 && resultCode == RESULT_OK && data != null) {
+
         }
     }
 }

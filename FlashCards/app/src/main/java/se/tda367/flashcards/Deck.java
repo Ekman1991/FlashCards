@@ -25,7 +25,6 @@ public class Deck implements Parcelable{
 
     //Needed for Parcelable which is a temporary solution
     protected Deck (Parcel in) {
-        this(in.readString());
         readFromParcel(in);
     }
 
@@ -37,6 +36,10 @@ public class Deck implements Parcelable{
     @Override
     public String toString() {
         return getName();
+    }
+
+    public void addCard(Card card){
+        list.add(card);
     }
 
     //för test
@@ -64,8 +67,8 @@ public class Deck implements Parcelable{
 
     //Everything below is also need to implement Parcelable
     private void readFromParcel(Parcel in) {
-        list = in.createTypedArrayList(Card.CREATOR);
         name = in.readString();
+        list = in.createTypedArrayList(Card.CREATOR);
     }
 
     @Override
