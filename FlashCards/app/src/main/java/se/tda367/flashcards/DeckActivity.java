@@ -29,6 +29,7 @@ public class DeckActivity extends AppCompatActivity {
     }
 
     protected void startDeck (View v) {
+        currentDeck.shuffle();
         Intent intent = new Intent(this, PlayDeckActivity.class);
         intent.putExtra("D",currentDeck);
         startActivityForResult(intent,2);
