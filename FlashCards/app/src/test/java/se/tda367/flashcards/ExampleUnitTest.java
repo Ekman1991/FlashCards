@@ -32,7 +32,7 @@ public class ExampleUnitTest {
         deck.addCard(card1);
         deck.addCard(card2);
         deck.addCard(card3);
-        
+
     }
 
     /**
