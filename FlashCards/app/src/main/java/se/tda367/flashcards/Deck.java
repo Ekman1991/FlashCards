@@ -15,13 +15,6 @@ public class Deck implements Parcelable{
     //Create Deck with 6 cards for testing
     protected Deck(String name){
         this.name = name;
-        list.add(new Card("Dog", "Animal"));
-        list.add(new Card("Cat", "Animal"));
-        list.add(new Card("Fish", "Animal"));
-        list.add(new Card("Stone", "!Animal"));
-        list.add(new Card("Computer", "!Animal"));
-        list.add(new Card("Giraffe", "Animal"));
-
     }
 
     //Needed for Parcelable which is a temporary solution
@@ -54,7 +47,7 @@ public class Deck implements Parcelable{
                 return answer;
             }
         }
-        return ("Broken");
+        return ("Error");
     }
 
     public int getSize() {
