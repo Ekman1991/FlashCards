@@ -3,6 +3,7 @@ package se.tda367.flashcards;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,25 +15,13 @@ public class DeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck);
-        Intent intent = getIntent();
-        currentDeck = intent.getParcelableExtra("D");
+
+        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
+
         name.setText(currentDeck.getName());
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
-    }
-
-    protected void createCard (View v){
-        Intent intent = new Intent(this, CreateCardActivity.class);
-        intent.putExtra("D", currentDeck);
-        startActivityForResult(intent, 1);
-    }
-
-    protected void startDeck (View v) {
-        currentDeck.shuffle();
-        Intent intent = new Intent(this, PlayDeckActivity.class);
-        intent.putExtra("D",currentDeck);
-        startActivityForResult(intent,2);
     }
 
 }

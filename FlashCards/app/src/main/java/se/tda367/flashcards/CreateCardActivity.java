@@ -18,16 +18,4 @@ public class CreateCardActivity extends AppCompatActivity {
         answer = (EditText)findViewById(R.id.answerField);
         cardFactory = new CardFactory();
     }
-
-    public void addCardToDeck(View v) {
-        Intent intent = getIntent();
-        Deck deck = intent.getParcelableExtra("D");
-        String q = question.getText().toString();
-        String a = answer.getText().toString();
-        deck.addCard(cardFactory.createCard(q,a));
-        intent = new Intent(this, DeckActivity.class);
-        intent.putExtra("D", deck);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
 }

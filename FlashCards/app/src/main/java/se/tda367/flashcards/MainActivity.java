@@ -25,13 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            Deck deck = new Deck("Swift");
-            your_array_list = new ArrayList<Deck>();
-            your_array_list.add(deck);
-        }  else {
-            your_array_list = savedInstanceState.getParcelableArrayList("Deck");
-        }
+        your_array_list = Singleton.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,34 +44,12 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 Deck selectedFromList = (Deck)(lv.getItemAtPosition(myItemInt));
+                Singleton.getInstance().getFlashCards().setCurrentDeck(selectedFromList);
+
                 Intent intent = new Intent(MainActivity.this, DeckActivity.class);
-                intent.putExtra("D",selectedFromList);
                 startActivityForResult(intent,2);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        //Updates the ArrayAdapter upon resume of MainActivity.
-        super.onResume();
-        ArrayAdapter<Deck> arrayAdapter = new ArrayAdapter<Deck>(
-                this,
-                android.R.layout.simple_list_item_1,
-                your_array_list );
-        lv.setAdapter(arrayAdapter);
-        int size = your_array_list.size();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList("Deck", your_array_list);
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -110,14 +82,4 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivityForResult(intentMain, OPEN_CREATE_DECK);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //Returns input text from CreateDeckActivity and adds it into the deck arraylist
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            String deck = data.getStringExtra(EXTRA_MESSAGE);
-            your_array_list.add(new Deck(deck));
-        } else if(requestCode == 2 && resultCode == RESULT_OK && data != null) {
-
-        }
-    }
 }

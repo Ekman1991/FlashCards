@@ -19,17 +19,17 @@ public class PlayDeckActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currentDeck = intent.getParcelableExtra("D");
         textView = (TextView) findViewById(R.id.textView);
-        textView.setText(currentDeck.play(0, position));
+        //textView.setText(currentDeck.play(0, position));
         showQuestion = true;
         deckSize = currentDeck.getSize();
     }
 
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
-            textView.setText(currentDeck.play(0, position));
+            //textView.setText(currentDeck.play(0, position));
             showQuestion = true;
         } else {
-            textView.setText(currentDeck.play(1, position));
+            //textView.setText(currentDeck.play(1, position));
             showQuestion = false;
             position++;
         }

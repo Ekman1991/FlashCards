@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CreateDeckActivity">
+    tools:context=".CreateDeckActivity"
+    android:onClick="saveTheDeck">
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -25,20 +26,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:onClick="saveDeck"
+        android:onClick="saveTheDeck"
         android:id="@+id/createDeckSaveButton"
-        android:layout_alignTop="@+id/createDeckCancelButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/createDeckTextField"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/createDeckTextField"
         android:textAlignment="center"
-        android:hint="@string/create_deck_field"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:imeOptions="actionDone"
-        android:inputType="textImeMultiLine" />
+        android:inputType="textImeMultiLine"
+        android:width="300px" />
 </RelativeLayout>
