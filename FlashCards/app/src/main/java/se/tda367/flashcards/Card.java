@@ -10,6 +10,7 @@ public class Card {
     private String question;
     private String answer;
     private int difficulty;
+    private int id;
 
     public Card(String question, String answer) {
         this.question = question;
@@ -26,11 +27,19 @@ public class Card {
         return this.answer;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
 
-    public int getDifficulty(int difficulty) {
+    public int getDifficulty() {
         return this.difficulty;
     }
 
