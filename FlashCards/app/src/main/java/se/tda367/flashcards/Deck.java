@@ -9,43 +9,66 @@ import java.util.Random;
  * Created by ZlatanH on 2016-04-19.
  */
 public class Deck{
+    private int id;
     private String name;
-    private ArrayList<Card> list = new ArrayList<Card>();
+    private String description;
+    private ArrayList<Card> list;
+    private int counter;
 
-    protected Deck(String name){
+    public Deck() {
+
+    }
+
+    public Deck(String name) {
         this.name = name;
+        this.list = new ArrayList<Card>();
+        this.counter = 0;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName(){
         return this.name;
     }
 
-    //For getting the name in the listview instead of the reference
-    @Override
-    public String toString() {
-        return getName();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription(){
+        return this.description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public void addCard(Card card){
         list.add(card);
     }
 
-    //för test
-    public String play(int code, int position) {
-        while (position < list.size()) {
-            if (code == 0) {
-                String question = list.get(position).getQuestion();
-                return question;
-            }   else if (code == 1) {
-                String answer = list.get(position).getAnswer();
-                return answer;
-            }
+    public Card getNextCard() {
+
+        if (counter < list.size()) {
+            return list.get(counter++);
+        } else {
+            return null;
         }
-        return ("Error");
+
     }
 
     public int getSize() {
-        return list.size();
+        if (list == null) {
+            return 0;
+        } else {
+            return list.size();
+        }
     }
 
     public void shuffle(){
@@ -64,5 +87,10 @@ public class Deck{
 
     }
 
+    //For getting the name in the listview instead of the reference
+    @Override
+    public String toString() {
+        return getName();
+    }
 
 }
