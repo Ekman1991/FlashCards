@@ -55,30 +55,22 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void playRound() throws Exception {
+
+        int counter = 0;
+
+        while (deck.getNextCard() != null) {
+            counter++;
+        }
+
+        assertEquals(counter, deck.getSize());
+
+    }
+
+    @Test
     public void createDeck_sizeIsCorrect() throws Exception {
 
         assertEquals(deck.getSize(), 3);
-
-    }
-
-    @Test
-    public void createDeck_playIsOutOfBounds() throws Exception {
-
-        assertEquals(deck.play(0, deck.getSize() + 1), "Error");
-
-    }
-
-    @Test
-    public void createDeck_playIsCorrectQuestion() throws Exception {
-
-        assertEquals(deck.play(0, 0), "Dog");
-
-    }
-
-    @Test
-    public void createDeck_playIsCorrectAnswer() throws Exception {
-
-        assertEquals(deck.play(1, 0), "Animal");
 
     }
 
