@@ -1,5 +1,7 @@
 package se.tda367.flashcards;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,9 +35,22 @@ public class DeckActivity extends AppCompatActivity {
     public void startDeck(View v) {
         Log.v("DeckActivity", "StartDeck");
 
-        Intent intentMain = new Intent(DeckActivity.this ,
-                PlayDeckActivity.class);
-        DeckActivity.this.startActivityForResult(intentMain, 0);
+        if (currentDeck.getSize() == 0) {
+            AlertDialog alertDialog = new AlertDialog.Builder(DeckActivity.this).create();
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage("You do not have any cards");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        } else {
+            Intent intentMain = new Intent(DeckActivity.this ,
+                    PlayDeckActivity.class);
+            DeckActivity.this.startActivityForResult(intentMain, 0);
+        }
 
     }
 
