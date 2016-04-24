@@ -24,4 +24,15 @@ public class DeckActivity extends AppCompatActivity {
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
     }
 
+    public void createCard(View v) {
+        Intent intentMain = new Intent(DeckActivity.this ,
+                CreateCardActivity.class);
+        DeckActivity.this.startActivityForResult(intentMain, 0);
+    }
+
+    public void startDeck(View v) {
+        //TODO: Implement this
+        Log.v("DeckActivity", "StartDeck");
+    }
+
 }

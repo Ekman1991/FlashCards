@@ -61,14 +61,12 @@ public class DatabaseController extends SQLiteOpenHelper {
             + DECK_CARD_COLUMN_DECK_ID + " INTEGER," + DECK_CARD_COLUMN_CARD_ID + " INTEGER"
             + ")";
 
-    public DatabaseController(Context context)
-    {
+    public DatabaseController(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
         db.execSQL(CREATE_TABLE_DECK);
         db.execSQL(CREATE_TABLE_CARD);
         db.execSQL(CREATE_TABLE_DECK_CARDS);
@@ -76,7 +74,6 @@ public class DatabaseController extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS " + CARDS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DECKS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + DECK_CARD_TABLE_NAME);
@@ -142,11 +139,44 @@ public class DatabaseController extends SQLiteOpenHelper {
                 d.setName((c.getString(c.getColumnIndex(DECKS_COLUMN_NAME))));
                 d.setDescription(c.getString(c.getColumnIndex(DECKS_COLUMN_DESCRIPTION)));
 
+                d.setCardsArray(getCardsForDeck(d));
+
                 decks.add(d);
             } while (c.moveToNext());
         }
 
         return decks;
+    }
+
+    public ArrayList<Card> getCardsForDeck(Deck deck) {
+
+        ArrayList<Card> list = new ArrayList<Card>();
+
+        String selectQuery = "SELECT * FROM " + CARDS_TABLE_NAME + " cardTable, "
+                + DECKS_TABLE_NAME + " decksTable, " + DECK_CARD_TABLE_NAME + " deckCardTable WHERE decksTable."
+                + DECKS_COLUMN_ID + " = '" + deck.getId() + "'" + " AND decksTable." + DECKS_COLUMN_ID
+                + " = " + "deckCardTable." + DECK_CARD_COLUMN_DECK_ID + " AND cardTable." + CARDS_COLUMN_ID + " = "
+                + "deckCardTable." + DECK_CARD_COLUMN_CARD_ID;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Card card = new Card();
+                card.setId(c.getInt((c.getColumnIndex(CARDS_COLUMN_ID))));
+                card.setQuestion((c.getString(c.getColumnIndex(CARDS_COLUMN_QUESTION))));
+                card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
+                card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
+
+                list.add(card);
+            } while (c.moveToNext());
+        }
+
+        return list;
+
     }
 
     public int updateDeck(Deck deck) {

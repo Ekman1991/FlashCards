@@ -25,6 +25,7 @@ public class CreateDeckActivity extends AppCompatActivity {
 
     public void saveTheDeck (View v) {
 
+        //TODO: Move this to a utility class. Will be duplicated all over the codebase
         if (deckName == null || deckName.getText().toString().trim().length() == 0) {
             Log.d("CreateDeck", "DeckName is empty");
         } else {
