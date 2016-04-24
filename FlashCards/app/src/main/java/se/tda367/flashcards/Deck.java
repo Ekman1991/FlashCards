@@ -59,6 +59,10 @@ public class Deck{
         this.list = cards;
     }
 
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
     public Card getNextCard() {
 
         if (counter < list.size()) {

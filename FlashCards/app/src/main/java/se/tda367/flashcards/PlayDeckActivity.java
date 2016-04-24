@@ -22,6 +22,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
         currentDeck.shuffle();
+        currentDeck.setCounter(0);
 
         currentCard = currentDeck.getNextCard();
 
