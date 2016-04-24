@@ -16,7 +16,9 @@ public class Deck{
     private int counter;
 
     public Deck() {
-
+        this.name = "";
+        this.list = new ArrayList<Card>();
+        this.counter = 0;
     }
 
     public Deck(String name) {
@@ -51,6 +53,10 @@ public class Deck{
 
     public void addCard(Card card){
         list.add(card);
+    }
+
+    public void setCardsArray(ArrayList<Card> cards) {
+        this.list = cards;
     }
 
     public Card getNextCard() {
