@@ -12,8 +12,6 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private Card currentCard;
     private TextView textView;
-    private int deckSize;
-    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
