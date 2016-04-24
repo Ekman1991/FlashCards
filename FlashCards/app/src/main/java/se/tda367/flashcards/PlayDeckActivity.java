@@ -68,7 +68,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         } else {
             textView.setText(currentCard.getAnswer());
             showQuestion = false;
-            //currentCard = currentDeck.getNextCard();
+
         }
     }
 
