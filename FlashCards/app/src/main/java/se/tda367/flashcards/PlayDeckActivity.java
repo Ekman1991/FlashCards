@@ -29,7 +29,6 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         showQuestion = true;
-        deckSize = currentDeck.getSize();
     }
 
     public void setAnswerOrQuestion() {
