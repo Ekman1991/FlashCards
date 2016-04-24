@@ -26,6 +26,9 @@ public class Deck{
         this.list = new ArrayList<Card>();
         this.counter = 0;
     }
+    public boolean hasNext(){
+        return counter<list.size();
+    }
 
     public int getId() {
         return this.id;
