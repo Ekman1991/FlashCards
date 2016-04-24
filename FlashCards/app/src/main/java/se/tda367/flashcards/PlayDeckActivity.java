@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
@@ -14,6 +19,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     private TextView textView;
     private int deckSize;
     int position = 0;
+    GestureDetector gestureDetector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,20 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         showQuestion = true;
         deckSize = currentDeck.getSize();
+
+        View background = findViewById(R.id.background);
+
+        background.setOnTouchListener(new OnSwipeTouchListener(PlayDeckActivity.this) {
+            public void onSwipeRight() {
+                setAnswerOrQuestion();
+            }
+
+            public void onSwipeLeft() {
+                setAnswerOrQuestion();
+            }
+
+
+        });
     }
 
     public void setAnswerOrQuestion() {
