@@ -3,6 +3,7 @@ package se.tda367.flashcards;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -55,5 +56,10 @@ public class PlayDeckActivity extends AppCompatActivity {
         }   else   {
             finishedDeck(v);
         }
+    }
+    public void backButton(View v){
+        Log.v("PlayDeckActivity", "Back");
+        Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
+        PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
 }
