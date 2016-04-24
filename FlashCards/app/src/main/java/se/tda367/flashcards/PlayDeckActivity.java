@@ -29,6 +29,32 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         showQuestion = true;
+
+        activateSwipe();
+
+    }
+    public void activateSwipe(){
+        final View background = findViewById(R.id.background);
+
+        background.setOnTouchListener(new OnSwipeTouchListener(PlayDeckActivity.this) {
+            public void onSwipeRight() {
+
+            }
+
+            public void onSwipeLeft() {
+                if (currentDeck.hasNext()) {
+                    if (!showQuestion) {
+                        currentCard = currentDeck.getNextCard();
+                        showQuestion = true;
+                        textView.setText(currentCard.getQuestion());
+                    }
+                }
+                else finishedDeck(background);
+            }
+
+
+        });
+
     }
 
     public void setAnswerOrQuestion() {
@@ -38,7 +64,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         } else {
             textView.setText(currentCard.getAnswer());
             showQuestion = false;
-            currentCard = currentDeck.getNextCard();
+
         }
     }
 
