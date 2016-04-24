@@ -1,6 +1,8 @@
 package se.tda367.flashcards;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +21,6 @@ public class PlayDeckActivity extends AppCompatActivity {
     private TextView textView;
     private int deckSize;
     int position = 0;
-    GestureDetector gestureDetector;
 
 
     @Override
@@ -39,6 +40,10 @@ public class PlayDeckActivity extends AppCompatActivity {
         showQuestion = true;
         deckSize = currentDeck.getSize();
 
+        activateSwipe();
+
+    }
+    public void activateSwipe(){
         final View background = findViewById(R.id.background);
 
         background.setOnTouchListener(new OnSwipeTouchListener(PlayDeckActivity.this) {
@@ -59,6 +64,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         });
+
     }
 
     public void setAnswerOrQuestion() {
