@@ -47,7 +47,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
 
             public void onSwipeLeft() {
-                if (currentCard != null) {
+                if (currentDeck.hasNext()) {
                     if (!showQuestion) {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
