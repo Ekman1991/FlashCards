@@ -9,29 +9,37 @@ import android.widget.TextView;
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
     private Deck currentDeck;
+    private Card currentCard;
     private TextView textView;
     private int deckSize;
     int position = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_deck);
-        Intent intent = getIntent();
-        currentDeck = intent.getParcelableExtra("D");
+
+        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        currentDeck.shuffle();
+
+        currentCard = currentDeck.getNextCard();
+
         textView = (TextView) findViewById(R.id.textView);
-        //textView.setText(currentDeck.play(0, position));
+        textView.setText(currentCard.getQuestion());
+
+
         showQuestion = true;
         deckSize = currentDeck.getSize();
     }
 
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
-            //textView.setText(currentDeck.play(0, position));
+            textView.setText(currentCard.getQuestion());
             showQuestion = true;
         } else {
-            //textView.setText(currentDeck.play(1, position));
+            textView.setText(currentCard.getAnswer());
             showQuestion = false;
-            position++;
+            currentCard = currentDeck.getNextCard();
         }
     }
 
@@ -42,7 +50,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     }
 
     public void flipCard(View v) {
-        if (deckSize > position) {
+        if (currentCard != null) {
             setAnswerOrQuestion();
         }   else   {
             finishedDeck(v);

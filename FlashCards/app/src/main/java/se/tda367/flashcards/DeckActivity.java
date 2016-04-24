@@ -31,8 +31,21 @@ public class DeckActivity extends AppCompatActivity {
     }
 
     public void startDeck(View v) {
-        //TODO: Implement this
         Log.v("DeckActivity", "StartDeck");
+
+        Intent intentMain = new Intent(DeckActivity.this ,
+                PlayDeckActivity.class);
+        DeckActivity.this.startActivityForResult(intentMain, 0);
+
+    }
+
+    public void backButton(View v) {
+        Log.v("DeckActivity", "Back");
+
+        Intent intentMain = new Intent(DeckActivity.this ,
+                MainActivity.class);
+        DeckActivity.this.startActivityForResult(intentMain, 0);
+
     }
 
 }
