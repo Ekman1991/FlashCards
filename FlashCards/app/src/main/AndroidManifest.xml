@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateDeckActivity" />
-        <activity android:name=".PlayDeckActivity"></activity>
+        <activity android:name=".PlayDeckActivity" />
+        <activity android:name=".DeckActivity" />
+        <activity android:name=".CreateCardActivity"></activity>
     </application>
 
 </manifest>
