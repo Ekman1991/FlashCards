@@ -35,4 +35,18 @@
         android:onClick="createCardButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/button4"
+        android:onClick="cancelCreateCard"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/createCardButton"
+        android:layout_alignLeft="@+id/createCardButton"
+        android:layout_alignStart="@+id/createCardButton"
+        android:layout_alignRight="@+id/createCardButton"
+        android:layout_alignEnd="@+id/createCardButton" />
 </RelativeLayout>
