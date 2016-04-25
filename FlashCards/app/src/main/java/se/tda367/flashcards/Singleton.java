@@ -1,6 +1,9 @@
 package se.tda367.flashcards;
 
+import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Razzan on 2016-04-21.

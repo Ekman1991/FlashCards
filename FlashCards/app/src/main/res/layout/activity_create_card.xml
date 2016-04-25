@@ -32,8 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/create_card"
         android:id="@+id/createCardButton"
-        android:onClick="addCardToDeck"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="46dp" />
+        android:onClick="createCardButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

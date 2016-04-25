@@ -12,19 +12,32 @@ public class Card {
     private int difficulty;
     private int id;
 
+    public Card() {
+        this.question = "";
+        this.answer = "";
+        this.difficulty = 0;
+    }
+
     public Card(String question, String answer) {
         this.question = question;
         this.answer = answer;
         this.difficulty = 0;
     }
 
-    public String getQuestion()
-    {
+    public String getQuestion() {
         return this.question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getAnswer() {
         return this.answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public int getId() {
