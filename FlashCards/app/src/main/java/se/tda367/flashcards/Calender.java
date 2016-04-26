@@ -9,7 +9,9 @@ import java.util.Calendar;
 public class Calender {
     public static int SECONDSDAY = 24 * 60 * 60;
     public static void main(String[] args) {
+
         Calendar startDay = Calendar.getInstance();
+
         startDay.setTime(new Date(0)); /* reset */
         startDay.set(Calendar.DAY_OF_MONTH,1);
         startDay.set(Calendar.MONTH,0); // 0-11 so 1 less

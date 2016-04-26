@@ -16,7 +16,8 @@
         android:hint="@string/question_field"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp" />
+        android:layout_marginTop="65dp"
+        android:backgroundTint="#1f7b64" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,7 +26,9 @@
         android:hint="@string/answer_field"
         android:layout_below="@+id/questionField"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp" />
+        android:layout_marginTop="63dp"
+        android:backgroundTint="#d93232"
+        android:enabled="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -33,6 +36,10 @@
         android:text="@string/create_card"
         android:id="@+id/createCardButton"
         android:onClick="createCardButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/answerField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/abc_primary_text_disable_only_material_light"
+        android:textColorHighlight="#090101"
+        android:background="#25bb36" />
 </RelativeLayout>
