@@ -40,4 +40,35 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hard"
+        android:id="@+id/hard"
+        android:layout_marginBottom="30dp"
+        android:background="#f02323"
+        android:layout_above="@+id/flip_button"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Okey"
+        android:id="@+id/Okey"
+        android:background="#f2de06"
+        android:layout_alignTop="@+id/hard"
+        android:layout_toRightOf="@+id/hard"
+        android:layout_toEndOf="@+id/hard" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EASY"
+        android:id="@+id/Easy"
+        android:background="#5ad20f"
+        android:layout_alignTop="@+id/Okey"
+        android:layout_toRightOf="@+id/Okey"
+        android:layout_toEndOf="@+id/Okey" />
+
 </RelativeLayout>
