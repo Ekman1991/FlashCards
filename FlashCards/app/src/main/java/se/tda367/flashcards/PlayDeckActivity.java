@@ -73,6 +73,16 @@ public class PlayDeckActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+    public void redDifficulty(View v){
+        currentCard.setDifficulty(0);
+
+    }
+    public void yellowDifficulty(View v){
+        currentCard.setDifficulty(1);
+    }
+    public void greenDifficulty(View v){
+        currentCard.setDifficulty(2);
+    }
 
     public void flipCard(View v) {
         if (currentCard != null) {

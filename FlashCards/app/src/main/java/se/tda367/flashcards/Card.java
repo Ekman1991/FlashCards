@@ -15,6 +15,7 @@ public class Card {
     public Card() {
         this.question = "";
         this.answer = "";
+        //0 = svår, 1 = okej, 2 = lätt
         this.difficulty = 0;
     }
 

@@ -48,8 +48,10 @@
         android:layout_marginBottom="30dp"
         android:background="#f02323"
         android:layout_above="@+id/flip_button"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_toLeftOf="@+id/flip_button"
+        android:layout_toStartOf="@+id/flip_button"
+        android:singleLine="true"
+        android:onClick="redDifficulty" />
 
     <Button
         android:layout_width="wrap_content"
@@ -59,7 +61,8 @@
         android:background="#f2de06"
         android:layout_alignTop="@+id/hard"
         android:layout_toRightOf="@+id/hard"
-        android:layout_toEndOf="@+id/hard" />
+        android:layout_toEndOf="@+id/hard"
+        android:onClick="yellowDifficulty" />
 
     <Button
         android:layout_width="wrap_content"
@@ -69,6 +72,7 @@
         android:background="#5ad20f"
         android:layout_alignTop="@+id/Okey"
         android:layout_toRightOf="@+id/Okey"
-        android:layout_toEndOf="@+id/Okey" />
+        android:layout_toEndOf="@+id/Okey"
+        android:onClick="greenDifficulty" />
 
 </RelativeLayout>
