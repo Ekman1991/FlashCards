@@ -82,6 +82,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     }
     public void greenDifficulty(View v){
         currentCard.setDifficulty(2);
+
     }
 
     public void flipCard(View v) {
