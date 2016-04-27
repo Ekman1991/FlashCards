@@ -38,7 +38,8 @@
         android:onClick="createCard"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#4242db" />
 
     <Button
         android:layout_width="wrap_content"
@@ -48,7 +49,8 @@
         android:onClick="startDeck"
         android:layout_above="@+id/addCard"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="98dp" />
+        android:layout_marginBottom="98dp"
+        android:background="#4242db" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -59,5 +61,6 @@
         android:layout_alignTop="@+id/addCard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="backButton" />
+        android:onClick="backButton"
+        android:background="#bc153c" />
 </RelativeLayout>

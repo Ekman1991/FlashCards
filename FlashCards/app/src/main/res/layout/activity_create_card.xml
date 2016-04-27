@@ -34,7 +34,8 @@
         android:id="@+id/createCardButton"
         android:onClick="createCardButton"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#4242db" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -48,5 +49,6 @@
         android:layout_alignLeft="@+id/createCardButton"
         android:layout_alignStart="@+id/createCardButton"
         android:layout_alignRight="@+id/createCardButton"
-        android:layout_alignEnd="@+id/createCardButton" />
+        android:layout_alignEnd="@+id/createCardButton"
+        android:background="#bc153c" />
 </RelativeLayout>

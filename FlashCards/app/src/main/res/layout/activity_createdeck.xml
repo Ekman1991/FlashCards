@@ -19,7 +19,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="cancelSaveDeck" />
+        android:onClick="cancelSaveDeck"
+        android:background="#bc153c" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -29,7 +30,8 @@
         android:onClick="saveTheDeck"
         android:id="@+id/createDeckSaveButton"
         android:layout_below="@+id/createDeckTextField"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#4242db" />
 
     <EditText
         android:layout_width="wrap_content"
