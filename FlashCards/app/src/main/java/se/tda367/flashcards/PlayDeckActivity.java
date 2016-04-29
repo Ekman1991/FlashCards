@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
     private Deck currentDeck;
@@ -25,11 +27,10 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
-        selectMode();
-
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
+        selectMode();
 
         currentCard = currentDeck.getNextCard();
 
@@ -79,7 +80,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         }
     }
     public void selectMode(){
-        if(mode == 0){
+        if(mode == 1){
             Deck tmp = new Deck("tmp");
             for(int i = 0; i<currentDeck.getSize(); i++){
                 if(currentDeck.getList().get(i).getDifficulty() != 0){
@@ -88,6 +89,33 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
             currentDeck = tmp;
         }
+        if(mode == 2){
+            random();
+        }
+    }
+    public void random(){
+        Deck tmp = new Deck("tmp");
+        int size = currentDeck.getSize();
+        int ez = (int)Math.ceil(0.05*size);
+        int med = (int)Math.ceil(0.35*size);
+        int hard = (int)Math.ceil(0.6*size);
+
+        for(int i = 0; i<size; i++){
+            if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0){
+                tmp.addCard(currentDeck.getList().get(i));
+                ez = ez - 1;
+            }
+            if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0){
+                tmp.addCard(currentDeck.getList().get(i));
+                med = med - 1;
+            }
+            if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0){
+                tmp.addCard(currentDeck.getList().get(i));
+                hard = hard - 1;
+            }
+        }
+        currentDeck = tmp;
+
     }
 
     public void finishedDeck(View v) {

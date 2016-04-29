@@ -9,7 +9,7 @@ import android.content.Context;
 public class FlashCards {
 
     private Deck currentDeck;
-    private int mode;
+    private int mode = 0;
 
     public FlashCards() {
 
