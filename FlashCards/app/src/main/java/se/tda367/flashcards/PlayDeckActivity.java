@@ -14,9 +14,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
-    private RadioButton easyButton;
-    private RadioButton mediumButton;
-    private RadioButton hardButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         showQuestion = true;
 
         activateSwipe();
+        setRadioGraphic();
 
     }
     public void activateSwipe(){
@@ -66,6 +65,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
                         textView.setText(currentCard.getQuestion());
+                        setRadioGraphic();
                     }
                 }
                 else finishedDeck(background);
@@ -104,6 +104,20 @@ public class PlayDeckActivity extends AppCompatActivity {
         Log.v("PlayDeckActivity", "Back");
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
+    }
+    public void setRadioGraphic(){
+        if(currentCard.getDifficulty() == 0){
+            RadioButton tmp = (RadioButton)findViewById(R.id.easyButton);
+            tmp.setChecked(true);
+        }
+        if(currentCard.getDifficulty() == 1){
+            RadioButton tmp = (RadioButton)findViewById(R.id.mediumButton);
+            tmp.setChecked(true);
+        }
+        if(currentCard.getDifficulty() == 2){
+            RadioButton tmp = (RadioButton)findViewById(R.id.hardButton);
+            tmp.setChecked(true);
+        }
     }
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
