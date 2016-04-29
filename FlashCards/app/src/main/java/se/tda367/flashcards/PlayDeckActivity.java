@@ -12,15 +12,31 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private Card currentCard;
     private TextView textView;
+    private int mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_deck);
 
+        mode = Singleton.getInstance().getFlashCards().getMode();
+
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+
+        if(mode == 0){
+            Deck tmp = new Deck("tmp");
+            for(int i = 0; i<currentDeck.getSize(); i++){
+                if(currentDeck.getList().get(i).getDifficulty() != 0){
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+            }
+            currentDeck = tmp;
+        }
+
         currentDeck.shuffle();
         currentDeck.setCounter(0);
+
+
 
         currentCard = currentDeck.getNextCard();
 

@@ -99,6 +99,9 @@ public class Deck{
 
 
     }
+    public ArrayList<Card> getList(){
+        return list;
+    }
 
     //For getting the name in the listview instead of the reference
     @Override

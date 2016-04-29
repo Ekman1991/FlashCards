@@ -15,13 +15,13 @@ public class Card {
     public Card() {
         this.question = "";
         this.answer = "";
-        this.difficulty = 0;
+        this.difficulty = 2;
     }
 
     public Card(String question, String answer) {
         this.question = question;
         this.answer = answer;
-        this.difficulty = 0;
+        this.difficulty = 2;
     }
 
     public String getQuestion() {

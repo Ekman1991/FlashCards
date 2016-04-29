@@ -13,12 +13,14 @@ public class DeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private TextView name;
     private TextView numberOfCards;
+    private int mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck);
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        mode = Singleton.getInstance().getFlashCards().getMode();
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
 

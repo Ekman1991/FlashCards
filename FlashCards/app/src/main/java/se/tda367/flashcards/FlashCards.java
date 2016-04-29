@@ -9,6 +9,7 @@ import android.content.Context;
 public class FlashCards {
 
     private Deck currentDeck;
+    private int mode;
 
     public FlashCards() {
 
@@ -23,6 +24,9 @@ public class FlashCards {
         this.currentDeck = newDeck;*/
 
         return this.currentDeck;
+    }
+    public int getMode(){
+        return this.mode;
     }
 
     public void setCurrentDeck(Deck currentDeck) {
