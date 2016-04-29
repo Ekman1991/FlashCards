@@ -24,7 +24,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class Notifications extends Service {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public void sendNotification(View v){
+    public void sendNotification(){
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
                 R.layout.widget);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(

@@ -33,6 +33,7 @@ public class DeckActivity extends AppCompatActivity {
     }
 
     public void startDeck(View v) {
+
         Log.v("DeckActivity", "StartDeck");
 
         if (currentDeck.getSize() == 0) {
@@ -56,6 +57,7 @@ public class DeckActivity extends AppCompatActivity {
 
     public void backButton(View v) {
         Log.v("DeckActivity", "Back");
+
 
         Intent intentMain = new Intent(DeckActivity.this ,
                 MainActivity.class);

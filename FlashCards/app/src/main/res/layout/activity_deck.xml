@@ -64,12 +64,4 @@
         android:onClick="backButton"
         android:background="#bc153c" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NOTIFCATIONS"
-        android:id="@+id/notifications"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>
