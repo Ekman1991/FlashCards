@@ -2,11 +2,12 @@ package se.tda367.flashcards;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by ZlatanH on 2016-04-19.
  */
-public class Card {
+public class Card extends AppCompatActivity {
     private String question;
     private String answer;
     private int difficulty;

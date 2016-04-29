@@ -133,6 +133,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             case R.id.hardButton:
                 if(isChecked)
                     currentCard.setDifficulty(2);
+                    break;
         }
     }
 
