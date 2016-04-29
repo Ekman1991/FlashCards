@@ -43,44 +43,34 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="135dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="198dp"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hard"
-            android:id="@+id/hardButton"
-            android:checked="false"
-            android:layout_alignTop="@+id/mediumButton"
-            android:layout_toRightOf="@+id/mediumButton"
-            android:layout_toEndOf="@+id/mediumButton"
-            android:onClick="setDiff" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Medium"
-            android:id="@+id/mediumButton"
-            android:checked="false"
-            android:layout_alignTop="@+id/easyButton"
-            android:layout_alignRight="@+id/textView"
-            android:layout_alignEnd="@+id/textView"
-            android:onClick="setDiff" />
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3">
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Easy"
             android:id="@+id/easyButton"
-            android:layout_marginBottom="69dp"
-            android:checked="false"
-            android:layout_above="@+id/button3"
-            android:layout_toRightOf="@+id/button3"
-            android:layout_toEndOf="@+id/button3"
-            android:onClick="setDiff" />
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium"
+            android:id="@+id/mediumButton"
+            android:layout_gravity="center_horizontal"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard"
+            android:id="@+id/hardButton"
+            android:layout_gravity="right"
+            android:checked="false" />
     </RadioGroup>
 
 </RelativeLayout>
