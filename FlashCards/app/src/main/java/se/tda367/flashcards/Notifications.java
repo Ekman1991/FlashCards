@@ -1,29 +1,40 @@
 package se.tda367.flashcards;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.view.View;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 /**
  * Created by Emilia on 2016-04-27.
  */
-public class Notifications{
+public class Notifications extends Service {
 
-    public void Notifications(Context context) {
-        NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context);
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void sendNotification(View v){
+        Notification.Builder builder = new Notification.Builder(this);
         //Insert icon here
-        nBuilder.setSmallIcon();
-        nBuilder.setContentTitle("My notification");
-        nBuilder.setContentText("Hello World!");
+        builder.setSmallIcon(0);
+        builder.setContentTitle("My notification");
+        builder.setContentText("Hello World!");
 
-        NotificationManager mNotifyMgr = getS
+        Notification notification = builder.build();
+        notification.notify();
+    }
 
-    // Sets an ID for the notification
-            int mNotificationId = 001;
-    // Gets an instance of the NotificationManager service
-    NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-// Builds the notification and issues it.
-    mNotifyMgr.notify(mNotificationId,mBuilder.build());
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
