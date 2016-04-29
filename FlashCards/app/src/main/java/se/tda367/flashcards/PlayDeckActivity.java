@@ -71,6 +71,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void finishedDeck(View v) {
         Intent intent = new Intent(this, MainActivity.class);
         setResult(RESULT_OK, intent);
+
         finish();
     }
     public void redDifficulty(View v){

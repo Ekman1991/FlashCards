@@ -30,38 +30,4 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="int"
-        android:id="@+id/okey"
-        android:layout_marginBottom="31dp"
-        android:layout_alignBottom="@+id/listView"
-        android:layout_toRightOf="@+id/hard"
-        android:layout_toEndOf="@+id/hard"
-        android:background="#f2de06" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="int"
-        android:id="@+id/hard"
-        android:layout_alignTop="@+id/okey"
-        android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button"
-        android:background="#f02323" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="int"
-        android:id="@+id/easy"
-        android:layout_alignTop="@+id/okey"
-        android:layout_toRightOf="@+id/okey"
-        android:layout_toEndOf="@+id/okey"
-        android:background="#5ad20f" />
-
 </RelativeLayout>
