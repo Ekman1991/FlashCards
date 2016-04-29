@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class PlayDeckActivity extends AppCompatActivity {
@@ -13,6 +14,9 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
+    private RadioButton easyButton;
+    private RadioButton mediumButton;
+    private RadioButton hardButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,6 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck.shuffle();
         currentDeck.setCounter(0);
-
 
 
         currentCard = currentDeck.getNextCard();
@@ -102,4 +105,21 @@ public class PlayDeckActivity extends AppCompatActivity {
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
+    public void setDiff(View view){
+        boolean isChecked = ((RadioButton)view).isChecked();
+        switch(view.getId()) {
+            case R.id.easyButton:
+                if (isChecked)
+                    currentCard.setDifficulty(0);
+                    break;
+            case R.id.mediumButton:
+                if (isChecked)
+                    currentCard.setDifficulty(1);
+                    break;
+            case R.id.hardButton:
+                if(isChecked)
+                    currentCard.setDifficulty(2);
+        }
+    }
+
 }
