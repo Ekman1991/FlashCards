@@ -25,15 +25,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
-        if(mode == 0){
-            Deck tmp = new Deck("tmp");
-            for(int i = 0; i<currentDeck.getSize(); i++){
-                if(currentDeck.getList().get(i).getDifficulty() != 0){
-                    tmp.addCard(currentDeck.getList().get(i));
-                }
-            }
-            currentDeck = tmp;
-        }
+        selectMode();
 
         currentDeck.shuffle();
         currentDeck.setCounter(0);
@@ -84,6 +76,17 @@ public class PlayDeckActivity extends AppCompatActivity {
             textView.setText(currentCard.getAnswer());
             showQuestion = false;
 
+        }
+    }
+    public void selectMode(){
+        if(mode == 0){
+            Deck tmp = new Deck("tmp");
+            for(int i = 0; i<currentDeck.getSize(); i++){
+                if(currentDeck.getList().get(i).getDifficulty() != 0){
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+            }
+            currentDeck = tmp;
         }
     }
 
