@@ -60,4 +60,36 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="backButton" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/numberOfCards"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regular"
+            android:id="@+id/firstButton"
+            android:checked="false"
+            android:onClick="setMode" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M/H"
+            android:id="@+id/secondButton"
+            android:checked="false"
+            android:onClick="setMode" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostly hard"
+            android:id="@+id/thirdButton"
+            android:checked="false"
+            android:onClick="setMode" />
+    </RadioGroup>
 </RelativeLayout>

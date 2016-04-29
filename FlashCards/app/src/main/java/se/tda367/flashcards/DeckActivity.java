@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class DeckActivity extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class DeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck);
+        RadioButton regular = (RadioButton)findViewById(R.id.firstButton);
+        regular.setChecked(true);
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
         mode = Singleton.getInstance().getFlashCards().getMode();
@@ -63,6 +66,23 @@ public class DeckActivity extends AppCompatActivity {
                 MainActivity.class);
         DeckActivity.this.startActivityForResult(intentMain, 0);
 
+    }
+    public void setMode(View v){
+        boolean isChecked = ((RadioButton)v).isChecked();
+        switch(v.getId()) {
+            case R.id.firstButton:
+                if (isChecked)
+                    Singleton.getInstance().getFlashCards().setMode(0);
+                break;
+            case R.id.secondButton:
+                if (isChecked)
+                    Singleton.getInstance().getFlashCards().setMode(1);
+                break;
+            case R.id.thirdButton:
+                if(isChecked)
+                    Singleton.getInstance().getFlashCards().setMode(2);
+                break;
+        }
     }
 
 }
