@@ -3,6 +3,7 @@ package se.tda367.flashcards;
 import android.os.Parcelable;
 import android.os.Parcel;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -14,7 +15,9 @@ public class Deck{
     private String description;
     private ArrayList<Card> list;
     private int counter;
-
+    private Calendar made;
+    private Calendar playedSince;
+    private Calender c = new Calender();
     public Deck() {
         this.name = "";
         this.list = new ArrayList<Card>();
@@ -32,6 +35,22 @@ public class Deck{
 
     public int getId() {
         return this.id;
+    }
+
+    public Calendar getMade(){
+        return made;
+    }
+
+    public Calendar getPlayedSince(){
+        return playedSince;
+    }
+
+    public void setStartDay(){
+        made = c.startDay();
+    }
+
+    public void setPlayedSince(){
+        playedSince = c.startDay();
     }
 
     public void setId(int id) {

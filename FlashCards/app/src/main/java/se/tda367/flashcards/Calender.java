@@ -6,7 +6,8 @@ package se.tda367.flashcards;
 
 import java.util.Date;
 import java.util.Calendar;
-public class Calender {
+public class Calender extends Calendar{
+
     private static int SECONDSDAY = 24 * 60 * 60;
     private Calendar today = Calendar.getInstance();
     private Calendar startDay = Calendar.getInstance();
@@ -18,13 +19,56 @@ public class Calender {
     private long minutes = (secondsDay / 60) % 60;
     private long hours = (secondsDay / 3600); // % 24 not needed
 
+    public Calender(){
 
-    public Calendar startDay(Calendar start) {
+    }
 
-        startDay.setTime(start.getTime()); /* reset */
-        startDay.set(Calendar.DAY_OF_MONTH, start.DAY_OF_MONTH);
-        startDay.set(Calendar.MONTH, start.MONTH); // 0-11 so 1 less
-        startDay.set(Calendar.YEAR, start.YEAR);
+    @Override
+    public void add(int i, int i1) {
+
+    }
+
+    @Override
+    protected void computeFields() {
+
+    }
+
+    @Override
+    protected void computeTime() {
+
+    }
+
+    @Override
+    public int getGreatestMinimum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getLeastMaximum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getMaximum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getMinimum(int i) {
+        return 0;
+    }
+
+    @Override
+    public void roll(int i, boolean b) {
+
+    }
+
+    public Calendar startDay() {
+
+        startDay.setTime(today.getTime()); /* reset */
+        startDay.set(Calendar.DAY_OF_MONTH, today.DAY_OF_MONTH);
+        startDay.set(Calendar.MONTH, today.MONTH); // 0-11 so 1 less
+        startDay.set(Calendar.YEAR, today.YEAR);
 
         return startDay;
     }
