@@ -7,26 +7,41 @@ package se.tda367.flashcards;
 import java.util.Date;
 import java.util.Calendar;
 public class Calender {
-    public static int SECONDSDAY = 24 * 60 * 60;
-    public static void main(String[] args) {
+    private static int SECONDSDAY = 24 * 60 * 60;
+    private Calendar today = Calendar.getInstance();
+    private Calendar startDay = Calendar.getInstance();
+    private long diff =  startDay.getTimeInMillis() - today.getTimeInMillis();
+    private long diffSec = diff / 1000;
+    private long days = diffSec / SECONDSDAY;
+    private long secondsDay = diffSec % SECONDSDAY;
+    private long seconds = secondsDay % 60;
+    private long minutes = (secondsDay / 60) % 60;
+    private long hours = (secondsDay / 3600); // % 24 not needed
 
-        Calendar startDay = Calendar.getInstance();
 
-        startDay.setTime(new Date(0)); /* reset */
-        startDay.set(Calendar.DAY_OF_MONTH,1);
-        startDay.set(Calendar.MONTH,0); // 0-11 so 1 less
-        startDay.set(Calendar.YEAR, 2014);
+    public Calendar startDay(Calendar start) {
 
-        Calendar today = Calendar.getInstance();
-        long diff =  startDay.getTimeInMillis() - today.getTimeInMillis();
-        long diffSec = diff / 1000;
+        startDay.setTime(start.getTime()); /* reset */
+        startDay.set(Calendar.DAY_OF_MONTH, start.DAY_OF_MONTH);
+        startDay.set(Calendar.MONTH, start.MONTH); // 0-11 so 1 less
+        startDay.set(Calendar.YEAR, start.YEAR);
 
-        long days = diffSec / SECONDSDAY;
-        long secondsDay = diffSec % SECONDSDAY;
-        long seconds = secondsDay % 60;
-        long minutes = (secondsDay / 60) % 60;
-        long hours = (secondsDay / 3600); // % 24 not needed
-
-        System.out.printf("%d days, %d hours, %d minutes and %d seconds\n", days, hours, minutes, seconds);
+        return startDay;
     }
+    public long daysSince() {
+        return days;
+    }
+    public long minutesSince() {
+        return minutes;
+    }
+    public long secondsSince() {
+        return seconds;
+    }
+    public long hoursSince() {
+        return hours;
+    }
+    public String daysMinutesSecondsHoursSince() {
+        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" sekunder ";
+    }
+
 }
