@@ -91,5 +91,13 @@
             android:id="@+id/thirdButton"
             android:checked="false"
             android:onClick="setMode" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/delButton"
+            android:layout_gravity="right"
+            android:onClick="delDeck" />
     </RadioGroup>
 </RelativeLayout>

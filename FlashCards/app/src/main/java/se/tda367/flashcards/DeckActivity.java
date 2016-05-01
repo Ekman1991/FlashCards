@@ -84,5 +84,9 @@ public class DeckActivity extends AppCompatActivity {
                 break;
         }
     }
+    public void delDeck(View v){
+        backButton(v);
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+    }
 
 }
