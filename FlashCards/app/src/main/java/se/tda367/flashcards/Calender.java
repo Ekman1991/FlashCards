@@ -63,13 +63,14 @@ public class Calender extends Calendar{
 
     }
 
-    public Calendar startDay() {
+    public Calender startDay() {
 
         startDay.setTime(today.getTime()); /* reset */
         startDay.set(Calendar.DAY_OF_MONTH, today.DAY_OF_MONTH);
         startDay.set(Calendar.MONTH, today.MONTH); // 0-11 so 1 less
         startDay.set(Calendar.YEAR, today.YEAR);
 
+        Calender startDay = (Calender) startDay();
         return startDay;
     }
     public long daysSince() {
@@ -84,8 +85,10 @@ public class Calender extends Calendar{
     public long hoursSince() {
         return hours;
     }
-    public String daysMinutesSecondsHoursSince() {
-        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" sekunder ";
+    public String sinceMade() {
+        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" since made";
     }
 
-}
+    public String sincePlayed() {
+        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" since played";
+}   }

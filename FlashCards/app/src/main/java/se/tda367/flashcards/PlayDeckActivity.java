@@ -72,6 +72,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         currentDeck.setPlayedSince();
         setResult(RESULT_OK, intent);
+        currentDeck.playedDeck();
         finish();
     }
 

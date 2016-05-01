@@ -13,6 +13,9 @@ public class DeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private TextView name;
     private TextView numberOfCards;
+    private TextView playedSince;
+    private TextView made;
+    private TextView timesPlayed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +24,15 @@ public class DeckActivity extends AppCompatActivity {
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
+        playedSince = (TextView) findViewById(R.id.playedSince);
+        timesPlayed= (TextView) findViewById(R.id.timesPlayed);
 
-        name.setText(currentDeck.getName());
+        made = (TextView) findViewById(R.id.made);
+        timesPlayed.setText(Integer.toString(currentDeck.timesPlayed()));
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
+        name.setText(currentDeck.getName());
+        playedSince.setText(((currentDeck.getPlayedSince().sincePlayed())));
+        made.setText(((currentDeck.getMade().sinceMade())));
     }
 
     public void createCard(View v) {
