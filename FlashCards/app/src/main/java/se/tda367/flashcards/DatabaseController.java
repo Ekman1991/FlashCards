@@ -194,6 +194,7 @@ public class DatabaseController extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(DECKS_TABLE_NAME, DECKS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(deck_id) });
+        db.delete(DECK_CARD_TABLE_NAME, DECK_CARD_COLUMN_DECK_ID + " = ?", new String[] {String.valueOf(deck_id)});
     }
 
     public long createCardInDeck(Card card, Deck deck) {
