@@ -56,7 +56,7 @@ public class Deck{
     public void setStartDay(){
         made = c.startDay();
     }
-
+//dfdf
     public void setPlayedSince(){
         playedSince = c.startDay();
     }
