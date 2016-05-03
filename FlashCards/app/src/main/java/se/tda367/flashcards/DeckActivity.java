@@ -22,17 +22,23 @@ public class DeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_deck);
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
+
         playedSince = (TextView) findViewById(R.id.playedSince);
         timesPlayed= (TextView) findViewById(R.id.timesPlayed);
-
         made = (TextView) findViewById(R.id.made);
-        timesPlayed.setText(Integer.toString(currentDeck.timesPlayed()));
+
+
+
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
         name.setText(currentDeck.getName());
-        playedSince.setText(((currentDeck.getPlayedSince().sincePlayed())));
-        made.setText(((currentDeck.getMade().sinceMade())));
+        playedSince.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getPlayedSince().sincePlayed());
+        made.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getMade().sinceMade());
+        timesPlayed.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().timesPlayed());
+
+
     }
 
     public void createCard(View v) {

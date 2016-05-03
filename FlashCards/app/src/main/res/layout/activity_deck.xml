@@ -17,7 +17,8 @@
         android:id="@+id/deckName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp" />
+        android:layout_marginTop="84dp"
+        android:textIsSelectable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,6 +84,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textIsSelectable="true" />
+
 
     <TextView
         android:layout_width="wrap_content"
