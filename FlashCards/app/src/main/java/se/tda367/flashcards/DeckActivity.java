@@ -52,10 +52,6 @@ public class DeckActivity extends AppCompatActivity {
                     });
             alertDialog.show();
         } else {
-            Intent intentMain = new Intent(DeckActivity.this ,
-                    PlayDeckActivity.class);
-            DeckActivity.this.startActivityForResult(intentMain, 0);
-
 
             //test
             // get a Calendar object with current time
@@ -70,6 +66,14 @@ public class DeckActivity extends AppCompatActivity {
             // Get the AlarmManager service
             AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
             am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), sender);
+            //testslut
+
+            Intent intentMain = new Intent(DeckActivity.this ,
+                    PlayDeckActivity.class);
+            DeckActivity.this.startActivityForResult(intentMain, 0);
+
+
+
 
         }
 

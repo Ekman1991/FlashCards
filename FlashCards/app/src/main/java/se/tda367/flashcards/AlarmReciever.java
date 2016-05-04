@@ -18,7 +18,7 @@ public class AlarmReciever extends BroadcastReceiver {
                     String message = bundle.getString("alarm_message");
 
                     Intent newIntent = new Intent(context, FlashCards.class);
-                    newIntent.putExtra("alarm_message", message);
+                    newIntent.putExtra("message", message);
                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(newIntent);
                 } catch (Exception e) {
