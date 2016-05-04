@@ -12,6 +12,7 @@ public class FlashCards {
 
     private Deck currentDeck;
     private ArrayList<Deck> arrayOfDecks;
+    private int mode;
 
     public FlashCards() {
 
@@ -34,6 +35,12 @@ public class FlashCards {
         this.currentDeck = newDeck;*/
 
         return this.currentDeck;
+    }
+    public int getMode(){
+        return this.mode;
+    }
+    public void setMode(int i){
+        this.mode = i;
     }
 
     public void setCurrentDeck(Deck currentDeck) {
