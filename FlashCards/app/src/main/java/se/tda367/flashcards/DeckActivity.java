@@ -1,6 +1,8 @@
 package se.tda367.flashcards;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class DeckActivity extends AppCompatActivity {
     private Deck currentDeck;
@@ -51,6 +55,22 @@ public class DeckActivity extends AppCompatActivity {
             Intent intentMain = new Intent(DeckActivity.this ,
                     PlayDeckActivity.class);
             DeckActivity.this.startActivityForResult(intentMain, 0);
+
+
+            //test
+            // get a Calendar object with current time
+            Calendar cal = Calendar.getInstance();
+            // add 5 minutes to the calendar object
+            cal.add(Calendar.SECOND, 5);
+            Intent intent = new Intent(this, AlarmReciever.class);
+            intent.putExtra("spela igen", "spela igen!");
+            // In reality, you would want to have a static variable for the request code instead of 192837
+            PendingIntent sender = PendingIntent.getBroadcast(this, 192837, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            // Get the AlarmManager service
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), sender);
+
         }
 
     }
