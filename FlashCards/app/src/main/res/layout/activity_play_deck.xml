@@ -43,44 +43,4 @@
         android:layout_alignParentStart="true"
         android:background="#bc153c" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hard"
-        android:id="@+id/hard"
-        android:layout_marginBottom="30dp"
-        android:background="#f02323"
-        android:layout_above="@+id/flip_button"
-        android:layout_toLeftOf="@+id/flip_button"
-        android:layout_toStartOf="@+id/flip_button"
-        android:singleLine="true"
-        android:onClick="redDifficulty"
-        android:clickable="true"
-        android:focusable="false"
-        android:shadowColor="#c00d0d" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Okey"
-        android:id="@+id/Okey"
-        android:background="#f2de06"
-        android:layout_alignTop="@+id/hard"
-        android:layout_toRightOf="@+id/hard"
-        android:layout_toEndOf="@+id/hard"
-        android:onClick="yellowDifficulty"
-        android:shadowColor="#e0c709" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EASY"
-        android:id="@+id/Easy"
-        android:background="#5ad20f"
-        android:layout_alignTop="@+id/Okey"
-        android:layout_toRightOf="@+id/Okey"
-        android:layout_toEndOf="@+id/Okey"
-        android:onClick="greenDifficulty"
-        android:shadowColor="#109210" />
-
 </RelativeLayout>
