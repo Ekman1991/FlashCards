@@ -52,22 +52,6 @@ public class DeckActivity extends AppCompatActivity {
                     });
             alertDialog.show();
         } else {
-
-            //test
-            // get a Calendar object with current time
-            Calendar cal = Calendar.getInstance();
-            // add 5 minutes to the calendar object
-            cal.add(Calendar.SECOND, 5);
-            Intent intent = new Intent(this, AlarmReciever.class);
-            intent.putExtra("spela igen", "spela igen!");
-            // In reality, you would want to have a static variable for the request code instead of 192837
-            PendingIntent sender = PendingIntent.getBroadcast(this, 192837, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            // Get the AlarmManager service
-            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-            am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), sender);
-            //testslut
-
             Intent intentMain = new Intent(DeckActivity.this ,
                     PlayDeckActivity.class);
             DeckActivity.this.startActivityForResult(intentMain, 0);

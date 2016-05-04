@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
@@ -71,7 +76,6 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void finishedDeck(View v) {
         Intent intent = new Intent(this, MainActivity.class);
         setResult(RESULT_OK, intent);
-
         finish();
     }
     public void redDifficulty(View v){
