@@ -32,6 +32,8 @@ public class DatabaseController extends SQLiteOpenHelper {
     public static final String DECKS_COLUMN_CREATED_AT = "created_at";
     public static final String DECKS_COLUMN_NAME = "name";
     public static final String DECKS_COLUMN_DESCRIPTION = "description";
+    public static final String DECKS_COLUMN_PLAYED_SINCE = "played_since";
+    public static final String DECKS_COLUMN_NBR_OF_TIMES_PLAYED = "times_played";
 
     public static final String CARDS_TABLE_NAME = "cards";
     public static final String CARDS_COLUMN_ID = "id";
@@ -48,7 +50,7 @@ public class DatabaseController extends SQLiteOpenHelper {
     // Table Create Statements
     private static final String CREATE_TABLE_DECK = "CREATE TABLE "
             + DECKS_TABLE_NAME + "(" + DECKS_COLUMN_ID + " INTEGER PRIMARY KEY," + DECKS_COLUMN_NAME
-            + " TEXT," + DECKS_COLUMN_DESCRIPTION + " TEXT," + DECKS_COLUMN_CREATED_AT
+            + " TEXT," + DECKS_COLUMN_DESCRIPTION + " TEXT," + DECKS_COLUMN_PLAYED_SINCE + " DATETIME," + DECKS_COLUMN_NBR_OF_TIMES_PLAYED + " INTEGER," +  DECKS_COLUMN_CREATED_AT
             + " DATETIME" + ")";
 
     private static final String CREATE_TABLE_CARD = "CREATE TABLE "
@@ -97,6 +99,8 @@ public class DatabaseController extends SQLiteOpenHelper {
 
         contentValues.put(DECKS_COLUMN_NAME, deck.getName());
         contentValues.put(DECKS_COLUMN_DESCRIPTION, deck.getDescription());
+        contentValues.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
+        //TODO: Set played since variable
         contentValues.put(DECKS_COLUMN_CREATED_AT, getDateTime());
 
         return db.insert(DECKS_TABLE_NAME, null, contentValues);
@@ -119,6 +123,9 @@ public class DatabaseController extends SQLiteOpenHelper {
         deck.setId(c.getInt(c.getColumnIndex(DECKS_COLUMN_ID)));
         deck.setName((c.getString(c.getColumnIndex(DECKS_COLUMN_NAME))));
         deck.setDescription(c.getString(c.getColumnIndex(DECKS_COLUMN_DESCRIPTION)));
+        deck.setNbrOfTimesPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_NBR_OF_TIMES_PLAYED)));
+
+        //TODO: Set played since variable
 
         return deck;
     }

@@ -11,24 +11,44 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class DeckActivity extends AppCompatActivity {
+
     private Deck currentDeck;
     private TextView name;
     private TextView numberOfCards;
     private int mode;
+    private TextView playedSince;
+    private TextView made;
+    private TextView timesPlayed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck);
+
         RadioButton regular = (RadioButton)findViewById(R.id.firstButton);
         regular.setChecked(true);
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+
         mode = Singleton.getInstance().getFlashCards().getMode();
+
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
 
-        name.setText(currentDeck.getName());
+        playedSince = (TextView) findViewById(R.id.playedSince);
+        timesPlayed= (TextView) findViewById(R.id.timesPlayed);
+        made = (TextView) findViewById(R.id.made);
+
+
+
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
+        name.setText(currentDeck.getName());
+
+        //playedSince.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getPlayedSince().sincePlayed());
+        //made.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getMade().sinceMade());
+        //timesPlayed.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getNbrOfTimesPlayed());
+
+
     }
 
     public void createCard(View v) {

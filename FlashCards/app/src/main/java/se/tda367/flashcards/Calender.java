@@ -6,27 +6,89 @@ package se.tda367.flashcards;
 
 import java.util.Date;
 import java.util.Calendar;
-public class Calender {
-    public static int SECONDSDAY = 24 * 60 * 60;
-    public static void main(String[] args) {
+public class Calender extends Calendar{
 
-        Calendar startDay = Calendar.getInstance();
+    private static int SECONDSDAY = 24 * 60 * 60;
+    private Calendar today = Calendar.getInstance();
+    private Calendar startDay = Calendar.getInstance();
+    private long diff =  startDay.getTimeInMillis() - today.getTimeInMillis();
+    private long diffSec = diff / 1000;
+    private long days = diffSec / SECONDSDAY;
+    private long secondsDay = diffSec % SECONDSDAY;
+    private long seconds = secondsDay % 60;
+    private long minutes = (secondsDay / 60) % 60;
+    private long hours = (secondsDay / 3600); // % 24 not needed
 
-        startDay.setTime(new Date(0)); /* reset */
-        startDay.set(Calendar.DAY_OF_MONTH,1);
-        startDay.set(Calendar.MONTH,0); // 0-11 so 1 less
-        startDay.set(Calendar.YEAR, 2014);
+    public Calender(){
 
-        Calendar today = Calendar.getInstance();
-        long diff =  startDay.getTimeInMillis() - today.getTimeInMillis();
-        long diffSec = diff / 1000;
-
-        long days = diffSec / SECONDSDAY;
-        long secondsDay = diffSec % SECONDSDAY;
-        long seconds = secondsDay % 60;
-        long minutes = (secondsDay / 60) % 60;
-        long hours = (secondsDay / 3600); // % 24 not needed
-
-        System.out.printf("%d days, %d hours, %d minutes and %d seconds\n", days, hours, minutes, seconds);
     }
-}
+
+    @Override
+    public void add(int i, int i1) {
+
+    }
+
+    @Override
+    protected void computeFields() {
+
+    }
+
+    @Override
+    protected void computeTime() {
+
+    }
+
+    @Override
+    public int getGreatestMinimum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getLeastMaximum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getMaximum(int i) {
+        return 0;
+    }
+
+    @Override
+    public int getMinimum(int i) {
+        return 0;
+    }
+
+    @Override
+    public void roll(int i, boolean b) {
+
+    }
+
+    public Calender startDay() {
+
+        startDay.setTime(today.getTime()); /* reset */
+        startDay.set(Calendar.DAY_OF_MONTH, today.DAY_OF_MONTH);
+        startDay.set(Calendar.MONTH, today.MONTH); // 0-11 so 1 less
+        startDay.set(Calendar.YEAR, today.YEAR);
+
+        Calender startDay = (Calender) startDay();
+        return startDay;
+    }
+    public long daysSince() {
+        return days;
+    }
+    public long minutesSince() {
+        return minutes;
+    }
+    public long secondsSince() {
+        return seconds;
+    }
+    public long hoursSince() {
+        return hours;
+    }
+    public String sinceMade() {
+        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" since made";
+    }
+
+    public String sincePlayed() {
+        return "" + days + " dagar " + hours + " timmar " + minutes + " minuter " + seconds +" since played";
+}   }

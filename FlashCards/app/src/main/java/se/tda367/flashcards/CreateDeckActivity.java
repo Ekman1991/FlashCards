@@ -12,6 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 public class CreateDeckActivity extends AppCompatActivity {
 
     private TextView deckName;
@@ -29,9 +31,11 @@ public class CreateDeckActivity extends AppCompatActivity {
         if (deckName == null || deckName.getText().toString().trim().length() == 0) {
             Log.d("CreateDeck", "DeckName is empty");
         } else {
-
             Deck deck = new Deck(deckName.getText().toString());
             Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
+
+            deck.setStartDay();
+
 
             Intent intentMain = new Intent(CreateDeckActivity.this ,
                     MainActivity.class);
