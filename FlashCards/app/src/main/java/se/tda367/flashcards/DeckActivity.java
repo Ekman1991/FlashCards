@@ -34,9 +34,10 @@ public class DeckActivity extends AppCompatActivity {
 
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
         name.setText(currentDeck.getName());
-        playedSince.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getPlayedSince().sincePlayed());
-        made.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getMade().sinceMade());
-        timesPlayed.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().timesPlayed());
+
+        //playedSince.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getPlayedSince().sincePlayed());
+        //made.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getMade().sinceMade());
+        //timesPlayed.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getNbrOfTimesPlayed());
 
 
     }

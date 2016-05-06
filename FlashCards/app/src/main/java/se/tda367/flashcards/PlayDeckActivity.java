@@ -70,9 +70,14 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void finishedDeck(View v) {
         Intent intent = new Intent(this, MainActivity.class);
-        currentDeck.setPlayedSince();
+
         setResult(RESULT_OK, intent);
-        currentDeck.playedDeck();
+
+        //TODO: Set these variables. Maybe need to rethink Calender class.
+        //currentDeck.setPlayedSince();
+        //currentDeck.playedDeck();
+
+
         finish();
     }
 

@@ -15,15 +15,19 @@ public class Deck{
     private String description;
     private ArrayList<Card> list;
     private int counter;
+
     private Calender made;
     private Calender playedSince;
-    private int timesPlayed;
+
+
+    private int nbrOfTimesPlayed;
     private Calender c = new Calender();
+
     public Deck() {
         this.name = "";
         this.list = new ArrayList<Card>();
         this.counter = 0;
-        this.timesPlayed = 0;
+        this.nbrOfTimesPlayed = 0;
     }
 
     public Deck(String name) {
@@ -42,11 +46,17 @@ public class Deck{
     public Calender getMade(){
         return made;
     }
+
     public void playedDeck(){
-        timesPlayed++;
+        nbrOfTimesPlayed++;
     }
-    public int timesPlayed(){
-        return timesPlayed;
+
+    public int getNbrOfTimesPlayed(){
+        return this.nbrOfTimesPlayed;
+    }
+
+    public void setNbrOfTimesPlayed(int nbrOfTimesPlayed) {
+        this.nbrOfTimesPlayed = nbrOfTimesPlayed;
     }
 
     public Calender getPlayedSince(){
@@ -56,7 +66,7 @@ public class Deck{
     public void setStartDay(){
         made = c.startDay();
     }
-//dfdf
+
     public void setPlayedSince(){
         playedSince = c.startDay();
     }
