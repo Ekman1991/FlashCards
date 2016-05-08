@@ -1,10 +1,9 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
-import android.os.Parcelable;
-import android.os.Parcel;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
+
+import se.tda367.flashcards.Calender;
 
 /**
  * Created by ZlatanH on 2016-04-19.
@@ -16,24 +15,32 @@ public class Deck{
     private ArrayList<Card> list;
     private int counter;
 
-    private Calender made;
-    private Calender playedSince;
+    private long made;
+    private long playedSince;
 
 
     private int nbrOfTimesPlayed;
     private Calender c = new Calender();
+
 
     public Deck() {
         this.name = "";
         this.list = new ArrayList<Card>();
         this.counter = 0;
         this.nbrOfTimesPlayed = 0;
+        //-1 indicates that the deck have not been played yet.
+        this.playedSince = -1;
+        this.made = System.currentTimeMillis() / 1000L;
     }
 
     public Deck(String name) {
         this.name = name;
         this.list = new ArrayList<Card>();
         this.counter = 0;
+        this.nbrOfTimesPlayed = 0;
+        //-1 indicates that the deck have not been played yet.
+        this.playedSince = -1;
+        this.made = System.currentTimeMillis() / 1000L;
     }
     public boolean hasNext(){
         return counter<list.size();
@@ -43,7 +50,7 @@ public class Deck{
         return this.id;
     }
 
-    public Calender getMade(){
+    public long getMade(){
         return made;
     }
 
@@ -59,16 +66,20 @@ public class Deck{
         this.nbrOfTimesPlayed = nbrOfTimesPlayed;
     }
 
-    public Calender getPlayedSince(){
+    public long getPlayedSince(){
         return playedSince;
     }
 
-    public void setStartDay(){
-        made = c.startDay();
+    public void setPlayedSince(long time){
+        this.playedSince = time;
     }
 
-    public void setPlayedSince(){
-        playedSince = c.startDay();
+    public void setPlayedNow(){
+        this.playedSince = System.currentTimeMillis() / 1000L;
+    }
+
+    public void setMade(long time){
+        this.made = time;
     }
 
     public void setId(int id) {

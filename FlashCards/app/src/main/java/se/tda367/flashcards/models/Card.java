@@ -1,7 +1,5 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 
 /**

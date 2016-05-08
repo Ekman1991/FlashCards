@@ -1,9 +1,10 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
-import android.app.Application;
 import android.content.Context;
 
 import java.util.ArrayList;
+
+import se.tda367.flashcards.Singleton;
 
 /**
  * Created by ekman on 21/04/16.

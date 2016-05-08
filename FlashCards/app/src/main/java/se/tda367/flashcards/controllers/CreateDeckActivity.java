@@ -1,18 +1,15 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.controllers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Calendar;
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Deck;
 
 public class CreateDeckActivity extends AppCompatActivity {
 
@@ -34,7 +31,7 @@ public class CreateDeckActivity extends AppCompatActivity {
             Deck deck = new Deck(deckName.getText().toString());
             Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
 
-            deck.setStartDay();
+            //deck.setStartDay();
 
 
             Intent intentMain = new Intent(CreateDeckActivity.this ,

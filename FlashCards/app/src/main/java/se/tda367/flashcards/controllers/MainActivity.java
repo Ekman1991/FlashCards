@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
 
+import se.tda367.flashcards.CardFactory;
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Deck;
+
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
     private final int OPEN_CREATE_DECK = 1;
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        your_array_list = null;
         your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

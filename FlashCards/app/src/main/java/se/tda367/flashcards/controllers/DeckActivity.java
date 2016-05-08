@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.controllers;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Deck;
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -24,6 +28,8 @@ public class DeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck);
+
+        Log.v("DeckActivity", "On Create");
 
         RadioButton regular = (RadioButton)findViewById(R.id.firstButton);
         regular.setChecked(true);
@@ -44,9 +50,17 @@ public class DeckActivity extends AppCompatActivity {
         numberOfCards.setText(Integer.toString(currentDeck.getSize()));
         name.setText(currentDeck.getName());
 
-        //playedSince.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getPlayedSince().sincePlayed());
-        //made.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getMade().sinceMade());
-        //timesPlayed.setText(Singleton.getInstance().getFlashCards().getCurrentDeck().getNbrOfTimesPlayed());
+        if(currentDeck.getPlayedSince() == -1) {
+            playedSince.setText("PS: Not played yet");
+        } else {
+            //TODO: Convert unix time to readable date
+            playedSince.setText("PS:" + currentDeck.getPlayedSince());
+        }
+
+        //TODO: Convert unix time to readable date
+        made.setText("Made:" + currentDeck.getMade());
+
+        timesPlayed.setText("TP:" + currentDeck.getNbrOfTimesPlayed());
 
 
     }

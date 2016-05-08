@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import java.util.Random;
+import se.tda367.flashcards.OnSwipeTouchListener;
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
+import se.tda367.flashcards.models.Deck;
 
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
@@ -30,7 +34,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
-        selectMode();
+        //selectMode();
 
         currentCard = currentDeck.getNextCard();
 
@@ -80,55 +84,58 @@ public class PlayDeckActivity extends AppCompatActivity {
         }
     }
     public void selectMode(){
-        if(mode == 1){
+
+        if(mode == 0) {
+
+            //Standard mode. Use all the cards.
+
+        } else if(mode == 1){
             Deck tmp = new Deck("tmp");
-            for(int i = 0; i<currentDeck.getSize(); i++){
+            for(int i = 0; i < currentDeck.getSize(); i++){
                 if(currentDeck.getList().get(i).getDifficulty() != 0){
                     tmp.addCard(currentDeck.getList().get(i));
                 }
             }
             currentDeck = tmp;
-        }
-        if(mode == 2){
-            random();
-        }
-    }
-    public void random(){
-        Deck tmp = new Deck("tmp");
-        int size = currentDeck.getSize();
-        int ez = (int)Math.ceil(0.05*size);
-        int med = (int)Math.ceil(0.35*size);
-        int hard = (int)Math.ceil(0.6*size);
+        } else if(mode == 2){
+            Deck tmp = new Deck("tmp");
+            int size = currentDeck.getSize();
+            int ez = (int)Math.ceil(0.05*size);
+            int med = (int)Math.ceil(0.35*size);
+            int hard = (int)Math.ceil(0.6*size);
 
-        for(int i = 0; i<size; i++){
-            if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0){
-                tmp.addCard(currentDeck.getList().get(i));
-                ez = ez - 1;
+            for(int i = 0; i<size; i++){
+                if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0){
+                    tmp.addCard(currentDeck.getList().get(i));
+                    ez = ez - 1;
+                }
+                if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0){
+                    tmp.addCard(currentDeck.getList().get(i));
+                    med = med - 1;
+                }
+                if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0){
+                    tmp.addCard(currentDeck.getList().get(i));
+                    hard = hard - 1;
+                }
             }
-            if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0){
-                tmp.addCard(currentDeck.getList().get(i));
-                med = med - 1;
-            }
-            if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0){
-                tmp.addCard(currentDeck.getList().get(i));
-                hard = hard - 1;
-            }
+            currentDeck = tmp;
         }
-        currentDeck = tmp;
-
     }
 
     public void finishedDeck(View v) {
-        Intent intent = new Intent(this, MainActivity.class);
 
-        setResult(RESULT_OK, intent);
+        Log.v("PlayDeckActivity", "Finished");
+        currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
+        currentDeck.setPlayedNow();
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        //This updates the current deck so we are in phase with the database.
+        //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
+        Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
 
-        //TODO: Set these variables. Maybe need to rethink Calender class.
-        //currentDeck.setPlayedSince();
-        //currentDeck.playedDeck();
+        Intent intentMain = new Intent(PlayDeckActivity.this ,
+                DeckActivity.class);
+        PlayDeckActivity.this.startActivityForResult(intentMain, 0);
 
-
-        finish();
     }
 
     public void flipCard(View v) {
@@ -163,14 +170,17 @@ public class PlayDeckActivity extends AppCompatActivity {
             case R.id.easyButton:
                 if (isChecked)
                     currentCard.setDifficulty(0);
+                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.mediumButton:
                 if (isChecked)
                     currentCard.setDifficulty(1);
+                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.hardButton:
                 if(isChecked)
                     currentCard.setDifficulty(2);
+                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
         }
     }
