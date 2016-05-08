@@ -21,8 +21,6 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
-    private DeckActivity deckAccessor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
