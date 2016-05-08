@@ -101,6 +101,13 @@
             android:id="@+id/delButton"
             android:layout_gravity="right"
             android:onClick="delDeck" />
+
+        <EditText
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editAmount" />
     </RadioGroup>
     <TextView
         android:layout_width="wrap_content"
