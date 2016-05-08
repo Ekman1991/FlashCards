@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -62,6 +63,7 @@ public class DeckActivity extends AppCompatActivity {
 
         timesPlayed.setText("TP:" + currentDeck.getNbrOfTimesPlayed());
 
+        setAmount(0);
 
     }
 
@@ -107,20 +109,29 @@ public class DeckActivity extends AppCompatActivity {
             case R.id.firstButton:
                 if (isChecked)
                     Singleton.getInstance().getFlashCards().setMode(0);
+                setAmount(0);
                 break;
             case R.id.secondButton:
                 if (isChecked)
                     Singleton.getInstance().getFlashCards().setMode(1);
+                setAmount(1);
                 break;
             case R.id.thirdButton:
                 if(isChecked)
                     Singleton.getInstance().getFlashCards().setMode(2);
+                setAmount(2);
                 break;
         }
     }
     public void delDeck(View v){
         backButton(v);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+    }
+    public void setAmount(int i){
+        EditText editAmount = (EditText)findViewById(R.id.editAmount);
+        if(i == 0){
+            editAmount.setText(currentDeck.getSize()+"");
+        }
     }
 
 }
