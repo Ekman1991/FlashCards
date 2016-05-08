@@ -21,6 +21,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
+    private DeckActivity deckAccessor;
 
 
     @Override
@@ -35,7 +36,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
-        selectMode();
+        selectMode(5);
 
         currentCard = currentDeck.getNextCard();
 
@@ -84,11 +85,20 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         }
     }
-    public void selectMode(){
+    public void selectMode(int amount){
 
         if(mode == 0) {
+            Deck tmp = new Deck("tmp");
 
             //Standard mode. Use all the cards.
+            if(amount < currentDeck.getSize() && amount > 0) {
+                currentDeck.shuffle();
+                for (int i = 0; i < amount; i++) {
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+                realDeck = currentDeck;
+                currentDeck = tmp;
+            }
 
         } else if(mode == 1){
             Deck tmp = new Deck("tmp");
@@ -99,6 +109,14 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
             realDeck = currentDeck;
             currentDeck = tmp;
+            if(amount < currentDeck.getSize() && amount > 0) {
+                currentDeck.shuffle();
+                tmp = new Deck("tmp");
+                for (int i = 0; i < amount; i++) {
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+                currentDeck = tmp;
+            }
         } else if(mode == 2){
             Deck tmp = new Deck("tmp");
             int size = currentDeck.getSize();
