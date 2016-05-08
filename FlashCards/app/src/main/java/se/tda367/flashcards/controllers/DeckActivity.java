@@ -128,9 +128,18 @@ public class DeckActivity extends AppCompatActivity {
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
     }
     public void setAmount(int i){
+        int tmp = 0;
         EditText editAmount = (EditText)findViewById(R.id.editAmount);
         if(i == 0){
             editAmount.setText(currentDeck.getSize()+"");
+        }
+        if(i == 1){
+            for(int j = 0; j<currentDeck.getSize(); j++){
+                if(currentDeck.getList().get(j).getDifficulty()>0){
+                    tmp = tmp + 1;
+                }
+            }
+            editAmount.setText(tmp+"");
         }
     }
 
