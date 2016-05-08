@@ -17,6 +17,7 @@ import se.tda367.flashcards.models.Deck;
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
     private Deck currentDeck;
+    private Deck realDeck;
     private Card currentCard;
     private TextView textView;
     private int mode;
@@ -96,6 +97,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                     tmp.addCard(currentDeck.getList().get(i));
                 }
             }
+            realDeck = currentDeck;
             currentDeck = tmp;
         } else if(mode == 2){
             Deck tmp = new Deck("tmp");
@@ -118,11 +120,13 @@ public class PlayDeckActivity extends AppCompatActivity {
                     hard = hard - 1;
                 }
             }
+            realDeck = currentDeck;
             currentDeck = tmp;
         }
     }
 
     public void finishedDeck(View v) {
+        currentDeck = realDeck;
 
         Log.v("PlayDeckActivity", "Finished");
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
