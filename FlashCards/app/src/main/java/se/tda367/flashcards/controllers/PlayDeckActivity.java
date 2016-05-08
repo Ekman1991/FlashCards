@@ -34,7 +34,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
-        //selectMode();
+        selectMode();
 
         currentCard = currentDeck.getNextCard();
 
