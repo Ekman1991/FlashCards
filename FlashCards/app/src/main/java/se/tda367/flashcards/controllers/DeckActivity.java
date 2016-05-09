@@ -171,21 +171,23 @@ public class DeckActivity extends AppCompatActivity {
         }
     }
     public void addListener(){
-        EditText editAmount = (EditText)findViewById(R.id.editAmount);
+        final EditText editAmount = (EditText)findViewById(R.id.editAmount);
         editAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+                if(!editAmount.getText().toString().equals("")) {
+                    Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s + ""));
+                }
             }
         });
     }
