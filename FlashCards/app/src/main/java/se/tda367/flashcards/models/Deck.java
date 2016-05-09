@@ -15,7 +15,6 @@ public class Deck{
     private ArrayList<Card> list;
     private int counter;
 
-<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/models/Deck.java
     private long made;
     private long playedSince;
 
@@ -23,8 +22,6 @@ public class Deck{
     private int nbrOfTimesPlayed;
     private Calender c = new Calender();
 
-=======
->>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/Deck.java
 
     public Deck() {
         this.name = "";
@@ -40,14 +37,11 @@ public class Deck{
         this.name = name;
         this.list = new ArrayList<Card>();
         this.counter = 0;
-<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/models/Deck.java
         this.nbrOfTimesPlayed = 0;
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
-=======
 
->>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/Deck.java
     }
     public boolean hasNext(){
         return counter<list.size();

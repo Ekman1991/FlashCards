@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import se.tda367.flashcards.CardFactory;
+import se.tda367.flashcards.MyNotification;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;

@@ -14,22 +14,16 @@ public class Card extends AppCompatActivity {
     public Card() {
         this.question = "";
         this.answer = "";
-<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/models/Card.java
         this.difficulty = 2;
-=======
-        this.difficulty = 0;
+
         //0 = svår, 1 = okej, 2 = lätt
->>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/Card.java
     }
 
     public Card(String question, String answer) {
         this.question = question;
         this.answer = answer;
-<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/models/Card.java
         this.difficulty = 2;
-=======
 
->>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/Card.java
     }
 
     public String getQuestion() {

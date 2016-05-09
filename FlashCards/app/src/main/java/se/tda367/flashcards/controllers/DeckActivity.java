@@ -12,13 +12,10 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/controllers/DeckActivity.java
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
-=======
 import java.util.Calendar;
->>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/DeckActivity.java
 
 public class DeckActivity extends AppCompatActivity {
 

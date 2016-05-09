@@ -44,39 +44,24 @@
         android:background="#4242db" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/start_deck"
-        android:id="@+id/startDeck"
-        android:onClick="startDeck"
-        android:layout_marginBottom="65dp"
-        android:layout_above="@+id/addCard"
-<<<<<<< HEAD
-        android:layout_centerHorizontal="true" />
-=======
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="98dp"
-        android:background="#4242db" />
->>>>>>> feature-notificationsandbuttonsdegrees
-
-    <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/button2"
         android:layout_alignTop="@+id/addCard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-<<<<<<< HEAD
-        android:onClick="backButton" />
+
+        android:onClick="backButton"
+        android:layout_height="wrap_content" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/numberOfCards"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/timesPlayed">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -109,6 +94,15 @@
             android:id="@+id/delButton"
             android:layout_gravity="right"
             android:onClick="delDeck" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="@string/start_deck"
+            android:id="@+id/startDeck"
+            android:onClick="startDeck"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
     </RadioGroup>
     <TextView
         android:layout_width="wrap_content"

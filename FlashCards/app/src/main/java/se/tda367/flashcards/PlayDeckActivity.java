@@ -12,6 +12,11 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 
+import se.tda367.flashcards.controllers.DeckActivity;
+import se.tda367.flashcards.controllers.MainActivity;
+import se.tda367.flashcards.models.Card;
+import se.tda367.flashcards.models.Deck;
+
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
     private Deck currentDeck;
