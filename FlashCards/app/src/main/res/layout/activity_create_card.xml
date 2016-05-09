@@ -68,11 +68,22 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Picture"
+        android:text="Gallery"
         android:id="@+id/addPic"
         android:onClick="onImageGalleryClicked"
         android:layout_alignTop="@+id/questionField"
         android:layout_alignRight="@+id/imgPic"
         android:layout_alignEnd="@+id/imgPic" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:id="@+id/camera"
+        android:layout_below="@+id/questionField"
+        android:layout_alignRight="@+id/addPic"
+        android:layout_alignEnd="@+id/addPic"
+        android:onClick="onCameraClicked" />
 
 </RelativeLayout>
