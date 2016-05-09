@@ -17,6 +17,7 @@ public class CreateCardActivity extends AppCompatActivity {
     EditText question;
     EditText answer;
     CardFactory cardFactory;
+    MyNotification nf;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,10 @@ public class CreateCardActivity extends AppCompatActivity {
         answer = (EditText)findViewById(R.id.answerField);
         cardFactory = new CardFactory();
     }
-
+    public void notify(View v){
+        nf.addNotification();
+        nf.notify();
+    }
     public void createCardButton(View v) {
 
         String questionText;

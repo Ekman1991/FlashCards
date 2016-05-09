@@ -40,7 +40,8 @@
         android:onClick="createCard"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#4242db" />
 
     <Button
         android:layout_width="wrap_content"
@@ -50,7 +51,13 @@
         android:onClick="startDeck"
         android:layout_marginBottom="65dp"
         android:layout_above="@+id/addCard"
+<<<<<<< HEAD
         android:layout_centerHorizontal="true" />
+=======
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="98dp"
+        android:background="#4242db" />
+>>>>>>> feature-notificationsandbuttonsdegrees
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -61,6 +68,7 @@
         android:layout_alignTop="@+id/addCard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+<<<<<<< HEAD
         android:onClick="backButton" />
 
     <RadioGroup
@@ -135,4 +143,9 @@
         android:layout_alignLeft="@+id/playedSince"
         android:layout_alignStart="@+id/playedSince"
         android:textIsSelectable="true" />
+=======
+        android:onClick="backButton"
+        android:background="#bc153c" />
+
+>>>>>>> feature-notificationsandbuttonsdegrees
 </RelativeLayout>

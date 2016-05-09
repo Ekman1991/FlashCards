@@ -1,6 +1,8 @@
 package se.tda367.flashcards.controllers;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +12,13 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+<<<<<<< HEAD:FlashCards/app/src/main/java/se/tda367/flashcards/controllers/DeckActivity.java
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
+=======
+import java.util.Calendar;
+>>>>>>> feature-notificationsandbuttonsdegrees:FlashCards/app/src/main/java/se/tda367/flashcards/DeckActivity.java
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -72,6 +78,7 @@ public class DeckActivity extends AppCompatActivity {
     }
 
     public void startDeck(View v) {
+
         Log.v("DeckActivity", "StartDeck");
 
         if (currentDeck.getSize() == 0) {
@@ -89,12 +96,17 @@ public class DeckActivity extends AppCompatActivity {
             Intent intentMain = new Intent(DeckActivity.this ,
                     PlayDeckActivity.class);
             DeckActivity.this.startActivityForResult(intentMain, 0);
+
+
+
+
         }
 
     }
 
     public void backButton(View v) {
         Log.v("DeckActivity", "Back");
+
 
         Intent intentMain = new Intent(DeckActivity.this ,
                 MainActivity.class);
