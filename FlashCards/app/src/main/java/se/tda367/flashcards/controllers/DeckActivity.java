@@ -188,6 +188,7 @@ public class DeckActivity extends AppCompatActivity {
                 if(!editAmount.getText().toString().equals("")) {
                     Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s + ""));
                 }
+                else Singleton.getInstance().getFlashCards().setAmount(0);
             }
         });
     }
