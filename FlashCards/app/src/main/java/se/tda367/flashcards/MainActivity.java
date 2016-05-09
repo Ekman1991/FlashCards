@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        your_array_list = Singleton.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
+        your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
