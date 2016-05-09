@@ -123,17 +123,20 @@ public class PlayDeckActivity extends AppCompatActivity {
             int hard = (int)Math.ceil(0.6*size);
 
             for(int i = 0; i<size; i++){
-                if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     ez = ez - 1;
+                    amount = amount - 1;
                 }
-                if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     med = med - 1;
+                    amount = amount - 1;
                 }
-                if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     hard = hard - 1;
+                    amount = amount - 1;
                 }
             }
             realDeck = currentDeck;
