@@ -48,6 +48,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         setRadioGraphic();
 
     }
+    //enables swipe left inside the playDeck menu
     public void activateSwipe(){
         final View background = findViewById(R.id.background);
 
@@ -72,7 +73,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         });
 
     }
-
+    //flips the card
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
@@ -86,9 +87,9 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void selectMode(int amount){
 
         if(mode == 0) {
+            //standard mode, uses all the cards unless the user choses to limit amounts
             Deck tmp = new Deck(currentDeck);
 
-            //Standard mode. Use all the cards.
             if(amount < currentDeck.getSize() && amount > 0) {
                 currentDeck.shuffle();
                 for (int i = 0; i < amount; i++) {
@@ -100,6 +101,8 @@ public class PlayDeckActivity extends AppCompatActivity {
             realDeck = currentDeck;
 
         } else if(mode == 1){
+            //selects only hard and medium rated cards
+
             Deck tmp = new Deck(currentDeck);
             for(int i = 0; i < currentDeck.getSize(); i++){
                 if(currentDeck.getList().get(i).getDifficulty() != 0){
@@ -117,6 +120,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 currentDeck = tmp;
             }
         } else if(mode == 2){
+            //selects cards based on difficulty with a percentage algorithm
             Deck tmp = new Deck(currentDeck);
             int size = currentDeck.getSize();
             int ez = (int)Math.ceil(0.05*size);
