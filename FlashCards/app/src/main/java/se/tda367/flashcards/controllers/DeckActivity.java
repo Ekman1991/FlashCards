@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -64,6 +66,9 @@ public class DeckActivity extends AppCompatActivity {
         timesPlayed.setText("TP:" + currentDeck.getNbrOfTimesPlayed());
 
         setAmount(0);
+        addListener();
+
+
 
     }
 
@@ -164,6 +169,25 @@ public class DeckActivity extends AppCompatActivity {
             }
             editAmount.setText(tmp+"");
         }
+    }
+    public void addListener(){
+        EditText editAmount = (EditText)findViewById(R.id.editAmount);
+        editAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s+""));
+            }
+        });
     }
 
 }
