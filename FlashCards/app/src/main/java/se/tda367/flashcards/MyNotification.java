@@ -18,6 +18,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import se.tda367.flashcards.controllers.MainActivity;
+
 /**
  * Created by Emilia on 2016-05-04.
  */
