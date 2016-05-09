@@ -97,6 +97,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 realDeck = currentDeck;
                 currentDeck = tmp;
             }
+            realDeck = currentDeck;
 
         } else if(mode == 1){
             Deck tmp = new Deck(currentDeck);
