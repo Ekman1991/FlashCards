@@ -86,7 +86,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void selectMode(int amount){
 
         if(mode == 0) {
-            Deck tmp = new Deck("tmp");
+            Deck tmp = new Deck(currentDeck);
 
             //Standard mode. Use all the cards.
             if(amount < currentDeck.getSize() && amount > 0) {
@@ -99,7 +99,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
 
         } else if(mode == 1){
-            Deck tmp = new Deck("tmp");
+            Deck tmp = new Deck(currentDeck);
             for(int i = 0; i < currentDeck.getSize(); i++){
                 if(currentDeck.getList().get(i).getDifficulty() != 0){
                     tmp.addCard(currentDeck.getList().get(i));
@@ -116,7 +116,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 currentDeck = tmp;
             }
         } else if(mode == 2){
-            Deck tmp = new Deck("tmp");
+            Deck tmp = new Deck(currentDeck);
             int size = currentDeck.getSize();
             int ez = (int)Math.ceil(0.05*size);
             int med = (int)Math.ceil(0.35*size);
