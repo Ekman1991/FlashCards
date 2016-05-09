@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
+    private ImageView image;
 
 
     @Override
@@ -42,6 +44,11 @@ public class PlayDeckActivity extends AppCompatActivity {
         textView.setText(currentCard.getQuestion());
 
 
+        image = (ImageView) findViewById(R.id.image);
+        image.setImageBitmap(currentCard.getImage());
+
+
+
         showQuestion = true;
 
         activateSwipe();
@@ -62,6 +69,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
                         textView.setText(currentCard.getQuestion());
+                        image.setImageBitmap(currentCard.getImage());
                         setRadioGraphic();
                     }
                 }
@@ -76,6 +84,9 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
+
+            image.setImageBitmap(currentCard.getImage());
+
             showQuestion = true;
         } else {
             textView.setText(currentCard.getAnswer());

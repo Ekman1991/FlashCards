@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import se.tda367.flashcards.models.Card;
@@ -140,6 +141,10 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
 
+
+                byte[] imgByte = c.getBlob((c.getColumnIndex(CARDS_COLUMN_IMAGE)));
+                card.setImage(BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length));
+
                 list.add(card);
             } while (c.moveToNext());
         }
@@ -180,6 +185,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         //TODO: Change to System.getTime
         contentValues.put(CARDS_COLUMN_CREATED_AT, getDateTime());
 
+        contentValues.put(CARDS_COLUMN_IMAGE, card.getImagesBytes());
+
         long card_id = db.insert(CARDS_TABLE_NAME, null, contentValues);
 
         addCardToDeck(card_id, deck.getId());
@@ -206,6 +213,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         values.put(CARDS_COLUMN_QUESTION, card.getQuestion());
         values.put(CARDS_COLUMN_ANSWER, card.getAnswer());
         values.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
+        values.put(CARDS_COLUMN_IMAGE, card.getImagesBytes());
 
         return db.update(CARDS_TABLE_NAME, values, CARDS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(card.getId()) });

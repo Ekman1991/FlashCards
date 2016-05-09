@@ -31,6 +31,7 @@ public class CreateCardActivity extends AppCompatActivity {
     public static final int CAM_REQUEST = 21;
     EditText question;
     EditText answer;
+
     CardFactory cardFactory;
     MyNotification nf;
     private ImageView imgPicture;
@@ -45,6 +46,7 @@ public class CreateCardActivity extends AppCompatActivity {
         question = (EditText)findViewById(R.id.questionField);
         answer = (EditText)findViewById(R.id.answerField);
         cardFactory = new CardFactory();
+
 
         //see pic
         imgPicture = (ImageView) findViewById(R.id.imgPic);
@@ -63,27 +65,47 @@ public class CreateCardActivity extends AppCompatActivity {
         String answerText;
         Deck currentDeck;
 
+
         //TODO: Move this to a utility class. Will be duplicated all over the codebase
         if ((question == null || question.getText().toString().trim().length() == 0) && (answer == null || answer.getText().toString().trim().length() == 0)) {
             Log.d("CreateCard", "DeckName is empty");
         } else {
-            questionText = question.getText().toString();
-            answerText = answer.getText().toString();
-            currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+                questionText = question.getText().toString();
+                answerText = answer.getText().toString();
+                currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
-            Card card = new Card(questionText, answerText);
-            Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
-            //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
-            currentDeck.addCard(card);
+                imgPicture.buildDrawingCache();
+                Bitmap bitmap = imgPicture.getDrawingCache();
+
+                if (bitmap == null){
+                    Card card = new Card(questionText, answerText);
+                    Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                    //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                    currentDeck.addCard(card);
 
 
-            Intent intentMain = new Intent(CreateCardActivity.this ,
-                    DeckActivity.class);
-            CreateCardActivity.this.startActivityForResult(intentMain, 0);
+                    Intent intentMain = new Intent(CreateCardActivity.this,
+                            DeckActivity.class);
+                    CreateCardActivity.this.startActivityForResult(intentMain, 0);
+                }
+                else {
+
+                    Card card = new Card(questionText, answerText, bitmap);
+                    Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                    //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                    currentDeck.addCard(card);
+
+
+                    Intent intentMain = new Intent(CreateCardActivity.this,
+                            DeckActivity.class);
+                    CreateCardActivity.this.startActivityForResult(intentMain, 0);
+                }
+            }
+
         }
 
 
-    }
+
 
     public void onImageGalleryClicked(View v){
 

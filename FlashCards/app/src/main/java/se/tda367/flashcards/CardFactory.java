@@ -1,5 +1,8 @@
 package se.tda367.flashcards;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+
 import se.tda367.flashcards.models.Card;
 
 /**
@@ -11,10 +14,17 @@ public class CardFactory {
         return new Card (question, answer);
     }
 
+    public Card createCard(String question, String answer, Bitmap image) {
+        return new Card (question, answer, image);
+    }
+
+
+
     public Card createCard() {
         //använd den här för att med GUIt få in frågan och svaret
         String question = "cat";
         String answer = "animal";
-        return new Card (question, answer);
+        Bitmap image = null;
+        return new Card (question, answer, image);
     }
 }
