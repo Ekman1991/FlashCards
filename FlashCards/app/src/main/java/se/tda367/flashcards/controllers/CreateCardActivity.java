@@ -1,11 +1,15 @@
 package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import java.io.File;
 
 import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.MyNotification;
@@ -15,6 +19,7 @@ import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 public class CreateCardActivity extends AppCompatActivity {
+    public static final int IMAGE_GALLERY_REQUEST = 20;
     EditText question;
     EditText answer;
     CardFactory cardFactory;
@@ -56,7 +61,22 @@ public class CreateCardActivity extends AppCompatActivity {
             CreateCardActivity.this.startActivityForResult(intentMain, 0);
         }
 
+
     }
+
+    public void onImageGalleryClicked(View v){
+        Intent photoPicIntent = new Intent(Intent.ACTION_PICK);
+
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String pictureDirectoryPath = pictureDirectory.getPath();
+
+        Uri data = Uri.parse(pictureDirectoryPath);
+        //get all imagestypes
+        photoPicIntent.setDataAndType(data, "image/*");
+
+        startActivityForResult(photoPicIntent, IMAGE_GALLERY_REQUEST);
+    }
+
     public void cancelCreateCard(View v) {
         Log.d("YourTag", "YourOutput");
         Intent intentMain = new Intent(CreateCardActivity.this ,

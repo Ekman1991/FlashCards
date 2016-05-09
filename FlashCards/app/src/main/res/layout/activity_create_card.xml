@@ -51,4 +51,16 @@
         android:layout_alignRight="@+id/createCardButton"
         android:layout_alignEnd="@+id/createCardButton"
         android:background="#bc153c" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Picture"
+        android:id="@+id/addPicture"
+        android:layout_alignBottom="@+id/questionField"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onImageGalleryClicked" />
+
 </RelativeLayout>
