@@ -113,7 +113,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             currentDeck = tmp;
             if(amount < currentDeck.getSize() && amount > 0) {
                 currentDeck.shuffle();
-                tmp = new Deck("tmp");
+                tmp = new Deck(currentDeck);
                 for (int i = 0; i < amount; i++) {
                     tmp.addCard(currentDeck.getList().get(i));
                 }
