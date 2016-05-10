@@ -43,6 +43,14 @@ public class Deck{
         this.made = System.currentTimeMillis() / 1000L;
 
     }
+    public Deck(Deck deck){
+        this.name = deck.getName();
+        this.list = new ArrayList<Card>();
+        this.counter = deck.getCounter();
+        this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
+        this.playedSince = deck.getPlayedSince();
+        this.made = deck.getMade();
+    }
     public boolean hasNext(){
         return counter<list.size();
     }
@@ -115,6 +123,10 @@ public class Deck{
         this.counter = counter;
     }
 
+
+    public int getCounter(){
+        return this.counter;
+    }
 
 
     public Card getNextCard() {

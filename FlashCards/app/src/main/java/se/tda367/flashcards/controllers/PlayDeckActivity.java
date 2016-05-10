@@ -17,10 +17,10 @@ import se.tda367.flashcards.models.Deck;
 public class PlayDeckActivity extends AppCompatActivity {
     private Boolean showQuestion;
     private Deck currentDeck;
+    private Deck realDeck;
     private Card currentCard;
     private TextView textView;
     private int mode;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
-        //selectMode();
+        selectMode(Singleton.getInstance().getFlashCards().getAmount());
 
         currentCard = currentDeck.getNextCard();
 
@@ -48,6 +48,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         setRadioGraphic();
 
     }
+    //enables swipe left inside the playDeck menu
     public void activateSwipe(){
         final View background = findViewById(R.id.background);
 
@@ -72,7 +73,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         });
 
     }
-
+    //flips the card
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
@@ -83,46 +84,77 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         }
     }
-    public void selectMode(){
+    public void selectMode(int amount){
+        if(amount == 0){
+            backButton(findViewById(R.id.background));
+        }
+        else
 
         if(mode == 0) {
+            //standard mode, uses all the cards unless the user choses to limit amounts
+            Deck tmp = new Deck(currentDeck);
 
-            //Standard mode. Use all the cards.
+            if(amount < currentDeck.getSize() && amount > 0) {
+                currentDeck.shuffle();
+                for (int i = 0; i < amount; i++) {
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+                realDeck = currentDeck;
+                currentDeck = tmp;
+            }
+            realDeck = currentDeck;
 
         } else if(mode == 1){
-            Deck tmp = new Deck("tmp");
+            //selects only hard and medium rated cards
+
+            Deck tmp = new Deck(currentDeck);
             for(int i = 0; i < currentDeck.getSize(); i++){
                 if(currentDeck.getList().get(i).getDifficulty() != 0){
                     tmp.addCard(currentDeck.getList().get(i));
                 }
             }
+            realDeck = currentDeck;
             currentDeck = tmp;
+            if(amount < currentDeck.getSize() && amount > 0) {
+                currentDeck.shuffle();
+                tmp = new Deck(currentDeck);
+                for (int i = 0; i < amount; i++) {
+                    tmp.addCard(currentDeck.getList().get(i));
+                }
+                currentDeck = tmp;
+            }
         } else if(mode == 2){
-            Deck tmp = new Deck("tmp");
+            //selects cards based on difficulty with a percentage algorithm
+            Deck tmp = new Deck(currentDeck);
             int size = currentDeck.getSize();
             int ez = (int)Math.ceil(0.05*size);
             int med = (int)Math.ceil(0.35*size);
             int hard = (int)Math.ceil(0.6*size);
 
             for(int i = 0; i<size; i++){
-                if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 0 && ez > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     ez = ez - 1;
+                    amount = amount - 1;
                 }
-                if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 1 && med > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     med = med - 1;
+                    amount = amount - 1;
                 }
-                if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0){
+                if(currentDeck.getList().get(i).getDifficulty() == 2 && hard > 0 && amount > 0){
                     tmp.addCard(currentDeck.getList().get(i));
                     hard = hard - 1;
+                    amount = amount - 1;
                 }
             }
+            realDeck = currentDeck;
             currentDeck = tmp;
         }
     }
 
     public void finishedDeck(View v) {
+        currentDeck = realDeck;
 
         Log.v("PlayDeckActivity", "Finished");
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);

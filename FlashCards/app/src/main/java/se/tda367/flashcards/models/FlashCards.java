@@ -14,6 +14,7 @@ public class FlashCards {
     private Deck currentDeck;
     private ArrayList<Deck> arrayOfDecks;
     private int mode;
+    private int amount;
 
     public FlashCards() {
 
@@ -46,6 +47,13 @@ public class FlashCards {
 
     public void setCurrentDeck(Deck currentDeck) {
         this.currentDeck = currentDeck;
+    }
+
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
+    public int getAmount(){
+        return this.amount;
     }
 
 }
