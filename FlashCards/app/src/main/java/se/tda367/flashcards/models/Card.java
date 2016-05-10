@@ -13,7 +13,7 @@ public class Card extends AppCompatActivity {
     private String answer;
     private int id;
     private int difficulty;
-    private Bitmap image;
+    public Bitmap image;
     private byte[] imagesBytes;
 
     public Card() {
@@ -21,7 +21,8 @@ public class Card extends AppCompatActivity {
         this.answer = "";
         this.difficulty = 2;
         this.image = null;
-        this.imagesBytes = null;
+
+
 
         //0 = svår, 1 = okej, 2 = lätt
     }
@@ -30,6 +31,7 @@ public class Card extends AppCompatActivity {
         this.question = question;
         this.answer = answer;
         this.difficulty = 2;
+
     }
 
     public Card(String question, String answer, Bitmap image) {

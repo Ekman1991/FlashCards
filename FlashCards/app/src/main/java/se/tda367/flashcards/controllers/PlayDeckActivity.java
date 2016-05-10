@@ -45,9 +45,15 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         image = (ImageView) findViewById(R.id.image);
-        image.setImageBitmap(currentCard.getImage());
 
+        if (currentCard.getImage() == null)
+        {
+            image.setImageResource(android.R.color.transparent);
+        }
+        else {
+            image.setImageBitmap(currentCard.getImage());
 
+        }
 
         showQuestion = true;
 
@@ -69,7 +75,14 @@ public class PlayDeckActivity extends AppCompatActivity {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
                         textView.setText(currentCard.getQuestion());
-                        image.setImageBitmap(currentCard.getImage());
+                        if (currentCard.getImage() == null)
+                        {
+                            image.setImageResource(android.R.color.transparent);
+                        }
+                        else {
+                            image.setImageBitmap(currentCard.getImage());
+
+                        }
                         setRadioGraphic();
                     }
                 }
@@ -85,7 +98,14 @@ public class PlayDeckActivity extends AppCompatActivity {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
 
-            image.setImageBitmap(currentCard.getImage());
+            if (currentCard.getImage() == null)
+            {
+                image.setImageResource(android.R.color.transparent);
+            }
+            else {
+                image.setImageBitmap(currentCard.getImage());
+
+            }
 
             showQuestion = true;
         } else {
