@@ -91,6 +91,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         else
 
         if(mode == 0) {
+            realDeck = currentDeck;
             //standard mode, uses all the cards unless the user choses to limit amounts
             Deck tmp = new Deck(currentDeck);
 
@@ -102,7 +103,6 @@ public class PlayDeckActivity extends AppCompatActivity {
                 realDeck = currentDeck;
                 currentDeck = tmp;
             }
-            realDeck = currentDeck;
 
         } else if(mode == 1){
             //selects only hard and medium rated cards
