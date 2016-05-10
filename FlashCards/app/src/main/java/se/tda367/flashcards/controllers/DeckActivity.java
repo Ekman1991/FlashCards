@@ -16,6 +16,7 @@ import android.widget.TextView;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
+import se.tda367.flashcards.models.FlashCards;
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -136,6 +137,7 @@ public class DeckActivity extends AppCompatActivity {
         EditText editAmount = (EditText)findViewById(R.id.editAmount);
         if(i == 0){
             editAmount.setText(currentDeck.getSize()+"");
+            Singleton.getInstance().getFlashCards().setAmount(currentDeck.getSize());
         }
         if(i == 1){
             int tmp = 0;
