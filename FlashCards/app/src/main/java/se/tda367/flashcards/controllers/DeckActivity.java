@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import se.tda367.flashcards.Calender;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -26,6 +31,9 @@ public class DeckActivity extends AppCompatActivity {
     private TextView playedSince;
     private TextView made;
     private TextView timesPlayed;
+    private long unixSec;
+    private String convertedGetPlayedSince;
+    private String convertedGetMade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +65,20 @@ public class DeckActivity extends AppCompatActivity {
             playedSince.setText("PS: Not played yet");
         } else {
             //TODO: Convert unix time to readable date
-            playedSince.setText("PS:" + currentDeck.getPlayedSince());
+            convertedGetPlayedSince = Calender.convertUnix(currentDeck.getPlayedSince());
+            playedSince.setText("PS:" + convertedGetPlayedSince);
         }
+        convertedGetMade = Calender.convertUnix(currentDeck.getMade());
 
         //TODO: Convert unix time to readable date
-        made.setText("Made:" + currentDeck.getMade());
+        made.setText("Made:" + convertedGetMade);
 
         timesPlayed.setText("TP:" + currentDeck.getNbrOfTimesPlayed());
 
 
     }
+
+
 
     public void createCard(View v) {
         Intent intentMain = new Intent(DeckActivity.this ,
