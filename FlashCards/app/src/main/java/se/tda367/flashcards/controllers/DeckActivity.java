@@ -156,6 +156,7 @@ public class DeckActivity extends AppCompatActivity {
         backButton(v);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
     }
+    //sets the text for how many cards you can play at most
     public void setAmount(int i){
         EditText editAmount = (EditText)findViewById(R.id.editAmount);
         if(i == 0){
