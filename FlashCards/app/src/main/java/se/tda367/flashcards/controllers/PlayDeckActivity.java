@@ -88,6 +88,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         if(amount == 0){
             backButton(findViewById(R.id.background));
         }
+        else
 
         if(mode == 0) {
             //standard mode, uses all the cards unless the user choses to limit amounts
