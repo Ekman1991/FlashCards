@@ -54,10 +54,12 @@ public class CreateCardActivity extends AppCompatActivity {
         takePhoto.setOnClickListener(new takePhotoClicker());
     }
 
-    public void audio (View v){
+    public void audio(View v){
+
         Intent intentMain = new Intent(CreateCardActivity.this ,
                 AudioActivity.class);
         CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
     }
 
     public void notify(View v){

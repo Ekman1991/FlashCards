@@ -26,6 +26,7 @@
         <activity android:name=".controllers.CreateDeckActivity" />
         <activity android:name=".controllers.PlayDeckActivity" />
         <activity android:name=".controllers.DeckActivity" />
+        <activity android:name=".controllers.AudioActivity"/>
         <activity android:name=".controllers.CreateCardActivity"></activity>
 
        !-- ATTENTION: This was auto-generated to add Google Play services to your project for
