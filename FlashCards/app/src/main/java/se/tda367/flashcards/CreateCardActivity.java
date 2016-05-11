@@ -46,4 +46,10 @@ public class CreateCardActivity extends AppCompatActivity {
         }
 
     }
+    public void cancelCreateCard(View v) {
+        Log.d("YourTag", "YourOutput");
+        Intent intentMain = new Intent(CreateCardActivity.this ,
+                DeckActivity.class);
+        CreateCardActivity.this.startActivityForResult(intentMain, 0);
+    }
 }
