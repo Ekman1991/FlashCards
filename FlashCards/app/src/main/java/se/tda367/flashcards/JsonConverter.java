@@ -1,7 +1,11 @@
 package se.tda367.flashcards;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.net.URLEncoder;
 
 import se.tda367.flashcards.models.Deck;
 
@@ -27,5 +31,17 @@ public class JsonConverter {
     }
     public String getJsonString(){
         return this.writer.toString();
+    }
+    public String toURL(String url){
+        try {
+            String encodedUrl = URLEncoder.encode(url, "UTF-8");
+            return encodedUrl;
+
+        }
+        catch (Exception e)
+        {
+
+        }
+        return "null";
     }
 }
