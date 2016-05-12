@@ -57,7 +57,7 @@ public class CreateCardActivity extends AppCompatActivity {
     public void audio(View v){
 
         Intent intentMain = new Intent(CreateCardActivity.this ,
-                AudioActivity.class);
+                AudioActivityReal.class);
         CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
     }
