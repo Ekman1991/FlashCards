@@ -53,6 +53,15 @@ public class CreateCardActivity extends AppCompatActivity {
 
         takePhoto.setOnClickListener(new takePhotoClicker());
     }
+
+    public void audio(View v){
+
+        Intent intentMain = new Intent(CreateCardActivity.this ,
+                AudioActivityReal.class);
+        CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
+    }
+
     public void notify(View v){
         nf.addNotification();
         nf.notify();
@@ -169,6 +178,8 @@ public class CreateCardActivity extends AppCompatActivity {
 
         }
     }
+
+
 
     public void cancelCreateCard(View v) {
         Log.d("YourTag", "YourOutput");

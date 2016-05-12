@@ -86,4 +86,14 @@
         android:layout_alignEnd="@+id/addPic"
         android:onClick="onCameraClicked" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Audio"
+        android:id="@+id/audio"
+        android:layout_alignTop="@+id/questionField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="audio" />
+
 </RelativeLayout>
