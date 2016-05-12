@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import se.tda367.flashcards.CardFactory;
-import se.tda367.flashcards.MyNotification;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
@@ -32,7 +31,6 @@ public class CreateCardActivity extends AppCompatActivity {
     EditText question;
     EditText answer;
     CardFactory cardFactory;
-    MyNotification nf;
     private ImageView imgPicture;
 
     Button takePhoto;
@@ -57,25 +55,24 @@ public class CreateCardActivity extends AppCompatActivity {
     public void audio(View v){
 
         Intent intentMain = new Intent(CreateCardActivity.this ,
-                AudioActivityReal.class);
+                AudioActivity.class);
         CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
     }
 
-    public void notify(View v){
-        nf.addNotification();
-        nf.notify();
-    }
+
     public void createCardButton(View v) {
 
         String questionText;
         String answerText;
         Deck currentDeck;
 
+
         //TODO: Move this to a utility class. Will be duplicated all over the codebase
         if ((question == null || question.getText().toString().trim().length() == 0) && (answer == null || answer.getText().toString().trim().length() == 0)) {
             Log.d("CreateCard", "DeckName is empty");
         } else {
+
             questionText = question.getText().toString();
             answerText = answer.getText().toString();
             currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();

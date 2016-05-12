@@ -1,5 +1,6 @@
 package se.tda367.flashcards.controllers;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
@@ -13,18 +14,18 @@ import java.io.IOException;
 
 import se.tda367.flashcards.R;
 
-public class AudioActivityReal extends AppCompatActivity {
+public class AudioActivity extends AppCompatActivity {
 
 
 
-        MediaRecorder myAudio;
+        public MediaRecorder myAudio;
         private String outputAudioFile = null;
         private Button start, stop, play;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_audio_activity_real);
+            setContentView(R.layout.activity_audio);
             start = (Button) findViewById(R.id.startButton);
             stop = (Button) findViewById(R.id.stopButton);
             play = (Button) findViewById(R.id.playButton);
@@ -66,6 +67,29 @@ public class AudioActivityReal extends AppCompatActivity {
         Toast.makeText(this, "Recording started", Toast.LENGTH_SHORT).show();
     }
 
+    public void cancel(View v){
+
+        Intent intentMain = new Intent(AudioActivity.this ,
+                CreateCardActivity.class);
+        AudioActivity.this.startActivityForResult(intentMain, 0);
+    }
+
+    public void save(View v){
+
+        if (myAudio == null){
+            Toast.makeText(this, "You haven't recorded anything yet", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+
+            Intent intentMain = new Intent(AudioActivity.this,
+                    CreateCardActivity.class);
+            AudioActivity.this.startActivityForResult(intentMain, 0);
+
+            intentMain.putExtra("Audio", "LÄGG DIN AUDIO HÄR SOM BYTE");
+        }
+    }
+
     public void stop(View v){
         myAudio.stop();
         myAudio.release();
@@ -73,6 +97,7 @@ public class AudioActivityReal extends AppCompatActivity {
         stop.setEnabled(false);
         play.setEnabled(true);
         Toast.makeText(this, "Audiofile recorded with success", Toast.LENGTH_SHORT).show();
+
     }
 
     public void play(View v) throws IOException{
