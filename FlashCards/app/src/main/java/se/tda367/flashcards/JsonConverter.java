@@ -34,6 +34,9 @@ public class JsonConverter {
     public String getJsonString(){
         return this.writer.toString();
     }
+    public JSONObject getWriter(){
+        return this.writer;
+    }
     public String toURL(String url){
         try {
             String encodedUrl = URLEncoder.encode(url, "UTF-8");
@@ -55,5 +58,14 @@ public class JsonConverter {
 
         }
         return "null";
+    }
+    public JSONObject toJson(String url){
+        try {
+            return new JSONObject(url);
+        }
+        catch(Exception e){
+
+        }
+        return null;
     }
 }
