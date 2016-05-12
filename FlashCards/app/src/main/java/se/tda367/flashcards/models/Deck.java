@@ -1,5 +1,8 @@
 package se.tda367.flashcards.models;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -50,6 +53,25 @@ public class Deck{
         this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
         this.playedSince = deck.getPlayedSince();
         this.made = deck.getMade();
+    }
+    public Deck(JSONObject object){
+        try {
+            this.name = object.getString("name");
+            this.made = object.getLong("made");
+            JSONArray array = object.getJSONArray("list");
+            ArrayList<Card> cards = new ArrayList<Card>();
+            for(int i = 0; i<array.length(); i++){
+                cards.add((Card)array.get(i));
+            }
+            this.list = cards;
+            this.playedSince = -1;
+            this.counter = 0;
+            this.nbrOfTimesPlayed = 0;
+
+        }
+        catch(Exception e){
+
+        }
     }
     public boolean hasNext(){
         return counter<list.size();
