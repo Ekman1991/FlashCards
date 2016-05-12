@@ -54,6 +54,7 @@ public class Card extends AppCompatActivity {
     }
 
     public void setImage(Bitmap image){
+
         this.image = image;
     }
 

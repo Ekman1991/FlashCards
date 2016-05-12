@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import se.tda367.flashcards.CardFactory;
-import se.tda367.flashcards.MyNotification;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
@@ -29,11 +28,11 @@ import se.tda367.flashcards.models.Deck;
 public class CreateCardActivity extends AppCompatActivity {
     public static final int IMAGE_GALLERY_REQUEST = 20;
     public static final int CAM_REQUEST = 21;
+    private int aPhotoExist;
     EditText question;
     EditText answer;
 
     CardFactory cardFactory;
-    MyNotification nf;
     private ImageView imgPicture;
 
     Button takePhoto;
@@ -42,11 +41,13 @@ public class CreateCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        aPhotoExist = 0;
+
         setContentView(R.layout.activity_create_card);
         question = (EditText)findViewById(R.id.questionField);
         answer = (EditText)findViewById(R.id.answerField);
         cardFactory = new CardFactory();
-
 
         //see pic
         imgPicture = (ImageView) findViewById(R.id.imgPic);
@@ -55,10 +56,7 @@ public class CreateCardActivity extends AppCompatActivity {
 
         takePhoto.setOnClickListener(new takePhotoClicker());
     }
-    public void notify(View v){
-        nf.addNotification();
-        nf.notify();
-    }
+
     public void createCardButton(View v) {
 
         String questionText;
@@ -74,10 +72,11 @@ public class CreateCardActivity extends AppCompatActivity {
                 answerText = answer.getText().toString();
                 currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
+
                 imgPicture.buildDrawingCache();
                 Bitmap bitmap = imgPicture.getDrawingCache();
 
-                if (bitmap == null){
+                if (aPhotoExist == 0){
                     Card card = new Card(questionText, answerText);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
                     //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
@@ -109,6 +108,7 @@ public class CreateCardActivity extends AppCompatActivity {
 
     public void onImageGalleryClicked(View v){
 
+
         //invoke imagegallry with intent
         Intent photoPicIntent = new Intent(Intent.ACTION_PICK);
 
@@ -126,7 +126,6 @@ public class CreateCardActivity extends AppCompatActivity {
     }
 
     public void onCameraClicked(View v){
-
         //invoke imagegallry with intent
         Intent photoPicIntent = new Intent(Intent.ACTION_PICK);
 
@@ -162,11 +161,14 @@ public class CreateCardActivity extends AppCompatActivity {
                         inputS = getContentResolver().openInputStream(imageUri);
 
                         Bitmap bitmap = BitmapFactory.decodeStream(inputS);
+                        aPhotoExist = 1;
 
                         //show picture
                         imgPicture.setImageBitmap(bitmap);
                     }
                     else {
+
+                        aPhotoExist = 1;
                         Bitmap camera = (Bitmap) data.getExtras().get("data");
                         imgPicture.setImageBitmap(camera);
                     }

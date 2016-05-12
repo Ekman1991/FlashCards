@@ -97,7 +97,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
-
+            System.out.println(currentCard + "current card");
+            System.out.println(image + "image 2");
             if (currentCard.getImage() == null)
             {
                 image.setImageResource(android.R.color.transparent);
