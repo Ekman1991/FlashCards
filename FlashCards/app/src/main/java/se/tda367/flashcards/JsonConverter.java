@@ -5,6 +5,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import se.tda367.flashcards.models.Deck;
@@ -24,10 +25,11 @@ public class JsonConverter {
 
         writer.put("name", deck.getName());
         writer.put("list", list);
+        writer.put("made", deck.getMade());
        /* writer.put("counter", deck.getCounter());
         writer.put("playedSince", deck.getPlayedSince());
-        writer.put("nbrOfTimesPlayed", deck.getNbrOfTimesPlayed());
-        writer.put("made", deck.getMade());*/
+        writer.put("nbrOfTimesPlayed", deck.getNbrOfTimesPlayed());*/
+
     }
     public String getJsonString(){
         return this.writer.toString();
@@ -40,6 +42,16 @@ public class JsonConverter {
         }
         catch (Exception e)
         {
+
+        }
+        return "null";
+    }
+    public String fromURL(String url){
+        try {
+            String decodedUrl = URLDecoder.decode(url, "UTF-8");
+            return decodedUrl;
+        }
+        catch(Exception e){
 
         }
         return "null";
