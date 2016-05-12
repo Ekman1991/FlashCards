@@ -20,7 +20,7 @@ public class JsonConverter {
     public JsonConverter(Deck deck) throws Exception{
 
         for(int i = 0; i<deck.getSize(); i++){
-            list.put(i, deck.getList().get(i));
+            writer.put(i+"", deck.getList().get(i));
         }
 
         writer.put("name", deck.getName());
@@ -36,6 +36,9 @@ public class JsonConverter {
     }
     public JSONObject getWriter(){
         return this.writer;
+    }
+    public JSONArray getList(){
+        return this.list;
     }
     public String toURL(String url){
         try {
