@@ -15,16 +15,15 @@ import se.tda367.flashcards.models.Deck;
  */
 public class JsonConverter {
     JSONObject writer = new JSONObject();
-    JSONArray list = new JSONArray();
 
     public JsonConverter(Deck deck) throws Exception{
 
         for(int i = 0; i<deck.getSize(); i++){
-            writer.put(i+"", deck.getList().get(i));
+            writer.put(i+"question", deck.getList().get(i).getQuestion());
+            writer.put(i+"answer", deck.getList().get(i).getAnswer());
         }
 
         writer.put("name", deck.getName());
-        writer.put("list", list);
         writer.put("made", deck.getMade());
        /* writer.put("counter", deck.getCounter());
         writer.put("playedSince", deck.getPlayedSince());
@@ -37,9 +36,7 @@ public class JsonConverter {
     public JSONObject getWriter(){
         return this.writer;
     }
-    public JSONArray getList(){
-        return this.list;
-    }
+
     public String toURL(String url){
         try {
             String encodedUrl = URLEncoder.encode(url, "UTF-8");
