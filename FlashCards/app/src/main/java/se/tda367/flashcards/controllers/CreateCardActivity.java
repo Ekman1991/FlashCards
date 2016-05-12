@@ -1,11 +1,16 @@
 package se.tda367.flashcards.controllers;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import se.tda367.flashcards.CardFactory;
-import se.tda367.flashcards.MyNotification;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
@@ -32,7 +36,6 @@ public class CreateCardActivity extends AppCompatActivity {
     EditText question;
     EditText answer;
     CardFactory cardFactory;
-    MyNotification nf;
     private ImageView imgPicture;
 
     Button takePhoto;
@@ -56,16 +59,33 @@ public class CreateCardActivity extends AppCompatActivity {
 
     public void audio(View v){
 
+        //start of a notification
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("Time for you to play some Flash Cards")
+                .setContentText("Learning is fun, let's do this")
+                .setAutoCancel(true)
+                .setColor(Color.BLUE);
+
+        //start program when active
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(content);
+
+        // Add a notification
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notificationBuilder.build());
+        //end of a notificaiton
+
         Intent intentMain = new Intent(CreateCardActivity.this ,
                 AudioActivityReal.class);
         CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
     }
 
-    public void notify(View v){
-        nf.addNotification();
-        nf.notify();
-    }
+
     public void createCardButton(View v) {
 
         String questionText;
