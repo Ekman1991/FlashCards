@@ -26,13 +26,14 @@
         <activity android:name=".controllers.CreateDeckActivity" />
         <activity android:name=".controllers.PlayDeckActivity" />
         <activity android:name=".controllers.DeckActivity" />
-        <activity android:name=".controllers.CreateCardActivity"></activity>
-
-       !-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".controllers.CreateCardActivity" />
+        !-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        App Indexing. See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".controllers.StatisticsActivity"></activity>
     </application>
 
 </manifest>

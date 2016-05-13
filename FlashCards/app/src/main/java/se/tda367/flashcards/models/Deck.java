@@ -20,6 +20,8 @@ public class Deck{
 
 
     private int nbrOfTimesPlayed;
+    private int nbrOfCardsPlayed;
+    private double timePlayed;
     private Calender c = new Calender();
 
 
@@ -31,6 +33,8 @@ public class Deck{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
+        this.nbrOfCardsPlayed = 0;
+        this.timePlayed = 0;
     }
 
     public Deck(String name) {
@@ -41,7 +45,8 @@ public class Deck{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
-
+        this.nbrOfCardsPlayed = 0;
+        this.timePlayed = 0;
     }
     public boolean hasNext(){
         return counter<list.size();
@@ -61,6 +66,30 @@ public class Deck{
 
     public int getNbrOfTimesPlayed(){
         return this.nbrOfTimesPlayed;
+    }
+
+    public int getNbrOfCardsPlayed() {
+        return this.nbrOfCardsPlayed;
+    }
+
+    public void setNbrOfCardsPlayed(int cardsPlayed) {
+        this.nbrOfCardsPlayed = cardsPlayed;
+    }
+
+    public void increaseNbrOfCardsPlayed() {
+        this.nbrOfCardsPlayed++;
+    }
+
+    public double getAmountOfTimePlayed() {
+        return this.timePlayed;
+    }
+
+    public void setAmountOfTimePlayed(double amountOfTime) {
+        this.timePlayed = amountOfTime;
+    }
+
+    public void increaseAmountOfTimePlayed(long timePlayed) {
+        this.timePlayed += timePlayed;
     }
 
     public void setNbrOfTimesPlayed(int nbrOfTimesPlayed) {

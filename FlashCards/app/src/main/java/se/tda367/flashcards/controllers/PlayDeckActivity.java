@@ -20,7 +20,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
-
+    private long startTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         showQuestion = true;
-
+        startTime = System.currentTimeMillis();
         activateSwipe();
         setRadioGraphic();
 
@@ -57,6 +57,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
 
             public void onSwipeLeft() {
+                currentDeck.increaseNbrOfCardsPlayed();
                 if (currentDeck.hasNext()) {
                     if (!showQuestion) {
                         currentCard = currentDeck.getNextCard();
@@ -127,6 +128,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         Log.v("PlayDeckActivity", "Finished");
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
         currentDeck.setPlayedNow();
+        currentDeck.increaseAmountOfTimePlayed((System.currentTimeMillis()-startTime));
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening

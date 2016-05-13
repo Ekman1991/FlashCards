@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 Deck selectedFromList = (Deck)(lv.getItemAtPosition(myItemInt));
                 Singleton.getInstance().getFlashCards().setCurrentDeck(selectedFromList);
-
                 Intent intent = new Intent(MainActivity.this, DeckActivity.class);
                 startActivityForResult(intent,2);
             }
@@ -75,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case (R.id.action_statistics):
+                Intent intent = new Intent(this, StatisticsActivity.class);
+                this.startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -9,4 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="se.tda367.flashcards.controllers.StatisticsActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/averageTime"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average time to finish a card"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/averageTime"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
