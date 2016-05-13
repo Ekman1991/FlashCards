@@ -14,7 +14,6 @@ import android.util.Log;
 
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
-import se.tda367.flashcards.services.IPersistenceService;
 
 /**
  * Created by ekman on 21/04/16.
@@ -61,6 +60,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         contentValues.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
         contentValues.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
         contentValues.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
+        contentValues.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
+        contentValues.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
 
         return db.insert(DECKS_TABLE_NAME, null, contentValues);
     }
@@ -85,6 +86,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         deck.setNbrOfTimesPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_NBR_OF_TIMES_PLAYED)));
         deck.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
         deck.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
+        deck.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
+        deck.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
 
         return deck;
     }
@@ -107,7 +110,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 d.setNbrOfTimesPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_NBR_OF_TIMES_PLAYED)));
                 d.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
                 d.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
-
+                d.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
+                d.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
                 d.setCardsArray(getCardsForDeck(d));
 
                 decks.add(d);
@@ -157,6 +161,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         values.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
         values.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
         values.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
+        values.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
+        values.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
 
         return db.update(DECKS_TABLE_NAME, values, DECKS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(deck.getId()) });
