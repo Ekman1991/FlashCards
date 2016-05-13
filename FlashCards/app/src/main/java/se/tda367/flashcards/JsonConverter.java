@@ -16,6 +16,10 @@ import se.tda367.flashcards.models.Deck;
 public class JsonConverter {
     JSONObject writer = new JSONObject();
 
+    public JsonConverter(){
+
+    }
+
     public JsonConverter(Deck deck) throws Exception{
 
         for(int i = 0; i<deck.getSize(); i++){
