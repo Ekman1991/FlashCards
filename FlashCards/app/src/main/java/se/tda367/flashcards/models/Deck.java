@@ -58,10 +58,9 @@ public class Deck{
         try {
             this.name = object.getString("name");
             this.made = object.getLong("made");
-            JSONArray array = object.getJSONArray("list");
             ArrayList<Card> cards = new ArrayList<Card>();
-            for(int i = 0; i<array.length(); i++){
-                cards.add((Card)array.get(i));
+            for(int i = 0; i<(object.length()-2)/2; i++){
+                cards.add(new Card(object.getString(i+"question"), object.getString(i+"answer")));
             }
             this.list = cards;
             this.playedSince = -1;
