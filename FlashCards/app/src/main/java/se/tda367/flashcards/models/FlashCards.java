@@ -15,6 +15,7 @@ public class FlashCards {
     private ArrayList<Deck> arrayOfDecks;
     private int mode;
     private int amount;
+    private String url;
 
     public FlashCards() {
 
@@ -54,6 +55,13 @@ public class FlashCards {
     }
     public int getAmount(){
         return this.amount;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+    public String getUrl(){
+        return this.url;
     }
 
 }

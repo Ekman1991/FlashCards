@@ -1,13 +1,18 @@
 package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
@@ -24,11 +29,15 @@ public class CreateDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createdeck);
         deckName = (TextView) findViewById(R.id.createDeckTextField);
+        Intent intent = getIntent();
+        String url = intent.getDataString().substring(13);
+        Singleton.getInstance().getFlashCards().setUrl(url);
+        importDeck(url);
     }
-    public void importDeck(View v){
+    public void importDeck(String url){
         deckName = (TextView) findViewById(R.id.createDeckTextField);
         JsonConverter jc = new JsonConverter();
-        JSONObject object = jc.toJson(jc.fromURL(jc.toURL("{\"made\":1463074751,\"0question\":\"j\",\"0answer\":\"o\",\"1answer\":\"p\",\"1question\":\"o\",\"name\":\"hej\"}")));
+        JSONObject object = jc.toJson(jc.fromURL(url));
         Deck deck = new Deck(object);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
 
@@ -36,6 +45,8 @@ public class CreateDeckActivity extends AppCompatActivity {
         Intent intentMain = new Intent(CreateDeckActivity.this ,
                 MainActivity.class);
         CreateDeckActivity.this.startActivityForResult(intentMain, 0);
+       /* EditText edit = (EditText)findViewById(R.id.createDeckTextField);
+        edit.setText(url);*/
 
     }
 

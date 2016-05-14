@@ -225,7 +225,8 @@ public class DeckActivity extends AppCompatActivity {
     public void importCards(View v){
         JsonConverter jc = new JsonConverter();
         Deck deck = currentDeck;
-        JSONObject object = jc.toJson("{\"made\":1463074751,\"0question\":\"j\",\"0answer\":\"o\",\"1answer\":\"p\",\"1question\":\"o\",\"name\":\"hej\"}");
+        String url = Singleton.getInstance().getFlashCards().getUrl();
+        JSONObject object = jc.toJson(jc.fromURL(url));
         try {
             for(int i = 0; i<(object.length()-2)/2; i++) {
                 Card tmp = new Card(object.getString(i + "question"), object.getString(i + "answer"));
