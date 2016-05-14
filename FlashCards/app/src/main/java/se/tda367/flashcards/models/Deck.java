@@ -1,5 +1,7 @@
 package se.tda367.flashcards.models;
 
+import android.support.v7.app.AppCompatActivity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import se.tda367.flashcards.Calender;
+import se.tda367.flashcards.Singleton;
 
 /**
  * Created by ZlatanH on 2016-04-19.
  */
-public class Deck{
+public class Deck extends AppCompatActivity{
     private int id;
     private String name;
     private String description;
@@ -58,11 +61,7 @@ public class Deck{
         try {
             this.name = object.getString("name");
             this.made = object.getLong("made");
-            ArrayList<Card> cards = new ArrayList<Card>();
-            for(int i = 0; i<(object.length()-2)/2; i++){
-                cards.add(new Card(object.getString(i+"question"), object.getString(i+"answer")));
-            }
-            this.list = cards;
+            this.list = new ArrayList<Card>();
             this.playedSince = -1;
             this.counter = 0;
             this.nbrOfTimesPlayed = 0;

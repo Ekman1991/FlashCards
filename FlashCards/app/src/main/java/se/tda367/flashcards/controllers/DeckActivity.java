@@ -15,9 +15,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import se.tda367.flashcards.Calender;
+import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 import java.text.SimpleDateFormat;
@@ -217,6 +221,26 @@ public class DeckActivity extends AppCompatActivity {
                 else Singleton.getInstance().getFlashCards().setAmount(0);
             }
         });
+    }
+    public void importCards(View v){
+        JsonConverter jc = new JsonConverter();
+        Deck deck = currentDeck;
+        JSONObject object = jc.toJson("{\"made\":1463074751,\"0question\":\"j\",\"0answer\":\"o\",\"1answer\":\"p\",\"1question\":\"o\",\"name\":\"hej\"}");
+        try {
+            for(int i = 0; i<(object.length()-2)/2; i++) {
+                Card tmp = new Card(object.getString(i + "question"), object.getString(i + "answer"));
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(tmp, deck);
+                deck.addCard(tmp);
+            }
+
+        }
+        catch(Exception e){
+
+        }
+        Intent intentMain = new Intent(DeckActivity.this ,
+                MainActivity.class);
+        DeckActivity.this.startActivityForResult(intentMain, 0);
+
     }
 
 }

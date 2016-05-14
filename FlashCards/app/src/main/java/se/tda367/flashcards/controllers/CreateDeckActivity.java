@@ -7,8 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 public class CreateDeckActivity extends AppCompatActivity {
@@ -21,6 +25,20 @@ public class CreateDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_createdeck);
         deckName = (TextView) findViewById(R.id.createDeckTextField);
     }
+    public void importDeck(View v){
+        deckName = (TextView) findViewById(R.id.createDeckTextField);
+        JsonConverter jc = new JsonConverter();
+        JSONObject object = jc.toJson(jc.fromURL(jc.toURL("{\"made\":1463074751,\"0question\":\"j\",\"0answer\":\"o\",\"1answer\":\"p\",\"1question\":\"o\",\"name\":\"hej\"}")));
+        Deck deck = new Deck(object);
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
+
+
+        Intent intentMain = new Intent(CreateDeckActivity.this ,
+                MainActivity.class);
+        CreateDeckActivity.this.startActivityForResult(intentMain, 0);
+
+    }
+
 
     public void saveTheDeck (View v) {
 
@@ -43,7 +61,7 @@ public class CreateDeckActivity extends AppCompatActivity {
     }
 
     public void cancelSaveDeck(View v) {
-        Log.d("YourTag", "YourOutput");
+      //  Log.d("YourTag", "YourOutput");
         Intent intentMain = new Intent(CreateDeckActivity.this ,
                 MainActivity.class);
         CreateDeckActivity.this.startActivityForResult(intentMain, 0);
