@@ -1,6 +1,7 @@
 package se.tda367.flashcards.models;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,6 @@ public class Card extends AppCompatActivity {
         this.question = "";
         this.answer = "";
         this.difficulty = 2;
-        this.image = null;
 
 
 
@@ -31,6 +31,7 @@ public class Card extends AppCompatActivity {
         this.question = question;
         this.answer = answer;
         this.difficulty = 2;
+
 
     }
 
@@ -48,8 +49,10 @@ public class Card extends AppCompatActivity {
         return imagesBytes;
     }
 
-
     public Bitmap getImage(){
+
+        this.image = (BitmapFactory.decodeByteArray(imagesBytes, 0, imagesBytes.length));
+
         return this.image;
     }
 

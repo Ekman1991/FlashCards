@@ -50,6 +50,7 @@ public class CreateCardActivity extends AppCompatActivity {
         cardFactory = new CardFactory();
 
         //see pic
+
         imgPicture = (ImageView) findViewById(R.id.imgPic);
 
         takePhoto = (Button) findViewById((R.id.camera));
@@ -73,10 +74,10 @@ public class CreateCardActivity extends AppCompatActivity {
                 currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
 
-                imgPicture.buildDrawingCache();
-                Bitmap bitmap = imgPicture.getDrawingCache();
+
 
                 if (aPhotoExist == 0){
+
                     Card card = new Card(questionText, answerText);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
                     //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
@@ -88,6 +89,8 @@ public class CreateCardActivity extends AppCompatActivity {
                     CreateCardActivity.this.startActivityForResult(intentMain, 0);
                 }
                 else {
+                    imgPicture.buildDrawingCache();
+                    Bitmap bitmap = imgPicture.getDrawingCache();
 
                     Card card = new Card(questionText, answerText, bitmap);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
