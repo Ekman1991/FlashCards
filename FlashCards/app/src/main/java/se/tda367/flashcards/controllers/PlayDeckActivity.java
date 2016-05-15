@@ -192,6 +192,25 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
         currentDeck.setPlayedNow();
         startTimeToNotify();
+
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("Fun that you played" + currentDeck)
+                .setContentText("We will notify you when it's time to play this deck again")
+                .setAutoCancel(true)
+                .setColor(Color.BLUE);
+
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(content);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notificationBuilder.build());
+
+
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
@@ -274,11 +293,13 @@ public class PlayDeckActivity extends AppCompatActivity {
             finishedDeck(v);
         }
     }
+
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
+
     public void setRadioGraphic(){
         if(currentCard.getDifficulty() == 0){
             RadioButton tmp = (RadioButton)findViewById(R.id.easyButton);
@@ -293,6 +314,7 @@ public class PlayDeckActivity extends AppCompatActivity {
             tmp.setChecked(true);
         }
     }
+
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
         switch(view.getId()) {
