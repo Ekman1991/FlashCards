@@ -91,6 +91,7 @@ public class DeckActivity extends AppCompatActivity {
 
 
     public void createCard(View v) {
+
         Intent intentMain = new Intent(DeckActivity.this ,
                 CreateCardActivity.class);
         DeckActivity.this.startActivityForResult(intentMain, 0);

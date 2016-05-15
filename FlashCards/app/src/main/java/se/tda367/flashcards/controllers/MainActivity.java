@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         your_array_list = null;
         your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+        checkIfAllDecksPlayed();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,6 +66,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void checkIfAllDecksPlayed(){
+        for (Deck d : your_array_list) {
+            if (d.getNbrOfTimesPlayed() == 0) {
+
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setContentTitle("Time to play deck " + d)
+                        .setContentText("You haven't played deck " + d + " yet")
+                        .setAutoCancel(true)
+                        .setColor(Color.BLUE);
+
+                Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+                PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                notificationBuilder.setContentIntent(content);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1, notificationBuilder.build());
+
+            }
+        }
+
+    }
 
 
     @Override
