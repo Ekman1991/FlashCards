@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+
 import java.util.ArrayList;
 
 import se.tda367.flashcards.CardFactory;
@@ -28,6 +30,8 @@ import se.tda367.flashcards.models.Deck;
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
     private final int OPEN_CREATE_DECK = 1;
+    private String[] Spinner;
+
 
     private ListView lv;
     protected ArrayList<Deck> your_array_list;
@@ -63,6 +67,56 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, DeckActivity.class);
                 startActivityForResult(intent,2);
             }
+        });
+
+        this.Spinner = new String[] {
+                "Leasts numbers of cards",
+                "Most numbers of cards",
+                "Name",
+                "Newest",
+                "Oldest",
+                "Most often played",
+                "Least often played",
+                "Longest time played since",
+                "Shortest time played since"
+        };
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, this.Spinner);
+        spinner.setAdapter(adapter);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String itemSelected = parentView.getItemAtPosition(position).toString();
+                if (your_array_list.size() != 0) {
+
+                    if (itemSelected.equals("Leasts numbers of cards")) {
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getSize() < your_array_list.get(i).getSize() + 1)
+                                    your_array_list.add(i, d);
+                            }
+                        }
+                    } else if (itemSelected == "Most numbers of cards") {
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getSize() > your_array_list.get(i).getSize())
+                                    your_array_list.add(i, d);
+                            }
+                        }
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
         });
     }
 
