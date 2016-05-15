@@ -29,11 +29,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
-<<<<<<< HEAD
     private long startTime;
-=======
     private Timer timer;
->>>>>>> feature-notifications
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,9 +193,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         Log.v("PlayDeckActivity", "Finished");
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
         currentDeck.setPlayedNow();
-<<<<<<< HEAD
         currentDeck.increaseAmountOfTimePlayed((System.currentTimeMillis()-startTime));
-=======
         startTimeToNotify();
 
 
@@ -219,7 +214,6 @@ public class PlayDeckActivity extends AppCompatActivity {
         notificationManager.notify(1, notificationBuilder.build());
 
 
->>>>>>> feature-notifications
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
