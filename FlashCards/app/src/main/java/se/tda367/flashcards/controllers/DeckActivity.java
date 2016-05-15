@@ -243,5 +243,10 @@ public class DeckActivity extends AppCompatActivity {
         DeckActivity.this.startActivityForResult(intentMain, 0);
 
     }
+    public void shareDeck(View v){
+        Intent intent = new Intent(DeckActivity.this ,
+                ShareDeckActivity.class);
+        DeckActivity.this.startActivityForResult(intent, 0);
+    }
 
 }
