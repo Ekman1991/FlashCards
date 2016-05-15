@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+
 import java.util.ArrayList;
 
 import se.tda367.flashcards.CardFactory;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView lv;
     protected ArrayList<Deck> your_array_list;
+
     CardFactory factory = new CardFactory();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView);
+
+
+
+
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -64,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
+
+
     }
+
+
 
     public void checkIfAllDecksPlayed(){
         for (Deck d : your_array_list) {

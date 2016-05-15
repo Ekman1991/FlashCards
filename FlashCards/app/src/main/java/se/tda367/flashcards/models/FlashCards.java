@@ -28,6 +28,10 @@ public class FlashCards {
 
     }
 
+    public int getSize(){
+        return arrayOfDecks.size();
+    }
+
     public Deck getCurrentDeck() {
 
         //Update the current deck
