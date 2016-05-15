@@ -53,6 +53,9 @@ public class JsonConverter {
         }
         return "null";
     }
+    public String toUri(String url){
+        return "flashcards://"+url;
+    }
     public String fromURL(String url){
         try {
             String decodedUrl = URLDecoder.decode(url, "UTF-8");
