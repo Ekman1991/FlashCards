@@ -1,12 +1,20 @@
 package se.tda367.flashcards.controllers;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import se.tda367.flashcards.OnSwipeTouchListener;
 import se.tda367.flashcards.R;
@@ -21,6 +29,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Card currentCard;
     private TextView textView;
     private int mode;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,29 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         }
     }
+
+    public void notification (){
+        //start of a notification
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("Time for you to play" + currentDeck)
+                .setContentText("It's scheduldge that you learn best if you play this Deck now")
+                .setAutoCancel(true)
+                .setColor(Color.BLUE);
+
+        //start program when active
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+
+        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(content);
+
+        // Add a notification
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notificationBuilder.build());
+        //end of a notificaiton
+    }
+
     public void selectMode(int amount){
         if(amount == 0){
             backButton(findViewById(R.id.background));
@@ -159,6 +191,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         Log.v("PlayDeckActivity", "Finished");
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
         currentDeck.setPlayedNow();
+        startTimeToNotify();
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
@@ -167,6 +200,70 @@ public class PlayDeckActivity extends AppCompatActivity {
         Intent intentMain = new Intent(PlayDeckActivity.this ,
                 DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentMain, 0);
+
+    }
+
+    public void startTimeToNotify(){
+        int hard = 0;
+
+        for (Card c : currentDeck.getList()) {
+            if (c.getDifficulty() == 0) {
+                hard = hard + 2;
+            } else if (c.getDifficulty() == 1) {
+                hard = hard + 1;
+            } else {
+                hard = hard + 0;
+            }
+        }
+        timer = new Timer();
+
+
+        if (currentDeck.getList().size() >= 3){
+            if (hard >= 2*currentDeck.getList().size()-2) {
+                    TimerTask t = new TimerTask() {
+                        @Override
+                        public void run() {
+
+                        }
+                };
+                //notification in 1 day
+                timer.schedule (t, 0l, 1000*60*60*24);
+            }
+            else if (hard >= currentDeck.getList().size()-2) {
+                TimerTask t = new TimerTask () {
+                    @Override
+                    public void run () {
+                        notification();
+                    }
+                };
+                //notification in 3 days
+                timer.schedule (t, 0l, 1000*60*60*24*3);
+            }
+            else {
+                TimerTask t = new TimerTask () {
+                    @Override
+                    public void run () {
+                        notification();
+                    }
+                };
+                //notification in 7 days
+                timer.schedule (t, 0l, 1000*60*60*24*7);
+            }
+
+        }
+
+        else {
+            TimerTask t = new TimerTask () {
+                @Override
+                public void run () {
+                    notification();
+                }
+            };
+            //notification in 5 days
+            timer.schedule (t, 0l, 1000*60*60*24*5);
+        }
+
+
 
     }
 
