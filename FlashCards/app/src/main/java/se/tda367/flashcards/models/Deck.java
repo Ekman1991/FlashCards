@@ -1,9 +1,20 @@
 package se.tda367.flashcards.models;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.app.NotificationCompat;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import se.tda367.flashcards.Calender;
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.controllers.MainActivity;
 
 /**
  * Created by ZlatanH on 2016-04-19.
@@ -17,6 +28,8 @@ public class Deck{
 
     private long made;
     private long playedSince;
+
+    private Timer timer;
 
 
     private int nbrOfTimesPlayed;
@@ -152,10 +165,11 @@ public class Deck{
         this.counter = counter;
     }
 
-
     public int getCounter(){
         return this.counter;
     }
+
+
 
 
     public Card getNextCard() {
