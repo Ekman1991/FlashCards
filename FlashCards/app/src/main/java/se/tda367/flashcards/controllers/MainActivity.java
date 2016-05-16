@@ -31,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
     private final int OPEN_CREATE_DECK = 1;
     private String[] Spinner;
+    private Spinner spinner;
 
 
     private ListView lv;
-    protected ArrayList<Deck> your_array_list;
+    private ArrayList<Deck> your_array_list;
     CardFactory factory = new CardFactory();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         this.Spinner = new String[] {
+                "Oldest",
                 "Leasts numbers of cards",
                 "Most numbers of cards",
                 "Name",
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 "Longest time played since",
                 "Shortest time played since"
         };
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, this.Spinner);
         spinner.setAdapter(adapter);
@@ -91,24 +95,25 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String itemSelected = parentView.getItemAtPosition(position).toString();
                 if (your_array_list.size() != 0) {
+                    ArrayList<Deck> your_new_array_list = new ArrayList<Deck>();
 
                     if (itemSelected.equals("Leasts numbers of cards")) {
-                        for (int i = 0; i < your_array_list.size(); i++) {
-                            for (Deck d : your_array_list) {
-                                if (d.getSize() < your_array_list.get(i).getSize() + 1)
-                                    your_array_list.add(i, d);
+                        for (Deck d : your_array_list) {
+                            for (int i = 0; i < your_array_list.size(); i++) {
+                                if (d.getSize() < your_array_list.get(i).getSize())
+                                    your_new_array_list.add(i, d);
+                                    your_array_list = your_new_array_list;
                             }
                         }
-                    } else if (itemSelected == "Most numbers of cards") {
+                    } else if (itemSelected.equals("Most numbers of cards")) {
                         for (int i = 0; i < your_array_list.size(); i++) {
                             for (Deck d : your_array_list) {
                                 if (d.getSize() > your_array_list.get(i).getSize())
-                                    your_array_list.add(i, d);
+                                    your_new_array_list.add(i, d);
                             }
                         }
-
-
                     }
+
                 }
             }
 
