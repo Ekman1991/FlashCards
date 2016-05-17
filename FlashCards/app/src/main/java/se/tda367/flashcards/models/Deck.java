@@ -193,7 +193,27 @@ public class Deck extends AppCompatActivity{
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Deck deck = (Deck) o;
+
+        if (name != null ? !name.equals(deck.name) : deck.name != null) return false;
+        if (description != null ? !description.equals(deck.description) : deck.description != null)
+            return false;
+        return list != null ? list.equals(deck.list) : deck.list == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (list != null ? list.hashCode() : 0);
+        return result;
+    }
 
     public Card getNextCard() {
 
