@@ -38,12 +38,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
 
 
     private ListView lv;
-<<<<<<< HEAD
-    protected ArrayList<Deck> your_array_list;
 
-=======
     private ArrayList<Deck> your_array_list;
->>>>>>> feature-sortDecks
     CardFactory factory = new CardFactory();
 
 
@@ -84,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             }
         });
 
-<<<<<<< HEAD
-
-=======
         this.Spinner = new String[] {
                 "Oldest",
                 "Leasts numbers of cards",
@@ -211,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             }
 
         });
->>>>>>> feature-sortDecks
+
     }
 
 

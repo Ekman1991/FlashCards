@@ -47,10 +47,7 @@
         android:layout_width="600px"
         android:layout_height="800px"
         android:id="@+id/listView"
-<<<<<<< HEAD
-=======
         android:layout_centerVertical="true"
->>>>>>> feature-sortDecks
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
