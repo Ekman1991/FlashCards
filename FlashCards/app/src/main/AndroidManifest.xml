@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.CreateDeckActivity"></activity>
+        <activity android:name=".controllers.CreateDeckActivity"/>
         <activity android:name=".controllers.PlayDeckActivity" />
         <activity android:name=".controllers.DeckActivity" />
         <activity android:name=".controllers.CreateCardActivity" />
