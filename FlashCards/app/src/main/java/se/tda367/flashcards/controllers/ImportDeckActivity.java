@@ -20,6 +20,7 @@ public class ImportDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_import_deck);
 
         Intent intent = getIntent();
+        //removes the app custom uri scheme from the link so that only the actual url remains
         String url = intent.getDataString().substring(13);
         Singleton.getInstance().getFlashCards().setUrl(url);
         importDeck(url);
