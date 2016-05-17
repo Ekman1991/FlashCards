@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
 
 
 
-
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
         // array as a third parameter.
@@ -249,6 +248,9 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
 
         //noinspection SimplifiableIfStatement
         switch (id) {
+            case (R.id.action_help):
+                Intent intentHelp = new Intent(this, HelpActivity.class);
+                this.startActivity(intentHelp);
             case (R.id.action_statistics):
                 Intent intent = new Intent(this, StatisticsActivity.class);
                 this.startActivity(intent);
