@@ -18,7 +18,7 @@ public class HelpActivity extends AppCompatActivity {
     private TextView helpView3;
     private Button buttonNext;
     private Button buttonBack;
-
+    private TextView textHelp;
 
 
     @Override
@@ -31,12 +31,14 @@ public class HelpActivity extends AppCompatActivity {
         helpView3 = (TextView) findViewById(R.id.helpView3);
         buttonNext = (Button) findViewById(R.id.next);
         buttonBack = (Button) findViewById(R.id.back);
+        textHelp = (TextView) findViewById(R.id.textHelp);
 
         buttonBack.setEnabled(false);
         buttonNext.setEnabled(true);
         helpView1.setVisibility(View.VISIBLE);
         helpView2.setVisibility(View.GONE);
         helpView3.setVisibility(View.GONE);
+        textHelp.setVisibility(View.VISIBLE);
 
 
     }
@@ -47,6 +49,7 @@ public class HelpActivity extends AppCompatActivity {
             helpView2.setVisibility(View.VISIBLE);
             helpView3.setVisibility(View.GONE);
             buttonBack.setEnabled(true);
+            textHelp.setVisibility(View.GONE);
         }
         else if (helpView2.getVisibility() == View.VISIBLE){
             helpView1.setVisibility(View.GONE);
@@ -69,6 +72,7 @@ public class HelpActivity extends AppCompatActivity {
             helpView2.setVisibility(View.GONE);
             helpView3.setVisibility(View.GONE);
             buttonBack.setEnabled(false);
+            textHelp.setVisibility(View.VISIBLE);
         }
 
     }
@@ -88,6 +92,7 @@ public class HelpActivity extends AppCompatActivity {
                     helpView2.setVisibility(View.VISIBLE);
                     helpView3.setVisibility(View.GONE);
                     buttonBack.setEnabled(true);
+                    textHelp.setVisibility(View.GONE);
                 }
                 else if (helpView2.getVisibility() == View.VISIBLE){
                     helpView1.setVisibility(View.GONE);
@@ -110,6 +115,7 @@ public class HelpActivity extends AppCompatActivity {
                     helpView2.setVisibility(View.GONE);
                     helpView3.setVisibility(View.GONE);
                     buttonBack.setEnabled(false);
+                    textHelp.setVisibility(View.VISIBLE);
                 }
             }
 
