@@ -1,12 +1,18 @@
 package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import se.tda367.flashcards.OnSwipeTouchListener;
 import se.tda367.flashcards.R;
@@ -84,6 +90,37 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         }
     }
+
+    public void playSound(View v){
+        try {
+            // create temp file that will hold byte array
+            File tempMp3 = File.createTempFile("kurchina", "mp3", getCacheDir());
+            tempMp3.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(tempMp3);
+            fos.write(currentCard.getAudioByte());
+            fos.close();
+
+            // Tried reusing instance of media player
+            // but that resulted in system crashes...
+            MediaPlayer mediaPlayer = new MediaPlayer();
+
+            // Tried passing path directly, but kept getting
+            // "Prepare failed.: status=0x1"
+            // so using file descriptor instead
+            FileInputStream fis = new FileInputStream(tempMp3);
+            mediaPlayer.setDataSource(fis.getFD());
+
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "No audio sorry",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void selectMode(int amount){
         if(amount == 0){
             backButton(findViewById(R.id.background));

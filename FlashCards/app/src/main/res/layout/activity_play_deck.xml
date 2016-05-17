@@ -83,4 +83,13 @@
             android:onClick="setDiff" />
     </RadioGroup>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Sound"
+        android:id="@+id/playSound"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="playSound" />
+
 </RelativeLayout>
