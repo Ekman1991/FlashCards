@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Deck realDeck;
     private Card currentCard;
     private EditText textView;
+    private EditText editText;
     private int mode;
     private long startTime;
     private Timer timer;
@@ -52,6 +55,13 @@ public class PlayDeckActivity extends AppCompatActivity {
         textView = (EditText) findViewById(R.id.textView);
         textView.setText(currentCard.getQuestion());
         textView.setFocusable(false);
+
+        editText = (EditText)findViewById(R.id.editText);
+        editText.setText(currentCard.getAnswer());
+        editText.setFocusable(false);
+        editText.setVisibility(View.GONE);
+
+        textChanged();
 
 
         showQuestion = true;
@@ -348,6 +358,31 @@ public class PlayDeckActivity extends AppCompatActivity {
         textView.setFocusableInTouchMode(true);
         textView.requestFocus();
 
+    }
+    public void textChanged(){
+       /* textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(showQuestion) {
+                    currentCard.setQuestion(textView.getText().toString());
+                }
+                if(!showQuestion){
+                    currentCard.setAnswer(textView.getText().toString());
+                }
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+
+            }
+        });*/
     }
 
 }
