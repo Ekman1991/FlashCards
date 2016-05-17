@@ -87,6 +87,9 @@ public class PlayDeckActivity extends AppCompatActivity {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
                         textView.setText(currentCard.getQuestion());
+                        textView.setVisibility(View.VISIBLE);
+                        editText.setText(currentCard.getAnswer());
+                        editText.setVisibility(View.GONE);
                         setRadioGraphic();
                     }
                 }
@@ -101,9 +104,13 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
+            textView.setVisibility(View.VISIBLE);
+            editText.setVisibility(View.INVISIBLE);
             showQuestion = true;
         } else {
-            textView.setText(currentCard.getAnswer());
+            editText.setText(currentCard.getAnswer());
+            editText.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
             showQuestion = false;
 
         }
