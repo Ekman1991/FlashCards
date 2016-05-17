@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private Deck realDeck;
     private Card currentCard;
-    private TextView textView;
+    private EditText textView;
     private int mode;
     private long startTime;
     private Timer timer;
@@ -48,8 +49,9 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentCard = currentDeck.getNextCard();
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = (EditText) findViewById(R.id.textView);
         textView.setText(currentCard.getQuestion());
+        textView.setFocusable(false);
 
 
         showQuestion = true;
@@ -338,6 +340,14 @@ public class PlayDeckActivity extends AppCompatActivity {
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
         }
+    }
+    public void editCard(View v){
+        TextView textView = (TextView)findViewById(R.id.textView);
+        textView.clearFocus();
+        textView.setFocusable(true);
+        textView.setFocusableInTouchMode(true);
+        textView.requestFocus();
+
     }
 
 }

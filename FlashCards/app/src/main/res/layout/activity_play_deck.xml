@@ -8,22 +8,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".controllers.PlayDeckActivity"
-    android:id="@+id/background">
+    android:id="@+id/background"><![CDATA[
 
     tools:context="se.tda367.flashcards.PlayDeckActivity"
     android:id="@+id/background"
     android:background="#fdfefc">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="105dp" />
+    ]]>
 
     <Button
         android:layout_width="wrap_content"
@@ -52,7 +44,6 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="198dp"
-        android:layout_below="@+id/textView"
         android:layout_toRightOf="@+id/button3"
         android:layout_toEndOf="@+id/button3">
 
@@ -82,5 +73,30 @@
             android:checked="false"
             android:onClick="setDiff" />
     </RadioGroup>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:id="@+id/button9"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/flip_button"
+        android:onClick="editCard" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="105dp"
+        android:editable="true"
+        android:enabled="true"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
 </RelativeLayout>
