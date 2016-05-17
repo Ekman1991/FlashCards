@@ -14,12 +14,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
@@ -27,7 +30,7 @@ import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Comparator<Deck> {
     public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
     private final int OPEN_CREATE_DECK = 1;
     private String[] Spinner;
@@ -78,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 "Most numbers of cards",
                 "Name",
                 "Newest",
-                "Oldest",
                 "Most often played",
                 "Least often played",
                 "Longest time played since",
@@ -102,18 +104,92 @@ public class MainActivity extends AppCompatActivity {
                             for (int i = 0; i < your_array_list.size(); i++) {
                                 if (d.getSize() < your_array_list.get(i).getSize())
                                     your_new_array_list.add(i, d);
-                                    your_array_list = your_new_array_list;
+
                             }
                         }
-                    } else if (itemSelected.equals("Most numbers of cards")) {
+                        your_array_list = your_new_array_list;
+
+                    }
+                    else if (itemSelected.equals("Most numbers of cards")) {
                         for (int i = 0; i < your_array_list.size(); i++) {
                             for (Deck d : your_array_list) {
-                                if (d.getSize() > your_array_list.get(i).getSize())
+                                if (d.getSize() > your_array_list.get(i+1).getSize())
                                     your_new_array_list.add(i, d);
                             }
                         }
+                        your_array_list = your_new_array_list;
                     }
 
+                    else if (itemSelected.equals("Most often played")){
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getNbrOfTimesPlayed() < your_array_list.get(i).getNbrOfTimesPlayed())
+                                    your_new_array_list.add(i, d);
+                            }
+                        }
+                        your_array_list = your_new_array_list;
+
+                    }
+
+
+                    else if (itemSelected.equals("Name")){
+                        Collections.sort(your_array_list, new Comparator<Deck>() {
+                            public int compare(Deck deck, Deck deck2) {
+                                return deck.getName().compareTo(deck2.getName());
+                            }
+                        });
+
+                    }
+
+                    else if (itemSelected.equals("Newest")){
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getMade() > your_array_list.get(i).getMade())
+                                    your_new_array_list.add(i, d);
+                            }
+                        }
+                        your_array_list = your_new_array_list;
+
+                    }
+
+
+                    else if (itemSelected.equals("Least often played")){
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getNbrOfTimesPlayed() > your_array_list.get(i).getNbrOfTimesPlayed())
+                                    your_new_array_list.add(i, d);
+                            }
+                        }
+                        your_array_list = your_new_array_list;
+
+                    }
+
+
+                    else if (itemSelected.equals("Longest time played since")){
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getPlayedSince() < your_array_list.get(i).getPlayedSince())
+                                    your_new_array_list.add(i, d);
+                            }
+                        }
+                        your_array_list = your_new_array_list;
+
+                    }
+
+
+
+                    else if (itemSelected.equals("Shortest time played since")){
+                        for (int i = 0; i < your_array_list.size(); i++) {
+                            for (Deck d : your_array_list) {
+                                if (d.getPlayedSince() > your_array_list.get(i).getPlayedSince())
+                                    your_new_array_list.add(i, d);
+                            }
+                        }
+                        your_array_list = your_new_array_list;
+                        recreate();
+
+
+                    }
                 }
             }
 
@@ -181,4 +257,8 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivityForResult(intentMain, OPEN_CREATE_DECK);
     }
 
+    @Override
+    public int compare(Deck deck, Deck t1) {
+        return deck.getName().compareTo(t1.getName());
+    }
 }
