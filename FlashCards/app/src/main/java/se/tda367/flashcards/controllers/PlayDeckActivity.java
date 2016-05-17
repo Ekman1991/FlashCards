@@ -359,15 +359,18 @@ public class PlayDeckActivity extends AppCompatActivity {
         }
     }
     public void editCard(View v){
-        TextView textView = (TextView)findViewById(R.id.textView);
         textView.clearFocus();
         textView.setFocusable(true);
         textView.setFocusableInTouchMode(true);
         textView.requestFocus();
 
+        editText.clearFocus();
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
     }
     public void textChanged(){
-       /* textView.addTextChangedListener(new TextWatcher() {
+        textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -383,13 +386,30 @@ public class PlayDeckActivity extends AppCompatActivity {
                 if(showQuestion) {
                     currentCard.setQuestion(textView.getText().toString());
                 }
-                if(!showQuestion){
-                    currentCard.setAnswer(textView.getText().toString());
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!showQuestion) {
+                    currentCard.setAnswer(editText.getText().toString());
                 }
                 Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
 
             }
-        });*/
+        });
     }
 
 }
