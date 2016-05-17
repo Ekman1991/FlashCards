@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -42,7 +43,8 @@ public class ImportCardsActivity extends AppCompatActivity {
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),"No cards found", Toast.LENGTH_SHORT).show();
         }
 
         Intent intentMain = new Intent(ImportCardsActivity.this ,
