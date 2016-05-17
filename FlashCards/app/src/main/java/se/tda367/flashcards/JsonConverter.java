@@ -18,7 +18,7 @@ import se.tda367.flashcards.models.Deck;
 public class JsonConverter extends AppCompatActivity {
     JSONObject writer = new JSONObject();
 
-    //Github hatar mig, testar en grej
+
     public JsonConverter(){
 
     }
