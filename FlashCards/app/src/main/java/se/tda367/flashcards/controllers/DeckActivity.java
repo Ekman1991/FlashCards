@@ -222,27 +222,7 @@ public class DeckActivity extends AppCompatActivity {
             }
         });
     }
-    public void importCards(View v){
-        JsonConverter jc = new JsonConverter();
-        Deck deck = currentDeck;
-        String url = Singleton.getInstance().getFlashCards().getUrl();
-        JSONObject object = jc.toJson(jc.fromURL(url));
-        try {
-            for(int i = 0; i<(object.length()-2)/2; i++) {
-                Card tmp = new Card(object.getString(i + "question"), object.getString(i + "answer"));
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(tmp, deck);
-                deck.addCard(tmp);
-            }
 
-        }
-        catch(Exception e){
-
-        }
-        Intent intentMain = new Intent(DeckActivity.this ,
-                MainActivity.class);
-        DeckActivity.this.startActivityForResult(intentMain, 0);
-
-    }
     public void shareDeck(View v){
         Intent intent = new Intent(DeckActivity.this ,
                 ShareDeckActivity.class);
