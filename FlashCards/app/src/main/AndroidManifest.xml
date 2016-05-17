@@ -22,16 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.CreateDeckActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="flashcards" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".controllers.CreateDeckActivity"></activity>
         <activity android:name=".controllers.PlayDeckActivity" />
         <activity android:name=".controllers.DeckActivity" />
         <activity android:name=".controllers.CreateCardActivity" />
@@ -42,7 +33,18 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".controllers.AudioActivityReal" />
-        <activity android:name=".controllers.ShareDeckActivity"></activity>
+        <activity android:name=".controllers.ShareDeckActivity" />
+        <activity android:name=".controllers.ImportDeckActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="flashcards" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controllers.ImportCardsActivity"></activity>
     </application>
 
 </manifest>

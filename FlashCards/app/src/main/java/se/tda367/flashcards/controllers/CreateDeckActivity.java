@@ -29,26 +29,9 @@ public class CreateDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createdeck);
         deckName = (TextView) findViewById(R.id.createDeckTextField);
-        Intent intent = getIntent();
-        String url = intent.getDataString().substring(13);
-        Singleton.getInstance().getFlashCards().setUrl(url);
-        importDeck(url);
-    }
-    public void importDeck(String url){
-        deckName = (TextView) findViewById(R.id.createDeckTextField);
-        JsonConverter jc = new JsonConverter();
-        JSONObject object = jc.toJson(jc.fromURL(url));
-        Deck deck = new Deck(object);
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
-
-
-        Intent intentMain = new Intent(CreateDeckActivity.this ,
-                MainActivity.class);
-        CreateDeckActivity.this.startActivityForResult(intentMain, 0);
-       /* EditText edit = (EditText)findViewById(R.id.createDeckTextField);
-        edit.setText(url);*/
 
     }
+
 
 
     public void saveTheDeck (View v) {
