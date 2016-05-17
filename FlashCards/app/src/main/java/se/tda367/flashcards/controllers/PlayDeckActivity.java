@@ -59,6 +59,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     }
     //enables swipe left inside the playDeck menu
+    //wont ever give an exception
     public void activateSwipe(){
         final View background = findViewById(R.id.background);
 
