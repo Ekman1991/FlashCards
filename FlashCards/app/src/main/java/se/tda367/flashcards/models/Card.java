@@ -11,6 +11,26 @@ public class Card extends AppCompatActivity {
     private int id;
     private int difficulty;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (question != null ? !question.equals(card.question) : card.question != null)
+            return false;
+        return answer != null ? answer.equals(card.answer) : card.answer == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = question != null ? question.hashCode() : 0;
+        result = 31 * result + (answer != null ? answer.hashCode() : 0);
+        return result;
+    }
+
     public Card() {
         this.question = "";
         this.answer = "";
