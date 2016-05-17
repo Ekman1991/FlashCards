@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.CreateDeckActivity"/>
+        <activity android:name=".controllers.CreateDeckActivity" />
         <activity android:name=".controllers.PlayDeckActivity" />
         <activity android:name=".controllers.DeckActivity" />
         <activity android:name=".controllers.CreateCardActivity" />
@@ -32,10 +32,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
-        <activity android:name=".controllers.AudioActivityReal"></activity>
-        <activity android:name=".controllers.StatisticsActivity"></activity>
-
+        <activity android:name=".controllers.AudioActivityReal" />
+        <activity android:name=".controllers.StatisticsActivity" />
         <activity android:name=".controllers.ShareDeckActivity" />
         <activity android:name=".controllers.ImportDeckActivity">
             <intent-filter>
@@ -52,6 +50,7 @@
                 <action android:name="android.intent.action.SENDTO" />
             </intent-filter>
         </activity>
+        <activity android:name=".controllers.HelpActivity"></activity>
     </application>
 
 </manifest>
