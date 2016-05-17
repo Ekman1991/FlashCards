@@ -1,11 +1,16 @@
 package se.tda367.flashcards.models;
 
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,13 +18,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import se.tda367.flashcards.Calender;
+
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.controllers.MainActivity;
+
+import se.tda367.flashcards.Singleton;
+
 
 /**
  * Created by ZlatanH on 2016-04-19.
  */
-public class Deck{
+public class Deck extends AppCompatActivity{
     private int id;
     private String name;
     private String description;
@@ -68,6 +77,20 @@ public class Deck{
         this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
         this.playedSince = deck.getPlayedSince();
         this.made = deck.getMade();
+    }
+    public Deck(JSONObject object){
+        try {
+            this.name = object.getString("name");
+            this.made = object.getLong("made");
+            this.list = new ArrayList<Card>();
+            this.playedSince = -1;
+            this.counter = 0;
+            this.nbrOfTimesPlayed = 0;
+
+        }
+        catch(Exception e){
+
+        }
     }
     public boolean hasNext(){
         return counter<list.size();

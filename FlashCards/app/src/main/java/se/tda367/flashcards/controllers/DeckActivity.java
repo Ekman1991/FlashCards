@@ -15,9 +15,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import se.tda367.flashcards.Calender;
+import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 import java.text.SimpleDateFormat;
@@ -218,6 +222,12 @@ public class DeckActivity extends AppCompatActivity {
                 else Singleton.getInstance().getFlashCards().setAmount(0);
             }
         });
+    }
+
+    public void shareDeck(View v){
+        Intent intent = new Intent(DeckActivity.this ,
+                ShareDeckActivity.class);
+        DeckActivity.this.startActivityForResult(intent, 0);
     }
 
 }
