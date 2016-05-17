@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
@@ -32,5 +33,18 @@ public class ShareDeckActivity extends AppCompatActivity {
     public void backButton(View v){
         Intent intent = new Intent(ShareDeckActivity.this, DeckActivity.class);
         ShareDeckActivity.this.startActivityForResult(intent, 0);
+    }
+    public void sendEmailButton(View v){
+        EditText uri = (EditText)findViewById(R.id.uriText);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Flash Cards Deck URL");
+        i.putExtra(Intent.EXTRA_TEXT   , uri.getText().toString());
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(ShareDeckActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

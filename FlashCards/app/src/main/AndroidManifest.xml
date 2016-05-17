@@ -44,7 +44,11 @@
                 <data android:scheme="flashcards" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.ImportCardsActivity"></activity>
+        <activity android:name=".controllers.ImportCardsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
