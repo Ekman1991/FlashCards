@@ -39,6 +39,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Timer timer;
     private boolean editMode = false;
     private Button delButton;
+    private boolean cardDeleted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,10 +248,15 @@ public class PlayDeckActivity extends AppCompatActivity {
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
         Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
-
-        Intent intentMain = new Intent(PlayDeckActivity.this ,
-                DeckActivity.class);
-        PlayDeckActivity.this.startActivityForResult(intentMain, 0);
+        if(cardDeleted){
+            Intent intentMain = new Intent(PlayDeckActivity.this, MainActivity.class);
+            startActivityForResult(intentMain, 0);
+        }
+        else {
+            Intent intentMain = new Intent(PlayDeckActivity.this,
+                    DeckActivity.class);
+            PlayDeckActivity.this.startActivityForResult(intentMain, 0);
+        }
 
     }
 
@@ -328,8 +334,15 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
-        Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
-        PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
+        if(cardDeleted){
+            Intent intentMain = new Intent(PlayDeckActivity.this, MainActivity.class);
+            startActivityForResult(intentMain, 0);
+        }
+        else {
+            Intent intentMain = new Intent(PlayDeckActivity.this,
+                    DeckActivity.class);
+            PlayDeckActivity.this.startActivityForResult(intentMain, 0);
+        }
     }
 
     public void setRadioGraphic(){
@@ -446,6 +459,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     }
     public void removeCard(View v){
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
+        cardDeleted = true;
+
         if (currentDeck.hasNext()) {
             currentCard = currentDeck.getNextCard();
             showQuestion = true;
