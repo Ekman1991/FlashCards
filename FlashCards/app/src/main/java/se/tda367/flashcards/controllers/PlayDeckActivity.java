@@ -317,11 +317,20 @@ public class PlayDeckActivity extends AppCompatActivity {
             tmp.setChecked(true);
         }
     }
+    //TODO Rethink implementations added to support statistics
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
+        //TODO this
+        if (currentCard.isFirstTimePlayed()) {
+            currentDeck.decreaseCardDifficultyAmount(currentCard.getDifficulty());
+            currentCard.setPlayed(true);
+        }
+
         switch(view.getId()) {
             case R.id.easyButton:
                 if (isChecked)
+                    currentDeck.increaseCardDifficultyAmount(0);
+                    //TODO and these
                     currentCard.setDifficulty(0);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
