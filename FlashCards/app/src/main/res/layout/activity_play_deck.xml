@@ -64,6 +64,14 @@
             android:checked="false"
             android:onClick="setDiff" />
 
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard"
+            android:id="@+id/hardButton"
+            android:checked="false"
+            android:onClick="setDiff" />
+
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
@@ -73,14 +81,6 @@
             android:layout_gravity="center_vertical"
             android:onClick="removeCard" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hard"
-            android:id="@+id/hardButton"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:onClick="setDiff" />
     </RadioGroup>
 
     <Button
