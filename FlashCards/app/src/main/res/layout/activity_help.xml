@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="se.tda367.flashcards.controllers.HelpActivity"
+    android:onClick="backClick"
+    android:id="@+id/background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HELP"
+        android:id="@+id/textHelp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BACK"
+        android:id="@+id/back"
+        android:onClick="backClick"
+        android:layout_above="@+id/meny"
+        android:layout_toLeftOf="@+id/meny"
+        android:layout_toStartOf="@+id/meny" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MENY"
+        android:id="@+id/meny"
+        android:onClick="menyClick"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/next"
+        android:onClick="nextClick"
+        android:layout_above="@+id/meny"
+        android:layout_toRightOf="@+id/meny"
+        android:layout_toEndOf="@+id/meny" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="
+        Flash Cards are a tool that you can use when you study
+        instead of cutting papers and writing on them. You now
+        don't to keep controll of as many different cards as stuff
+        that you are trying to learn. Now you can just start
+        you new best studybuddyapp.
+        "
+        android:id="@+id/helpView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textHelp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="To get the app to help you study all
+        you have to do is add a deck. If you want to make the deck
+        yourself. Press the + button on your screen and add the Name of the app.
+        Now you can just add your questions and answers to the deck if you
+        press the + sign while your in the deck. You can also get an deck
+        to this app if someone shares their decklink with you."
+        android:id="@+id/helpView2"
+        android:layout_alignRight="@+id/helpView1"
+        android:layout_alignEnd="@+id/helpView1"
+        android:layout_alignTop="@+id/helpView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/helpView1" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="You can also add pictures from you album and camera         to your deck and even audio. All you have to do to get this is to         add them with the buttons in the Make A Card View.         To play and the just go in to the deck and start playing and you will         see the question first and answer when you flip the card. Then you can         swipe right to get to the next card. Good luck with your studying!"
+        android:id="@+id/helpView3"
+        android:layout_below="@+id/textHelp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/helpView1" />
+</RelativeLayout>

@@ -14,6 +14,8 @@ public class FlashCards {
     private Deck currentDeck;
     private ArrayList<Deck> arrayOfDecks;
     private int mode;
+    private int amount;
+    private String url;
 
     public FlashCards() {
 
@@ -25,6 +27,10 @@ public class FlashCards {
         this.arrayOfDecks = Singleton.getInstance().getDatabaseController(context).getAllDecks();
         return arrayOfDecks;
 
+    }
+
+    public int getSize(){
+        return arrayOfDecks.size();
     }
 
     public Deck getCurrentDeck() {
@@ -46,6 +52,20 @@ public class FlashCards {
 
     public void setCurrentDeck(Deck currentDeck) {
         this.currentDeck = currentDeck;
+    }
+
+    public void setAmount(int amount){
+        this.amount = amount;
+    }
+    public int getAmount(){
+        return this.amount;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+    public String getUrl(){
+        return this.url;
     }
 
 }

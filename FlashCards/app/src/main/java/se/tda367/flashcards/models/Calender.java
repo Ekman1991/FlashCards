@@ -4,7 +4,11 @@ package se.tda367.flashcards.models;
  * Created by Emilia on 2016-04-26.
  */
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Calendar;
+import java.util.TimeZone;
+
 public class Calender extends Calendar{
 
     private static int SECONDSDAY = 24 * 60 * 60;
@@ -17,6 +21,7 @@ public class Calender extends Calendar{
     private long seconds = secondsDay % 60;
     private long minutes = (secondsDay / 60) % 60;
     private long hours = (secondsDay / 3600); // % 24 not needed
+    private long unixSec;
 
     public Calender(){
 
@@ -60,6 +65,15 @@ public class Calender extends Calendar{
     @Override
     public void roll(int i, boolean b) {
 
+    }
+    public static String convertUnix(long unix){
+
+        long unixSec = unix;
+        Date date = new Date(unixSec*1000L);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-1"));
+        String stringSimpleDate = simpleDateFormat.format(date);
+        return stringSimpleDate;
     }
 
     public Calender startDay() {

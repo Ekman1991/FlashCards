@@ -95,6 +95,7 @@
             android:layout_gravity="right"
             android:onClick="delDeck" />
 
+
         <Button
             android:layout_width="wrap_content"
             android:text="@string/start_deck"
@@ -102,6 +103,7 @@
             android:onClick="startDeck"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
+
 
     </RadioGroup>
     <TextView
@@ -137,9 +139,28 @@
         android:layout_alignLeft="@+id/playedSince"
         android:layout_alignStart="@+id/playedSince"
         android:textIsSelectable="true" />
-=======
-        android:onClick="backButton"
+
+    <EditText
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editAmount"
+        android:layout_above="@+id/timesPlayed"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share Deck"
+        android:id="@+id/button7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="shareDeck" />
+
+    android:onClick="backButton"
         android:background="#bc153c" />
 
->>>>>>> feature-notificationsandbuttonsdegrees
+
 </RelativeLayout>

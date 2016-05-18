@@ -1,14 +1,23 @@
 package se.tda367.flashcards.controllers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 public class CreateDeckActivity extends AppCompatActivity {
@@ -20,7 +29,10 @@ public class CreateDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createdeck);
         deckName = (TextView) findViewById(R.id.createDeckTextField);
+
     }
+
+
 
     public void saveTheDeck (View v) {
 
@@ -43,7 +55,7 @@ public class CreateDeckActivity extends AppCompatActivity {
     }
 
     public void cancelSaveDeck(View v) {
-        Log.d("YourTag", "YourOutput");
+      //  Log.d("YourTag", "YourOutput");
         Intent intentMain = new Intent(CreateDeckActivity.this ,
                 MainActivity.class);
         CreateDeckActivity.this.startActivityForResult(intentMain, 0);

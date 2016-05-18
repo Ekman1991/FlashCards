@@ -1,12 +1,32 @@
 package se.tda367.flashcards.models;
 
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import se.tda367.flashcards.R;
+import se.tda367.flashcards.controllers.MainActivity;
+
+import se.tda367.flashcards.Singleton;
+
 
 /**
  * Created by ZlatanH on 2016-04-19.
  */
-public class Deck{
+public class Deck extends AppCompatActivity{
     private int id;
     private String name;
     private String description;
@@ -16,8 +36,12 @@ public class Deck{
     private long made;
     private long playedSince;
 
+    private Timer timer;
+
 
     private int nbrOfTimesPlayed;
+    private int nbrOfCardsPlayed;
+    private double timePlayed;
     private Calender c = new Calender();
 
 
@@ -29,6 +53,8 @@ public class Deck{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
+        this.nbrOfCardsPlayed = 0;
+        this.timePlayed = 0;
     }
 
     public Deck(String name) {
@@ -39,7 +65,30 @@ public class Deck{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
+        this.nbrOfCardsPlayed = 0;
+        this.timePlayed = 0;
+    }
+    public Deck(Deck deck){
+        this.name = deck.getName();
+        this.list = new ArrayList<Card>();
+        this.counter = deck.getCounter();
+        this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
+        this.playedSince = deck.getPlayedSince();
+        this.made = deck.getMade();
+    }
+    public Deck(JSONObject object){
+        try {
+            this.name = object.getString("name");
+            this.made = object.getLong("made");
+            this.list = new ArrayList<Card>();
+            this.playedSince = -1;
+            this.counter = 0;
+            this.nbrOfTimesPlayed = 0;
 
+        }
+        catch(Exception e){
+
+        }
     }
     public boolean hasNext(){
         return counter<list.size();
@@ -59,6 +108,30 @@ public class Deck{
 
     public int getNbrOfTimesPlayed(){
         return this.nbrOfTimesPlayed;
+    }
+
+    public int getNbrOfCardsPlayed() {
+        return this.nbrOfCardsPlayed;
+    }
+
+    public void setNbrOfCardsPlayed(int cardsPlayed) {
+        this.nbrOfCardsPlayed = cardsPlayed;
+    }
+
+    public void increaseNbrOfCardsPlayed() {
+        this.nbrOfCardsPlayed++;
+    }
+
+    public double getAmountOfTimePlayed() {
+        return this.timePlayed;
+    }
+
+    public void setAmountOfTimePlayed(double amountOfTime) {
+        this.timePlayed = amountOfTime;
+    }
+
+    public void increaseAmountOfTimePlayed(long timePlayed) {
+        this.timePlayed += timePlayed;
     }
 
     public void setNbrOfTimesPlayed(int nbrOfTimesPlayed) {
@@ -113,7 +186,32 @@ public class Deck{
         this.counter = counter;
     }
 
+    public int getCounter(){
+        return this.counter;
+    }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Deck deck = (Deck) o;
+
+        if (name != null ? !name.equals(deck.name) : deck.name != null) return false;
+        if (description != null ? !description.equals(deck.description) : deck.description != null)
+            return false;
+        return list != null ? list.equals(deck.list) : deck.list == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (list != null ? list.hashCode() : 0);
+        return result;
+    }
 
     public Card getNextCard() {
 

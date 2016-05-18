@@ -7,15 +7,30 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import se.tda367.flashcards.models.Calender;
+import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import se.tda367.flashcards.models.FlashCards;
+
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -26,6 +41,9 @@ public class DeckActivity extends AppCompatActivity {
     private TextView playedSince;
     private TextView made;
     private TextView timesPlayed;
+    private long unixSec;
+    private String convertedGetPlayedSince;
+    private String convertedGetMade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +75,27 @@ public class DeckActivity extends AppCompatActivity {
             playedSince.setText("PS: Not played yet");
         } else {
             //TODO: Convert unix time to readable date
-            playedSince.setText("PS:" + currentDeck.getPlayedSince());
+            convertedGetPlayedSince = Calender.convertUnix(currentDeck.getPlayedSince());
+            playedSince.setText("PS:" + convertedGetPlayedSince);
         }
+        convertedGetMade = Calender.convertUnix(currentDeck.getMade());
 
         //TODO: Convert unix time to readable date
-        made.setText("Made:" + currentDeck.getMade());
+        made.setText("Made:" + convertedGetMade);
 
         timesPlayed.setText("TP:" + currentDeck.getNbrOfTimesPlayed());
+
+        setAmount(0);
+        addListener();
+
 
 
     }
 
+
+
     public void createCard(View v) {
+
         Intent intentMain = new Intent(DeckActivity.this ,
                 CreateCardActivity.class);
         DeckActivity.this.startActivityForResult(intentMain, 0);
@@ -116,20 +143,91 @@ public class DeckActivity extends AppCompatActivity {
             case R.id.firstButton:
                 if (isChecked)
                     Singleton.getInstance().getFlashCards().setMode(0);
+                setAmount(0);
                 break;
             case R.id.secondButton:
                 if (isChecked)
                     Singleton.getInstance().getFlashCards().setMode(1);
+                setAmount(1);
                 break;
             case R.id.thirdButton:
                 if(isChecked)
                     Singleton.getInstance().getFlashCards().setMode(2);
+                setAmount(2);
                 break;
         }
     }
     public void delDeck(View v){
         backButton(v);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+    }
+    //sets the text for how many cards you can play at most
+    public void setAmount(int i){
+        EditText editAmount = (EditText)findViewById(R.id.editAmount);
+        if(i == 0){
+            editAmount.setText(currentDeck.getSize()+"");
+            Singleton.getInstance().getFlashCards().setAmount(currentDeck.getSize());
+        }
+        if(i == 1){
+            int tmp = 0;
+            for(int j = 0; j<currentDeck.getSize(); j++){
+                if(currentDeck.getList().get(j).getDifficulty()>0){
+                    tmp = tmp + 1;
+                }
+            }
+            editAmount.setText(tmp+"");
+        }
+        if(i == 2){
+            int tmp = 0;
+            int size = currentDeck.getSize();
+            int ez =(int)Math.ceil(0.05*size);
+            int med = (int)Math.ceil(0.35*size);
+            int hard = (int)Math.ceil(0.6*size);
+
+            for(int j = 0; j<size; j++){
+                if(currentDeck.getList().get(j).getDifficulty() == 0 && ez > 0){
+                    tmp = tmp + 1;
+                    ez = ez - 1;
+                }
+                if(currentDeck.getList().get(j).getDifficulty() == 1 && med > 0){
+                    tmp = tmp + 1;
+                    med = med - 1;
+                }
+                if(currentDeck.getList().get(j).getDifficulty() == 2 && hard > 0){
+                    tmp = tmp + 1;
+                    hard = hard - 1;
+                }
+            }
+            editAmount.setText(tmp+"");
+        }
+    }
+    public void addListener(){
+        final EditText editAmount = (EditText)findViewById(R.id.editAmount);
+        editAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!editAmount.getText().toString().equals("")) {
+                    Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s + ""));
+                }
+                else Singleton.getInstance().getFlashCards().setAmount(0);
+            }
+        });
+    }
+
+    public void shareDeck(View v){
+        Intent intent = new Intent(DeckActivity.this ,
+                ShareDeckActivity.class);
+        DeckActivity.this.startActivityForResult(intent, 0);
     }
 
 }

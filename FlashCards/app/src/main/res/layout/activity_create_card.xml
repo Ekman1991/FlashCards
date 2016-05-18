@@ -51,4 +51,49 @@
         android:layout_alignRight="@+id/createCardButton"
         android:layout_alignEnd="@+id/createCardButton"
         android:background="#bc153c" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgPic"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/answerField"
+        android:layout_toEndOf="@+id/answerField"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gallery"
+        android:id="@+id/addPic"
+        android:onClick="onImageGalleryClicked"
+        android:layout_alignTop="@+id/questionField"
+        android:layout_alignRight="@+id/imgPic"
+        android:layout_alignEnd="@+id/imgPic" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:id="@+id/camera"
+        android:layout_below="@+id/questionField"
+        android:layout_alignRight="@+id/addPic"
+        android:layout_alignEnd="@+id/addPic"
+        android:onClick="onCameraClicked" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Audio"
+        android:id="@+id/audio"
+        android:layout_alignTop="@+id/questionField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="audio" />
+
 </RelativeLayout>
