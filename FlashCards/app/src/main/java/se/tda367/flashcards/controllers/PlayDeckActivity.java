@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private int mode;
     private long startTime;
     private Timer timer;
+    private boolean editMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class PlayDeckActivity extends AppCompatActivity {
         editText.setText(currentCard.getAnswer());
         editText.setFocusable(false);
         editText.setVisibility(View.GONE);
+
+
 
         textChanged();
 
@@ -359,15 +363,34 @@ public class PlayDeckActivity extends AppCompatActivity {
         }
     }
     public void editCard(View v){
-        textView.clearFocus();
-        textView.setFocusable(true);
-        textView.setFocusableInTouchMode(true);
-        textView.requestFocus();
+        if(!editMode) {
+            textView.clearFocus();
+            textView.setFocusable(true);
+            textView.setFocusableInTouchMode(true);
+            textView.requestFocus();
 
-        editText.clearFocus();
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
+            editText.clearFocus();
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+
+            editMode = !editMode;
+        }
+        else if(editMode) {
+            textView.setFocusable(false);
+            textView.clearFocus();
+            textView.setFocusableInTouchMode(false);
+
+            editText.setFocusable(false);
+            editText.clearFocus();
+            editText.setFocusableInTouchMode(false);
+
+            //hides the keyboard after clearing focus and making it non focusable so it cannot be edited
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
+            editMode = !editMode;
+        }
     }
     public void textChanged(){
         textView.addTextChangedListener(new TextWatcher() {
