@@ -3,8 +3,6 @@ package se.tda367.flashcards.models;
 import java.util.ArrayList;
 import java.util.Random;
 
-import se.tda367.flashcards.Calender;
-
 /**
  * Created by ZlatanH on 2016-04-19.
  */

@@ -75,6 +75,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
 
         Cursor c = db.rawQuery(selectQuery, null);
 
+        //TODO: Check with FindBugs
         if (c != null)
             c.moveToFirst();
 

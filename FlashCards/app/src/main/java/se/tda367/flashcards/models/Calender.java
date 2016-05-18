@@ -1,10 +1,9 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
 /**
  * Created by Emilia on 2016-04-26.
  */
 
-import java.util.Date;
 import java.util.Calendar;
 public class Calender extends Calendar{
 

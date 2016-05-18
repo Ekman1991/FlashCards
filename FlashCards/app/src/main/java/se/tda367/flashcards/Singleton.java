@@ -10,8 +10,12 @@ import se.tda367.flashcards.services.DatabaseService;
  */
 public class Singleton {
 
+    //TODO: Inte trådsäker
+    //TODO: Rename to ServiceLocator
+
     private static Singleton singleton = null;
-    private FlashCards flashCards;
+    private final FlashCards flashCards;
+    //TODO: Make this final and get rid of context passing
     private DatabaseService dbController;
 
     protected Singleton() {
