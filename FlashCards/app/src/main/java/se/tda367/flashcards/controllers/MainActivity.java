@@ -112,16 +112,20 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                             }
                         }
                         your_array_list = your_new_array_list;
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
 
                     }
                     else if (itemSelected.equals("Most numbers of cards")) {
                         for (int i = 0; i < your_array_list.size(); i++) {
                             for (Deck d : your_array_list) {
-                                if (d.getSize() > your_array_list.get(i+1).getSize())
+                                if (d.getSize() > your_array_list.get(i).getSize())
                                     your_new_array_list.add(i, d);
                             }
                         }
                         your_array_list = your_new_array_list;
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
                     }
 
                     else if (itemSelected.equals("Most often played")){
@@ -132,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                             }
                         }
                         your_array_list = your_new_array_list;
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
 
                     }
 
@@ -142,6 +148,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                                 return deck.getName().compareTo(deck2.getName());
                             }
                         });
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
 
                     }
 
@@ -153,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                             }
                         }
                         your_array_list = your_new_array_list;
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
 
                     }
 
@@ -165,18 +175,23 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                             }
                         }
                         your_array_list = your_new_array_list;
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+
 
                     }
 
 
                     else if (itemSelected.equals("Longest time played since")){
-                        for (int i = 0; i < your_array_list.size(); i++) {
-                            for (Deck d : your_array_list) {
-                                if (d.getPlayedSince() < your_array_list.get(i).getPlayedSince())
-                                    your_new_array_list.add(i, d);
+                        if (your_array_list.size() != 0) {
+                            for (int i = 0; i < your_array_list.size(); i++) {
+                                for (Deck d : your_array_list) {
+                                    if (d.getPlayedSince() < your_array_list.get(i).getPlayedSince())
+                                        your_new_array_list.add(i, d);
+                                }
                             }
+                            your_array_list = your_new_array_list;
+                            ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
                         }
-                        your_array_list = your_new_array_list;
 
                     }
 
@@ -190,12 +205,13 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
                             }
                         }
                         your_array_list = your_new_array_list;
-                        recreate();
+                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
 
 
                     }
                 }
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -203,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             }
 
         });
+
+
 
     }
 
