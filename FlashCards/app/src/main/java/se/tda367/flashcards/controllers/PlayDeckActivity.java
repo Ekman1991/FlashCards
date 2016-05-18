@@ -317,7 +317,6 @@ public class PlayDeckActivity extends AppCompatActivity {
             tmp.setChecked(true);
         }
     }
-
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
         switch(view.getId()) {
@@ -328,11 +327,13 @@ public class PlayDeckActivity extends AppCompatActivity {
                     break;
             case R.id.mediumButton:
                 if (isChecked)
+                    currentDeck.increaseCardDifficultyAmount(1);
                     currentCard.setDifficulty(1);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.hardButton:
                 if(isChecked)
+                    currentDeck.increaseCardDifficultyAmount(2);
                     currentCard.setDifficulty(2);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;

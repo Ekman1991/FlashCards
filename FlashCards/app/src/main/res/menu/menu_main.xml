@@ -12,5 +12,6 @@
         android:id="@+id/action_statistics"
         android:icon="@drawable/ic_statistics_white_24dp"
         android:title="Statistics"
+        android:actionViewClass="android.widget.ImageButton"
         app:showAsAction="always" />
 </menu>

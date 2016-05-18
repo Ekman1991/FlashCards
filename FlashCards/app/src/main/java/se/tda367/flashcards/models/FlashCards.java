@@ -60,4 +60,10 @@ public class FlashCards {
         return this.amount;
     }
 
+    public Boolean hasCurrentDeck() {
+        if (currentDeck == null) {
+            return false;
+        }   else return true;
+    }
+
 }

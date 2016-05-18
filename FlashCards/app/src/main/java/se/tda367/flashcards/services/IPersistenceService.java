@@ -24,6 +24,9 @@ public interface IPersistenceService {
     public static final String DECKS_COLUMN_NBR_OF_TIMES_PLAYED = "times_played";
     public static final String DECKS_COLUMN_CARDS_PLAYED = "cards_done";
     public static final String DECKS_COLUMN_TIME_PLAYED = "average_time";
+    public static final String DECKS_COLUMN_EASY_CARDS = "easy_cards";
+    public static final String DECKS_COLUMN_MEDIUM_CARDS = "medium_cards";
+    public static final String DECKS_COLUMN_HARD_CARDS = "hard_cards";
 
     public static final String CARDS_TABLE_NAME = "cards";
     public static final String CARDS_COLUMN_ID = "id";
@@ -31,6 +34,7 @@ public interface IPersistenceService {
     public static final String CARDS_COLUMN_QUESTION = "question";
     public static final String CARDS_COLUMN_ANSWER = "answer";
     public static final String CARDS_COLUMN_DIFFICULTY = "difficulty";
+    public static final String CARDS_COLUMN_PLAYED = "played";
 
     public static final String DECK_CARD_TABLE_NAME = "deck_cards";
     public static final String DECK_CARD_COLUMN_ID = "id";
@@ -43,12 +47,13 @@ public interface IPersistenceService {
     public static final String CREATE_TABLE_DECK = "CREATE TABLE "
             + DECKS_TABLE_NAME + "(" + DECKS_COLUMN_ID + " INTEGER PRIMARY KEY," + DECKS_COLUMN_NAME
             + " TEXT," + DECKS_COLUMN_DESCRIPTION + " TEXT," + DECKS_COLUMN_PLAYED_SINCE + " INTEGER," + DECKS_COLUMN_NBR_OF_TIMES_PLAYED + " INTEGER," +  DECKS_COLUMN_CREATED_AT
-            + " INTEGER," + DECKS_COLUMN_CARDS_PLAYED + " INTEGER," + DECKS_COLUMN_TIME_PLAYED + " DOUBLE" + ")";
+            + " INTEGER," + DECKS_COLUMN_CARDS_PLAYED + " INTEGER," + DECKS_COLUMN_TIME_PLAYED + " DOUBLE," +
+            DECKS_COLUMN_EASY_CARDS + " INTEGER," + DECKS_COLUMN_MEDIUM_CARDS + " INTEGER," + DECKS_COLUMN_HARD_CARDS + " INTEGER" + ")";
 
     public static final String CREATE_TABLE_CARD = "CREATE TABLE "
             + CARDS_TABLE_NAME + "(" + CARDS_COLUMN_ID + " INTEGER PRIMARY KEY," + CARDS_COLUMN_QUESTION
             + " TEXT," + CARDS_COLUMN_ANSWER + " TEXT," + CARDS_COLUMN_DIFFICULTY + " INTEGER," + CARDS_COLUMN_CREATED_AT
-            + " DATETIME" + ")";
+            + " DATETIME," + CARDS_COLUMN_PLAYED + " BOOLEAN" + ")";
 
     public static final String CREATE_TABLE_DECK_CARDS = "CREATE TABLE "
             + DECK_CARD_TABLE_NAME + "(" + DECK_CARD_COLUMN_ID + " INTEGER PRIMARY KEY,"

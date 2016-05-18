@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 
 import se.tda367.flashcards.CardFactory;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView lv;
     protected ArrayList<Deck> your_array_list;
+    private MenuItem statistics;
 
     CardFactory factory = new CardFactory();
     @Override
@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView);
-
-
 
 
 
@@ -71,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,2);
             }
         });
-
-
     }
 
 
@@ -105,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        statistics = menu.findItem(R.id.action_statistics);
+        if (Singleton.getInstance().getFlashCards().hasCurrentDeck() == false) {
+            statistics.setVisible(false);
+        }   else {
+            statistics.setVisible(true);
+        }
         return true;
     }
 

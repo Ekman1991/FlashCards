@@ -25,6 +25,9 @@ public class Deck{
     private String description;
     private ArrayList<Card> list;
     private int counter;
+    private int easyCards;
+    private int mediumCards;
+    private int hardCards;
 
     private long made;
     private long playedSince;
@@ -48,6 +51,9 @@ public class Deck{
         this.made = System.currentTimeMillis() / 1000L;
         this.nbrOfCardsPlayed = 0;
         this.timePlayed = 0;
+        this.easyCards = 0;
+        this.mediumCards = 0;
+        this.hardCards = 0;
     }
 
     public Deck(String name) {
@@ -60,6 +66,9 @@ public class Deck{
         this.made = System.currentTimeMillis() / 1000L;
         this.nbrOfCardsPlayed = 0;
         this.timePlayed = 0;
+        this.easyCards = 0;
+        this.mediumCards = 0;
+        this.hardCards = 0;
     }
     public Deck(Deck deck){
         this.name = deck.getName();
@@ -68,6 +77,11 @@ public class Deck{
         this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
         this.playedSince = deck.getPlayedSince();
         this.made = deck.getMade();
+        this.nbrOfCardsPlayed = deck.getNbrOfCardsPlayed();
+        this.timePlayed = deck.getAmountOfTimePlayed();
+        this.easyCards = deck.getAmountOfCardsWithDifficulty(0);
+        this.mediumCards = deck.getAmountOfCardsWithDifficulty(1);
+        this.hardCards = deck.getAmountOfCardsWithDifficulty(2);
     }
     public boolean hasNext(){
         return counter<list.size();
@@ -169,7 +183,49 @@ public class Deck{
         return this.counter;
     }
 
+    //TODO Rethink everything about these
+    public int getAmountOfCardsWithDifficulty(int difficulty) {
+        switch(difficulty) {
+            case 0: return this.easyCards;
+            case 1: return this.mediumCards;
+            case 2: return this.hardCards;
+            default: return 0;
+        }
+    }
 
+    public void setAmountOfEasyCards(int amount) {
+        this.easyCards = amount;
+    }
+
+    public void setAmountOfMediumCards(int amount) {
+        this.mediumCards = amount;
+    }
+
+    public void setAmountOfHardCards(int amount) {
+        this.hardCards = amount;
+    }
+
+    public void increaseCardDifficultyAmount(int difficulty) {
+        switch(difficulty) {
+            case 0: this.easyCards++;
+                    break;
+            case 1: this.mediumCards++;
+                    break;
+            case 2: this.hardCards++;
+                    break;
+        }
+    }
+
+    public void decreaseCardDifficultyAmount(int difficulty) {
+        switch(difficulty) {
+            case 0: this.easyCards--;
+                break;
+            case 1: this.mediumCards--;
+                break;
+            case 2: this.hardCards--;
+                break;
+        }
+    }
 
 
     public Card getNextCard() {

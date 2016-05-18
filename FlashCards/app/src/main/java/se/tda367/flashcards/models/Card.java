@@ -10,11 +10,13 @@ public class Card extends AppCompatActivity {
     private String answer;
     private int id;
     private int difficulty;
+    private boolean firstTimePlayed;
 
     public Card() {
         this.question = "";
         this.answer = "";
         this.difficulty = 2;
+        this.firstTimePlayed = true;
 
         //0 = svår, 1 = okej, 2 = lätt
     }
@@ -56,6 +58,14 @@ public class Card extends AppCompatActivity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isFirstTimePlayed() {
+        return this.firstTimePlayed;
+    }
+
+    public void setPlayed(boolean b) {
+        this.firstTimePlayed = b;
     }
 
 
