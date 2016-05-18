@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private long startTime;
     private Timer timer;
     private boolean editMode = false;
+    private Button delButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,9 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         textChanged();
+
+        delButton = (Button)findViewById(R.id.delButton);
+        delButton.setVisibility(View.GONE);
 
 
         showQuestion = true;
@@ -374,6 +379,8 @@ public class PlayDeckActivity extends AppCompatActivity {
             editText.setFocusableInTouchMode(true);
             editText.requestFocus();
 
+            delButton.setVisibility(View.VISIBLE);
+
             editMode = !editMode;
         }
         else if(editMode) {
@@ -384,6 +391,8 @@ public class PlayDeckActivity extends AppCompatActivity {
             editText.setFocusable(false);
             editText.clearFocus();
             editText.setFocusableInTouchMode(false);
+
+            delButton.setVisibility(View.GONE);
 
             //hides the keyboard after clearing focus and making it non focusable so it cannot be edited
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -434,6 +443,22 @@ public class PlayDeckActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public void removeCard(View v){
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
+        if (currentDeck.hasNext()) {
+            currentCard = currentDeck.getNextCard();
+            showQuestion = true;
+            textView.setText(currentCard.getQuestion());
+            textView.setVisibility(View.VISIBLE);
+            editText.setText(currentCard.getAnswer());
+            editText.setVisibility(View.GONE);
+            setRadioGraphic();
+
+            editCard(v);
+
+        }
+        else finishedDeck(v);
     }
 
 }

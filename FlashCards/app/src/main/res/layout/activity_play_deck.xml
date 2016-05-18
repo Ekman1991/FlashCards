@@ -64,6 +64,15 @@
             android:checked="false"
             android:onClick="setDiff" />
 
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Card"
+            android:id="@+id/delButton"
+            android:layout_gravity="center_vertical"
+            android:onClick="removeCard" />
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
