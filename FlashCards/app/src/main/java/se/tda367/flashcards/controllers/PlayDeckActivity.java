@@ -387,7 +387,8 @@ public class PlayDeckActivity extends AppCompatActivity {
 
             //hides the keyboard after clearing focus and making it non focusable so it cannot be edited
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
             editMode = !editMode;
         }
