@@ -57,6 +57,7 @@ public class DeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
+        Singleton.getInstance().getFlashCards().setMode(0);
         mode = Singleton.getInstance().getFlashCards().getMode();
 
         name = (TextView) findViewById(R.id.deckName);
