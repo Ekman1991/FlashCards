@@ -93,7 +93,11 @@ public class PlayDeckActivity extends AppCompatActivity {
         } else {
             textView.setText(currentCard.getAnswer());
             showQuestion = false;
-
+            //TODO Definitely change this somehow
+            if (currentCard.isFirstTimePlayed()) {
+                currentDeck.increaseCardDifficultyAmount(2);
+                currentCard.setPlayed(true);
+            }
         }
     }
 
@@ -321,19 +325,25 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
+
+        currentDeck.decreaseCardDifficultyAmount(currentCard.getDifficulty());
         switch(view.getId()) {
             case R.id.easyButton:
                 if (isChecked)
+                    //TODO Rethink this method
+                    currentDeck.increaseCardDifficultyAmount(0);
                     currentCard.setDifficulty(0);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.mediumButton:
                 if (isChecked)
+                    currentDeck.increaseCardDifficultyAmount(1);
                     currentCard.setDifficulty(1);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.hardButton:
                 if(isChecked)
+                    currentDeck.increaseCardDifficultyAmount(2);
                     currentCard.setDifficulty(2);
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;

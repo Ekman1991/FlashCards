@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
 
 
     private ListView lv;
+    private MenuItem statistics;
 
     private ArrayList<Deck> your_array_list;
     CardFactory factory = new CardFactory();
@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView);
-
-
 
 
         // This is the array adapter, it takes the context of the activity as a
@@ -217,11 +215,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
-
-
-
     }
 
 
@@ -254,6 +248,12 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        statistics = menu.findItem(R.id.action_statistics);
+        if (Singleton.getInstance().getFlashCards().hasCurrentDeck() == false) {
+            statistics.setVisible(false);
+        }   else {
+            statistics.setVisible(true);
+        }
         return true;
     }
 
