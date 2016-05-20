@@ -49,6 +49,9 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
@@ -246,7 +249,8 @@ public class PlayDeckActivity extends AppCompatActivity {
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
-        Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
+       // Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
 
         Intent intentMain = new Intent(PlayDeckActivity.this ,
                 DeckActivity.class);
@@ -328,6 +332,10 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
+        currentDeck = realDeck;
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+       // Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
