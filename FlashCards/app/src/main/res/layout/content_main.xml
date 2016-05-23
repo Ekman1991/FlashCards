@@ -9,8 +9,28 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="se.tda367.flashcards.MainActivity"
+    tools:context=".controllers.MainActivity"
     tools:showIn="@layout/activity_main">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/sortAfter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contextClickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Sort after:"
+        android:id="@+id/sortAfter"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,6 +47,7 @@
         android:layout_width="600px"
         android:layout_height="800px"
         android:id="@+id/listView"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

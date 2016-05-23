@@ -1,18 +1,22 @@
 package se.tda367.flashcards;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import se.tda367.flashcards.models.FlashCards;
+import se.tda367.flashcards.services.DatabaseService;
 
 /**
  * Created by Razzan on 2016-04-21.
  */
 public class Singleton {
 
+    //TODO: Inte trådsäker
+    //TODO: Rename to ServiceLocator
+
     private static Singleton singleton = null;
-    private FlashCards flashCards;
-    private DatabaseController dbController;
+    private final FlashCards flashCards;
+    //TODO: Make this final and get rid of context passing
+    private DatabaseService dbController;
 
     protected Singleton() {
         flashCards = new FlashCards();
@@ -29,9 +33,10 @@ public class Singleton {
         return this.flashCards;
     }
 
-    public DatabaseController getDatabaseController(Context context) {
+    //TODO: Rename to getDatabaseService
+    public DatabaseService getDatabaseController(Context context) {
         if (dbController == null) {
-            dbController = new DatabaseController(context);
+            dbController = new DatabaseService(context);
             return dbController;
         } else {
             return dbController;

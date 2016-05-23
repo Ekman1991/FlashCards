@@ -1,67 +1,27 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.services;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import se.tda367.flashcards.models.Card;
+import se.tda367.flashcards.models.Deck;
 
 /**
  * Created by ekman on 21/04/16.
  */
 
-public class DatabaseController extends SQLiteOpenHelper {
+public class DatabaseService extends SQLiteOpenHelper implements IPersistenceService {
 
-    private static final String LOG = "DatabaseController";
-
-    public static final String DATABASE_NAME = "FlashCardsDatabase.db";
-    private static final int DATABASE_VERSION = 1;
-
-    public static final String DECKS_TABLE_NAME = "decks";
-    public static final String DECKS_COLUMN_ID = "id";
-    public static final String DECKS_COLUMN_CREATED_AT = "created_at";
-    public static final String DECKS_COLUMN_NAME = "name";
-    public static final String DECKS_COLUMN_DESCRIPTION = "description";
-
-    public static final String CARDS_TABLE_NAME = "cards";
-    public static final String CARDS_COLUMN_ID = "id";
-    public static final String CARDS_COLUMN_CREATED_AT = "created_at";
-    public static final String CARDS_COLUMN_QUESTION = "question";
-    public static final String CARDS_COLUMN_ANSWER = "answer";
-    public static final String CARDS_COLUMN_DIFFICULTY = "difficulty";
-
-    public static final String DECK_CARD_TABLE_NAME = "deck_cards";
-    public static final String DECK_CARD_COLUMN_ID = "id";
-    public static final String DECK_CARD_COLUMN_DECK_ID = "deck_id";
-    public static final String DECK_CARD_COLUMN_CARD_ID = "card_id";
-
-    // Table Create Statements
-    private static final String CREATE_TABLE_DECK = "CREATE TABLE "
-            + DECKS_TABLE_NAME + "(" + DECKS_COLUMN_ID + " INTEGER PRIMARY KEY," + DECKS_COLUMN_NAME
-            + " TEXT," + DECKS_COLUMN_DESCRIPTION + " TEXT," + DECKS_COLUMN_CREATED_AT
-            + " DATETIME" + ")";
-
-    private static final String CREATE_TABLE_CARD = "CREATE TABLE "
-            + CARDS_TABLE_NAME + "(" + CARDS_COLUMN_ID + " INTEGER PRIMARY KEY," + CARDS_COLUMN_QUESTION
-            + " TEXT," + CARDS_COLUMN_ANSWER + " TEXT," + CARDS_COLUMN_DIFFICULTY + " INTEGER," + CARDS_COLUMN_CREATED_AT
-            + " DATETIME" + ")";
-
-    private static final String CREATE_TABLE_DECK_CARDS = "CREATE TABLE "
-            + DECK_CARD_TABLE_NAME + "(" + DECK_CARD_COLUMN_ID + " INTEGER PRIMARY KEY,"
-            + DECK_CARD_COLUMN_DECK_ID + " INTEGER," + DECK_CARD_COLUMN_CARD_ID + " INTEGER"
-            + ")";
-
-    public DatabaseController(Context context) {
+    public DatabaseService(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
     }
 
@@ -97,7 +57,14 @@ public class DatabaseController extends SQLiteOpenHelper {
 
         contentValues.put(DECKS_COLUMN_NAME, deck.getName());
         contentValues.put(DECKS_COLUMN_DESCRIPTION, deck.getDescription());
-        contentValues.put(DECKS_COLUMN_CREATED_AT, getDateTime());
+        contentValues.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
+        contentValues.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
+        contentValues.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
+        contentValues.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
+        contentValues.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
+        contentValues.put(DECKS_COLUMN_EASY_CARDS, deck.getAmountOfCardsWithDifficulty(0));
+        contentValues.put(DECKS_COLUMN_MEDIUM_CARDS, deck.getAmountOfCardsWithDifficulty(1));
+        contentValues.put(DECKS_COLUMN_HARD_CARDS, deck.getAmountOfCardsWithDifficulty(2));
 
         return db.insert(DECKS_TABLE_NAME, null, contentValues);
     }
@@ -112,6 +79,7 @@ public class DatabaseController extends SQLiteOpenHelper {
 
         Cursor c = db.rawQuery(selectQuery, null);
 
+        //TODO: Check with FindBugs
         if (c != null)
             c.moveToFirst();
 
@@ -119,6 +87,14 @@ public class DatabaseController extends SQLiteOpenHelper {
         deck.setId(c.getInt(c.getColumnIndex(DECKS_COLUMN_ID)));
         deck.setName((c.getString(c.getColumnIndex(DECKS_COLUMN_NAME))));
         deck.setDescription(c.getString(c.getColumnIndex(DECKS_COLUMN_DESCRIPTION)));
+        deck.setNbrOfTimesPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_NBR_OF_TIMES_PLAYED)));
+        deck.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
+        deck.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
+        deck.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
+        deck.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
+        deck.setAmountOfEasyCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_EASY_CARDS)));
+        deck.setAmountOfMediumCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_MEDIUM_CARDS)));
+        deck.setAmountOfHardCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_HARD_CARDS)));
 
         return deck;
     }
@@ -138,8 +114,15 @@ public class DatabaseController extends SQLiteOpenHelper {
                 d.setId(c.getInt((c.getColumnIndex(DECKS_COLUMN_ID))));
                 d.setName((c.getString(c.getColumnIndex(DECKS_COLUMN_NAME))));
                 d.setDescription(c.getString(c.getColumnIndex(DECKS_COLUMN_DESCRIPTION)));
-
+                d.setNbrOfTimesPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_NBR_OF_TIMES_PLAYED)));
+                d.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
+                d.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
+                d.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
+                d.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
                 d.setCardsArray(getCardsForDeck(d));
+                d.setAmountOfEasyCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_EASY_CARDS)));
+                d.setAmountOfMediumCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_MEDIUM_CARDS)));
+                d.setAmountOfHardCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_HARD_CARDS)));
 
                 decks.add(d);
             } while (c.moveToNext());
@@ -171,6 +154,7 @@ public class DatabaseController extends SQLiteOpenHelper {
                 card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
 
+                card.setPlayed(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);
                 list.add(card);
             } while (c.moveToNext());
         }
@@ -185,6 +169,14 @@ public class DatabaseController extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DECKS_COLUMN_NAME, deck.getName());
         values.put(DECKS_COLUMN_DESCRIPTION, deck.getDescription());
+        values.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
+        values.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
+        values.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
+        values.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
+        values.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
+        values.put(DECKS_COLUMN_EASY_CARDS, deck.getAmountOfCardsWithDifficulty(0));
+        values.put(DECKS_COLUMN_MEDIUM_CARDS, deck.getAmountOfCardsWithDifficulty(1));
+        values.put(DECKS_COLUMN_HARD_CARDS, deck.getAmountOfCardsWithDifficulty(2));
 
         return db.update(DECKS_TABLE_NAME, values, DECKS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(deck.getId()) });
@@ -194,6 +186,7 @@ public class DatabaseController extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(DECKS_TABLE_NAME, DECKS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(deck_id) });
+        db.delete(DECK_CARD_TABLE_NAME, DECK_CARD_COLUMN_DECK_ID + " = ?", new String[] {String.valueOf(deck_id)});
     }
 
     public long createCardInDeck(Card card, Deck deck) {
@@ -204,8 +197,9 @@ public class DatabaseController extends SQLiteOpenHelper {
         contentValues.put(CARDS_COLUMN_ANSWER, card.getAnswer());
         contentValues.put(CARDS_COLUMN_QUESTION, card.getQuestion());
         contentValues.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
+        //TODO: Change to System.getTime
         contentValues.put(CARDS_COLUMN_CREATED_AT, getDateTime());
-
+        contentValues.put(CARDS_COLUMN_PLAYED, card.isFirstTimePlayed());
         long card_id = db.insert(CARDS_TABLE_NAME, null, contentValues);
 
         addCardToDeck(card_id, deck.getId());
@@ -232,6 +226,7 @@ public class DatabaseController extends SQLiteOpenHelper {
         values.put(CARDS_COLUMN_QUESTION, card.getQuestion());
         values.put(CARDS_COLUMN_ANSWER, card.getAnswer());
         values.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
+        values.put(CARDS_COLUMN_PLAYED, card.isFirstTimePlayed());
 
         return db.update(CARDS_TABLE_NAME, values, CARDS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(card.getId()) });

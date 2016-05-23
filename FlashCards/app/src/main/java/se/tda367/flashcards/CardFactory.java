@@ -1,5 +1,7 @@
 package se.tda367.flashcards;
 
+import se.tda367.flashcards.models.Card;
+
 /**
  * Created by ZlatanH on 2016-04-19.
  */

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="se.tda367.flashcards.DeckActivity">
+    tools:context=".controllers.DeckActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +17,8 @@
         android:id="@+id/deckName"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp" />
+        android:layout_marginTop="84dp"
+        android:textIsSelectable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:id="@+id/numberOfCards"
         android:paddingTop="10dp"
         android:layout_below="@+id/deckName"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:textIsSelectable="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,26 +40,127 @@
         android:onClick="createCard"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/start_deck"
-        android:id="@+id/startDeck"
-        android:onClick="startDeck"
-        android:layout_above="@+id/addCard"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="98dp" />
+        android:layout_alignParentEnd="true"
+        android:background="#4242db" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/button2"
         android:layout_alignTop="@+id/addCard"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="backButton" />
+
+        android:onClick="backButton"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/timesPlayed">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regular"
+            android:id="@+id/firstButton"
+            android:checked="false"
+            android:onClick="setMode" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M/H"
+            android:id="@+id/secondButton"
+            android:checked="false"
+            android:onClick="setMode" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostly hard"
+            android:id="@+id/thirdButton"
+            android:checked="false"
+            android:onClick="setMode" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/delButton"
+            android:layout_gravity="right"
+            android:onClick="delDeck" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="@string/start_deck"
+            android:id="@+id/startDeck"
+            android:onClick="startDeck"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/playedSince"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/numberOfCards"
+        android:layout_alignRight="@+id/deckName"
+        android:layout_alignEnd="@+id/deckName"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/made"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textIsSelectable="true" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/timesPlayed"
+        android:layout_below="@+id/made"
+        android:layout_alignLeft="@+id/playedSince"
+        android:layout_alignStart="@+id/playedSince"
+        android:textIsSelectable="true" />
+
+    <EditText
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editAmount"
+        android:layout_above="@+id/timesPlayed"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share Deck"
+        android:id="@+id/button7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="shareDeck" />
+
+    android:onClick="backButton"
+        android:background="#bc153c" />
+
+
 </RelativeLayout>

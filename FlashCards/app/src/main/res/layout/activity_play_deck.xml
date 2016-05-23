@@ -7,8 +7,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="se.tda367.flashcards.PlayDeckActivity"
+    tools:context=".controllers.PlayDeckActivity"
     android:id="@+id/background">
+
+    tools:context="se.tda367.flashcards.PlayDeckActivity"
+    android:id="@+id/background"
+    android:background="#fdfefc">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +32,8 @@
         android:id="@+id/flip_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="flipCard"/>
+        android:onClick="flipCard"
+        android:background="#4242db" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -38,6 +44,43 @@
         android:onClick="backButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#bc153c" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="198dp"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy"
+            android:id="@+id/easyButton"
+            android:checked="false"
+            android:onClick="setDiff" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium"
+            android:id="@+id/mediumButton"
+            android:layout_gravity="center_horizontal"
+            android:checked="false"
+            android:onClick="setDiff" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard"
+            android:id="@+id/hardButton"
+            android:layout_gravity="right"
+            android:checked="false"
+            android:onClick="setDiff" />
+    </RadioGroup>
 
 </RelativeLayout>

@@ -7,4 +7,10 @@
     <string name="question_field">Input question</string>
     <string name="answer_field">Input answer</string>
     <string name="create_card">Create</string>
+
+    <string name="recording_title">Audio Recording</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="play">PLAY</string>
+
 </resources>
