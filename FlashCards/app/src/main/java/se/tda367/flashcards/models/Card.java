@@ -11,6 +11,9 @@ public class Card extends AppCompatActivity {
     private int id;
     private int difficulty;
     private boolean hasBeenPlayed;
+    private byte[] imagesByte;
+    private byte[] audioByte;
+
 
     @Override
     public boolean equals(Object o) {
@@ -37,6 +40,8 @@ public class Card extends AppCompatActivity {
         this.answer = "";
         this.difficulty = 2;
         this.hasBeenPlayed = false;
+        this.imagesByte = new byte[0];
+        this.audioByte = new byte[0];
 
         //0 = svår, 1 = okej, 2 = lätt
     }
@@ -46,6 +51,50 @@ public class Card extends AppCompatActivity {
         this.answer = answer;
         this.difficulty = 2;
         this.hasBeenPlayed = false;
+        this.imagesByte = new byte[0];
+        this.audioByte = new byte[0];
+    }
+
+    // if boolean is true it's a picture if boolean is false it's an audio
+    public Card(String question, String answer, byte[] bytes, boolean audioPic) {
+          this.question = question;
+          this.answer = answer;
+          this.difficulty = 2;
+          this.hasBeenPlayed = false;
+          if (audioPic == false) {
+              this.imagesByte = new byte[0];
+              this.audioByte = bytes;
+          } else {
+              this.audioByte = new byte[0];
+              this.imagesByte = bytes;
+          }
+    }
+
+    public Card(String question, String answer, byte[] imagesByte, byte[] audioByte) {
+          this.question = question;
+          this.answer = answer;
+          this.difficulty = 2;
+          this.hasBeenPlayed = false;
+          this.imagesByte = imagesByte;
+          this.audioByte = audioByte;
+
+    }
+
+    public byte[] getImageByte(){
+        return this.imagesByte;
+    }
+
+    public byte[] getAudioByte(){
+        return this.audioByte;
+    }
+
+    public void setImageByte(byte[]imagesByte){
+        this.imagesByte = imagesByte;
+
+    }
+
+    public void setAudioByte(byte[] audioByte){
+        this.audioByte = audioByte;
     }
 
     public String getQuestion() {
