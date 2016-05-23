@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import se.tda367.flashcards.JsonConverter;
+import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
@@ -30,7 +30,7 @@ public class ImportCardsActivity extends AppCompatActivity {
         importCards(importButton);
     }
     public void importCards(View v){
-        JsonConverter jc = new JsonConverter();
+        JsonService jc = new JsonService();
         Deck deck = currentDeck;
         String url = Singleton.getInstance().getFlashCards().getUrl();
         JSONObject object = jc.toJson(jc.fromURL(url));

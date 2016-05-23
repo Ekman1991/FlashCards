@@ -1,8 +1,6 @@
 package se.tda367.flashcards.controllers;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,21 +13,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import se.tda367.flashcards.models.Calender;
-import se.tda367.flashcards.JsonConverter;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
-import se.tda367.flashcards.models.FlashCards;
 
 
 public class DeckActivity extends AppCompatActivity {

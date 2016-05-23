@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import se.tda367.flashcards.JsonConverter;
+import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
@@ -22,7 +21,7 @@ public class ShareDeckActivity extends AppCompatActivity {
         Deck deck = Singleton.getInstance().getFlashCards().getCurrentDeck();
         EditText uriText = (EditText) findViewById(R.id.uriText);
         try {
-            JsonConverter jc = new JsonConverter(deck);
+            JsonService jc = new JsonService(deck);
             uriText.setText(jc.toUri(jc.toURL(jc.getJsonString())));
         }
         catch(Exception e){

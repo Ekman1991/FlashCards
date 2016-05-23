@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.services;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,15 +15,15 @@ import se.tda367.flashcards.models.Deck;
 /**
  * Created by Razzan on 2016-05-12.
  */
-public class JsonConverter extends AppCompatActivity {
+public class JsonService extends AppCompatActivity implements IJsonService {
     JSONObject writer = new JSONObject();
 
 
-    public JsonConverter(){
+    public JsonService(){
 
     }
 
-    public JsonConverter(Deck deck) throws Exception{
+    public JsonService(Deck deck) throws Exception{
 
         for(int i = 0; i<deck.getSize(); i++){
             writer.put(i+"question", deck.getList().get(i).getQuestion());
@@ -43,9 +43,9 @@ public class JsonConverter extends AppCompatActivity {
     }
 
     //converts Jsonobject to URL where you can send info to other users
-    public String toURL(String url){
+    public String toURL(String json){
         try {
-            String encodedUrl = URLEncoder.encode(url, "UTF-8");
+            String encodedUrl = URLEncoder.encode(json, "UTF-8");
             return encodedUrl;
 
         }
@@ -74,9 +74,9 @@ public class JsonConverter extends AppCompatActivity {
         return "null";
     }
     //converts Json string to JSONOBject
-    public JSONObject toJson(String url){
+    public JSONObject toJson(String json){
         try {
-            return new JSONObject(url);
+            return new JSONObject(json);
         }
         catch(Exception e){
             e.printStackTrace();

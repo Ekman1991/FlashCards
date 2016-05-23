@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import org.json.JSONObject;
 
-import se.tda367.flashcards.JsonConverter;
+import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
@@ -27,7 +27,7 @@ public class ImportDeckActivity extends AppCompatActivity {
 
     }
     public void importDeck(String url){
-        JsonConverter jc = new JsonConverter();
+        JsonService jc = new JsonService();
         JSONObject object = jc.toJson(jc.fromURL(url));
         Deck deck = new Deck(object);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
