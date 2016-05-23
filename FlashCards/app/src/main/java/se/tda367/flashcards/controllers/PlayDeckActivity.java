@@ -259,7 +259,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 }
                 currentDeck = tmp;
 
-                //HOLA
+
             }
         } else if(mode == 2){
             //selects cards based on difficulty with a percentage algorithm
