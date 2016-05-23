@@ -8,8 +8,13 @@ import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -27,10 +32,13 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Deck currentDeck;
     private Deck realDeck;
     private Card currentCard;
-    private TextView textView;
+    private EditText textView;
+    private EditText editText;
     private int mode;
     private long startTime;
     private Timer timer;
+    private boolean editMode = false;
+    private Button delButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,9 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
@@ -48,8 +59,21 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentCard = currentDeck.getNextCard();
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = (EditText) findViewById(R.id.textView);
         textView.setText(currentCard.getQuestion());
+        textView.setFocusable(false);
+
+        editText = (EditText)findViewById(R.id.editText);
+        editText.setText(currentCard.getAnswer());
+        editText.setFocusable(false);
+        editText.setVisibility(View.GONE);
+
+
+
+        textChanged();
+
+        delButton = (Button)findViewById(R.id.delButton);
+        delButton.setVisibility(View.GONE);
 
 
         showQuestion = true;
@@ -75,6 +99,9 @@ public class PlayDeckActivity extends AppCompatActivity {
                         currentCard = currentDeck.getNextCard();
                         showQuestion = true;
                         textView.setText(currentCard.getQuestion());
+                        textView.setVisibility(View.VISIBLE);
+                        editText.setText(currentCard.getAnswer());
+                        editText.setVisibility(View.GONE);
                         setRadioGraphic();
                     }
                 }
@@ -89,9 +116,13 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
             textView.setText(currentCard.getQuestion());
+            textView.setVisibility(View.VISIBLE);
+            editText.setVisibility(View.INVISIBLE);
             showQuestion = true;
         } else {
-            textView.setText(currentCard.getAnswer());
+            editText.setText(currentCard.getAnswer());
+            editText.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
             showQuestion = false;
             //TODO Definitely change this somehow
             if (currentCard.isFirstTimePlayed()) {
@@ -222,7 +253,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
-        Singleton.getInstance().getFlashCards().setCurrentDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
 
         Intent intentMain = new Intent(PlayDeckActivity.this ,
                 DeckActivity.class);
@@ -304,6 +335,9 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
+        currentDeck = realDeck;
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
@@ -348,6 +382,99 @@ public class PlayDeckActivity extends AppCompatActivity {
                     Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
         }
+    }
+    public void editCard(View v){
+        if(!editMode) {
+            textView.clearFocus();
+            textView.setFocusable(true);
+            textView.setFocusableInTouchMode(true);
+            textView.requestFocus();
+
+            editText.clearFocus();
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+
+            delButton.setVisibility(View.VISIBLE);
+
+            editMode = !editMode;
+        }
+        else if(editMode) {
+            textView.setFocusable(false);
+            textView.clearFocus();
+            textView.setFocusableInTouchMode(false);
+
+            editText.setFocusable(false);
+            editText.clearFocus();
+            editText.setFocusableInTouchMode(false);
+
+            delButton.setVisibility(View.GONE);
+
+            //hides the keyboard after clearing focus and making it non focusable so it cannot be edited
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
+            editMode = !editMode;
+        }
+    }
+    public void textChanged(){
+        textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(showQuestion) {
+                    currentCard.setQuestion(textView.getText().toString());
+                }
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!showQuestion) {
+                    currentCard.setAnswer(editText.getText().toString());
+                }
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+
+            }
+        });
+    }
+    public void removeCard(View v){
+        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
+        if (currentDeck.hasNext()) {
+            currentCard = currentDeck.getNextCard();
+            showQuestion = true;
+            textView.setText(currentCard.getQuestion());
+            textView.setVisibility(View.VISIBLE);
+            editText.setText(currentCard.getAnswer());
+            editText.setVisibility(View.GONE);
+            setRadioGraphic();
+
+            editCard(v);
+
+        }
+        else finishedDeck(v);
     }
 
 }

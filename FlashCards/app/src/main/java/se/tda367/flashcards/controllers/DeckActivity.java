@@ -57,6 +57,7 @@ public class DeckActivity extends AppCompatActivity {
 
         currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
 
+        Singleton.getInstance().getFlashCards().setMode(0);
         mode = Singleton.getInstance().getFlashCards().getMode();
 
         name = (TextView) findViewById(R.id.deckName);
@@ -158,8 +159,9 @@ public class DeckActivity extends AppCompatActivity {
         }
     }
     public void delDeck(View v){
-        backButton(v);
         Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+        Intent intent = new Intent(DeckActivity.this, MainActivity.class);
+        startActivityForResult(intent, 0);
     }
     //sets the text for how many cards you can play at most
     public void setAmount(int i){

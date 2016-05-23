@@ -188,6 +188,11 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 new String[] { String.valueOf(deck_id) });
         db.delete(DECK_CARD_TABLE_NAME, DECK_CARD_COLUMN_DECK_ID + " = ?", new String[] {String.valueOf(deck_id)});
     }
+    public void deleteCard(long card_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CARDS_TABLE_NAME, CARDS_COLUMN_ID + " = ?", new String[] {String.valueOf(card_id)});
+        db.delete(DECK_CARD_TABLE_NAME, DECK_CARD_COLUMN_CARD_ID + " = ?", new String[] {String.valueOf(card_id)});
+    }
 
     public long createCardInDeck(Card card, Deck deck) {
 
