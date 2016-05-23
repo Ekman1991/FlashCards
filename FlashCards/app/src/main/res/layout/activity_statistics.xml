@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/averageTime"
-        android:layout_marginBottom="103dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="79dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,11 +30,20 @@
     <se.tda367.flashcards.PieChart
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/view"
+        android:id="@+id/pieChart"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/averageTime"
+        android:layout_toStartOf="@+id/averageTime"
+        android:layout_alignBottom="@+id/barChart" />
+
+    <se.tda367.flashcards.BarChart
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/barChart"
         android:layout_above="@+id/textView2"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="150dp"
+        android:layout_toRightOf="@+id/pieChart" />
 </RelativeLayout>

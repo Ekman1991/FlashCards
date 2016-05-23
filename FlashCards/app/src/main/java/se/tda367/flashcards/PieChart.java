@@ -1,17 +1,15 @@
 package se.tda367.flashcards;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
-import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.models.Deck;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ZlatanH on 2016-05-15.
@@ -19,11 +17,16 @@ import se.tda367.flashcards.models.Deck;
 public class PieChart extends View {
 
     private Paint piePaint;
+    private Paint shadowPaint;
 
-    private Deck currentDeck;
+    float totalItems;
     float degreesUsed;
-    private RectF shadowBounds;
+
+    private RectF shadowDiameter;
     private RectF pieDiameter;
+
+    private List<StatisticsItem> slices = new ArrayList<StatisticsItem>();
+
     //TODO Add the XML AttributeSet values
     //TODO Add text and shading to chart
     public PieChart(Context context, AttributeSet attributes) {
@@ -43,6 +46,10 @@ public class PieChart extends View {
         piePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         piePaint.setStyle(Paint.Style.FILL);
         degreesUsed = 0;
+        totalItems = 0;
+
+        shadowPaint = new Paint();
+        shadowPaint.setColor(0xFFD9D9D9);
     }
 
     @Override
@@ -59,27 +66,44 @@ public class PieChart extends View {
                 0.0f,
                 diameter,
                 diameter);
+
+        shadowDiameter = new RectF(
+                pieDiameter.left+10,
+                pieDiameter.top+10,
+                pieDiameter.right+10,
+                pieDiameter.bottom+10);
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
-        float total = currentDeck.getSize();
-        //TODO Change implementation completely, make a new class or an inner class to store information for drawing
-        for (int i = 0; i < 3; i++) {
-            piePaint.setColor(0x77334455*(i+1));
-            int amount = currentDeck.getAmountOfCardsWithDifficulty(i);
+        canvas.drawOval(shadowDiameter,shadowPaint);
+
+        for (int i = 0; i < slices.size(); i++) {
+            StatisticsItem currentItem = slices.get(i);
+            changePiePaint(currentItem);
+            float amount = currentItem.getStatistic();
             canvas.drawArc(pieDiameter,
                     270 + degreesUsed,
-                    (amount/total)*360,
+                    (amount/totalItems)*360,
                     true, piePaint);
-            degreesUsed += (amount/total)*360;
+            degreesUsed += (amount/totalItems)*360;
         }
     }
 
     @Override
     protected void onMeasure(int w, int h) {
         setMeasuredDimension(w, h);
+    }
+
+    public void addItem(StatisticsItem newItem) {
+        slices.add(newItem);
+        totalItems++;
+    }
+
+    public void changePiePaint(StatisticsItem item) {
+        piePaint.setColor(item.getColor());
+        piePaint.setShader(item.getShader());
     }
 }

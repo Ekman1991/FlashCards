@@ -107,7 +107,6 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
-
         if (c.moveToFirst()) {
             do {
                 Deck d = new Deck();
@@ -119,10 +118,10 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 d.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
                 d.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
                 d.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
-                d.setCardsArray(getCardsForDeck(d));
                 d.setAmountOfEasyCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_EASY_CARDS)));
                 d.setAmountOfMediumCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_MEDIUM_CARDS)));
                 d.setAmountOfHardCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_HARD_CARDS)));
+                d.setCardsArray(getCardsForDeck(d));
 
                 decks.add(d);
             } while (c.moveToNext());
@@ -134,7 +133,6 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
     public ArrayList<Card> getCardsForDeck(Deck deck) {
 
         ArrayList<Card> list = new ArrayList<Card>();
-
         String selectQuery = "SELECT * FROM " + CARDS_TABLE_NAME + " cardTable, "
                 + DECKS_TABLE_NAME + " decksTable, " + DECK_CARD_TABLE_NAME + " deckCardTable WHERE decksTable."
                 + DECKS_COLUMN_ID + " = '" + deck.getId() + "'" + " AND decksTable." + DECKS_COLUMN_ID
@@ -154,7 +152,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
 
-                card.setPlayed(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);
+                card.setHasBeenPlayedOnce(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);
                 list.add(card);
             } while (c.moveToNext());
         }
@@ -199,7 +197,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         contentValues.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
         //TODO: Change to System.getTime
         contentValues.put(CARDS_COLUMN_CREATED_AT, getDateTime());
-        contentValues.put(CARDS_COLUMN_PLAYED, card.isFirstTimePlayed());
+        contentValues.put(CARDS_COLUMN_PLAYED, card.hasBeenPlayedOnce());
         long card_id = db.insert(CARDS_TABLE_NAME, null, contentValues);
 
         addCardToDeck(card_id, deck.getId());
@@ -221,12 +219,12 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
 
     public int updateCard(Card card) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        //TODO Fix this, does not work
         ContentValues values = new ContentValues();
         values.put(CARDS_COLUMN_QUESTION, card.getQuestion());
         values.put(CARDS_COLUMN_ANSWER, card.getAnswer());
         values.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
-        values.put(CARDS_COLUMN_PLAYED, card.isFirstTimePlayed());
+        values.put(CARDS_COLUMN_PLAYED, card.hasBeenPlayedOnce());
 
         return db.update(CARDS_TABLE_NAME, values, CARDS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(card.getId()) });

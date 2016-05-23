@@ -56,7 +56,6 @@ public class PlayDeckActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
         activateSwipe();
         setRadioGraphic();
-
     }
     //enables swipe left inside the playDeck menu
     //wont ever give an exception
@@ -94,9 +93,9 @@ public class PlayDeckActivity extends AppCompatActivity {
             textView.setText(currentCard.getAnswer());
             showQuestion = false;
             //TODO Definitely change this somehow
-            if (currentCard.isFirstTimePlayed()) {
+            if (!currentCard.hasBeenPlayedOnce()) {
                 currentDeck.increaseCardDifficultyAmount(2);
-                currentCard.setPlayed(true);
+                currentCard.setHasBeenPlayedOnce(true);
             }
         }
     }
@@ -325,8 +324,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     public void setDiff(View view){
         boolean isChecked = ((RadioButton)view).isChecked();
-
-        currentDeck.decreaseCardDifficultyAmount(currentCard.getDifficulty());
+            currentDeck.decreaseCardDifficultyAmount(currentCard.getDifficulty());
         switch(view.getId()) {
             case R.id.easyButton:
                 if (isChecked)
