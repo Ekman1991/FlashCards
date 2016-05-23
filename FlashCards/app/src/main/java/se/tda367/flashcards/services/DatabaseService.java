@@ -152,7 +152,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
                 card.setImageByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
-                //card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
+                card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
 
 
                 card.setHasBeenPlayedOnce(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);
@@ -208,7 +208,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         contentValues.put(CARDS_COLUMN_PLAYED, card.hasBeenPlayedOnce());
         Log.v("IMAGES BYTE " , " " +card.getImageByte()) ;
         contentValues.put(CARDS_COLUMN_IMAGE, card.getImageByte());
-        //contentValues.put(CARDS_COLUMN_AUDIO, card.getAudioByte());
+        contentValues.put(CARDS_COLUMN_AUDIO, card.getAudioByte());
         long card_id = db.insert(CARDS_TABLE_NAME, null, contentValues);
 
         Log.v("DATABASECONTROL",  "Card Id" + card_id);
@@ -238,7 +238,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         values.put(CARDS_COLUMN_DIFFICULTY, card.getDifficulty());
         values.put(CARDS_COLUMN_PLAYED, card.hasBeenPlayedOnce());
         values.put(CARDS_COLUMN_IMAGE, card.getImageByte());
-       // values.put(CARDS_COLUMN_AUDIO, card.getAudioByte());
+        values.put(CARDS_COLUMN_AUDIO, card.getAudioByte());
 
         return db.update(CARDS_TABLE_NAME, values, CARDS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(card.getId()) });

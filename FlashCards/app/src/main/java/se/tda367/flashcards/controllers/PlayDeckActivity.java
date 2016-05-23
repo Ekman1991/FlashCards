@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,12 +50,16 @@ public class PlayDeckActivity extends AppCompatActivity {
     private boolean editMode = false;
     private Button delButton;
     private ImageView imageView;
+    private MediaPlayer mediaPlayer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_deck);
+
+        mediaPlayer = new MediaPlayer();
+
 
         mode = Singleton.getInstance().getFlashCards().getMode();
 
@@ -94,9 +104,6 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
 
-
-
-
         textChanged();
 
         delButton = (Button)findViewById(R.id.delButton);
@@ -108,6 +115,28 @@ public class PlayDeckActivity extends AppCompatActivity {
         activateSwipe();
         setRadioGraphic();
     }
+
+    public void play(View v){
+        byte[] audio = currentCard.getAudioByte();
+        try {
+            // create temp file that will hold byte array
+            File temp = File.createTempFile("music", "mp3", getCacheDir());
+            temp.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(temp);
+            fos.write(audio);
+            fos.close();
+
+
+            FileInputStream fis = new FileInputStream(temp);
+            mediaPlayer.setDataSource(fos.getFD());
+
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //enables swipe left inside the playDeck menu
     //wont ever give an exception
     public void activateSwipe(){

@@ -16,6 +16,7 @@ public class FlashCards {
     private int mode;
     private int amount;
     private String url;
+    private byte[] audioByte;
 
     public FlashCards() {
 
@@ -27,6 +28,14 @@ public class FlashCards {
         this.arrayOfDecks = Singleton.getInstance().getDatabaseController(context).getAllDecks();
         return arrayOfDecks;
 
+    }
+
+    public byte[] getAudioByte(){
+        return this.audioByte;
+    }
+
+    public void setAudioByte(byte[] audioByte){
+        this.audioByte = audioByte;
     }
 
     public int getSize(){
