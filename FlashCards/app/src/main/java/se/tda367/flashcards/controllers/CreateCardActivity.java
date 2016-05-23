@@ -1,16 +1,11 @@
 package se.tda367.flashcards.controllers;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -37,9 +33,10 @@ public class CreateCardActivity extends AppCompatActivity {
     EditText answer;
     CardFactory cardFactory;
     private ImageView imgPicture;
-
+    private byte[] imagesByte;
     Button takePhoto;
-
+    private boolean pictureOrAudio;
+    private AudioActivity audioActivity = new AudioActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,28 +56,9 @@ public class CreateCardActivity extends AppCompatActivity {
 
     public void audio(View v){
 
-        //start of a notification
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle("Time for you to play some Flash Cards")
-                .setContentText("Learning is fun, let's do this")
-                .setAutoCancel(true)
-                .setColor(Color.BLUE);
-
-        //start program when active
-        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-
-        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(content);
-
-        // Add a notification
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notificationBuilder.build());
-        //end of a notificaiton
 
         Intent intentMain = new Intent(CreateCardActivity.this ,
-                AudioActivityReal.class);
+                AudioActivity.class);
         CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
     }
@@ -91,24 +69,77 @@ public class CreateCardActivity extends AppCompatActivity {
         String questionText;
         String answerText;
         Deck currentDeck;
+        byte[] b = new byte[0];
+        byte[] audio = Singleton.getInstance().getFlashCards().getAudioByte();
+        Singleton.getInstance().getFlashCards().setAudioByte(b);
+
+
 
         //TODO: Move this to a utility class. Will be duplicated all over the codebase
         if ((question == null || question.getText().toString().trim().length() == 0) && (answer == null || answer.getText().toString().trim().length() == 0)) {
             Log.d("CreateCard", "DeckName is empty");
         } else {
+
             questionText = question.getText().toString();
             answerText = answer.getText().toString();
             currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+            if (imagesByte == null && audio == null) {
+                Card card = new Card(questionText, answerText);
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
 
-            Card card = new Card(questionText, answerText);
-            Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
-            //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
-            currentDeck.addCard(card);
+                Log.v("***********************", "" + card.getAnswer());
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+            }else if (audio == null && imagesByte != null) {
+                Card card = new Card(questionText, answerText, imagesByte, true);
+
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
+
+                Log.v("***********************", "" + card.getImageByte());
 
 
-            Intent intentMain = new Intent(CreateCardActivity.this ,
-                    DeckActivity.class);
-            CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
+            } else if (audio != null && imagesByte == null){
+                Card card = new Card(questionText, answerText, audio, false);
+
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
+
+                Log.v("***********************", "" + card.getImageByte());
+
+
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+            }
+            else {
+                Card card = new Card(questionText, answerText, imagesByte, audio);
+
+                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
+
+                Log.v("***********************", "" + card.getImageByte());
+
+
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+            }
+
         }
 
 
@@ -172,10 +203,18 @@ public class CreateCardActivity extends AppCompatActivity {
 
                         //show picture
                         imgPicture.setImageBitmap(bitmap);
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        imagesByte = stream.toByteArray();
                     }
                     else {
                         Bitmap camera = (Bitmap) data.getExtras().get("data");
                         imgPicture.setImageBitmap(camera);
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        camera.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        imagesByte = stream.toByteArray();
                     }
 
                 } catch (FileNotFoundException e) {
