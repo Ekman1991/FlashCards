@@ -10,7 +10,7 @@ public class Card extends AppCompatActivity {
     private String answer;
     private int id;
     private int difficulty;
-    private boolean firstTimePlayed;
+    private boolean hasBeenPlayed;
 
     @Override
     public boolean equals(Object o) {
@@ -36,7 +36,7 @@ public class Card extends AppCompatActivity {
         this.question = "";
         this.answer = "";
         this.difficulty = 2;
-        this.firstTimePlayed = true;
+        this.hasBeenPlayed = false;
 
         //0 = svår, 1 = okej, 2 = lätt
     }
@@ -45,7 +45,7 @@ public class Card extends AppCompatActivity {
         this.question = question;
         this.answer = answer;
         this.difficulty = 2;
-
+        this.hasBeenPlayed = false;
     }
 
     public String getQuestion() {
@@ -80,12 +80,12 @@ public class Card extends AppCompatActivity {
         this.id = id;
     }
 
-    public boolean isFirstTimePlayed() {
-        return this.firstTimePlayed;
+    public boolean hasBeenPlayedOnce() {
+        return this.hasBeenPlayed;
     }
 
-    public void setPlayed(boolean b) {
-        this.firstTimePlayed = b;
+    public void setHasBeenPlayedOnce(boolean b) {
+        this.hasBeenPlayed = b;
     }
 
 
