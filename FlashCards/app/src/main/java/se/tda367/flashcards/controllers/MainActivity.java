@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         your_array_list = null;
         your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
         checkIfAllDecksPlayed();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView);
