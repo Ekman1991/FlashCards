@@ -45,7 +45,8 @@
         android:orientation="horizontal"
         android:layout_marginTop="198dp"
         android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3">
+        android:layout_toEndOf="@+id/button3"
+        android:id="@+id/radioGroup">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -122,5 +123,27 @@
         android:background="@android:color/transparent"
         android:focusable="true"
         android:focusableInTouchMode="true"  />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignLeft="@+id/radioGroup"
+        android:layout_alignStart="@+id/radioGroup"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+         />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play "
+        android:id="@+id/play"
+        android:layout_above="@+id/imageView"
+        android:layout_alignRight="@+id/flip_button"
+        android:layout_alignEnd="@+id/flip_button"
+        android:onClick="play" />
 
 </RelativeLayout>
