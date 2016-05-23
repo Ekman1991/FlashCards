@@ -4,6 +4,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -39,6 +43,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Timer timer;
     private boolean editMode = false;
     private Button delButton;
+    private ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,8 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentCard = currentDeck.getNextCard();
 
+        Log.v("CURRENT CARD = " , currentCard + "SKRIV UT DETTA");
+
         textView = (EditText) findViewById(R.id.textView);
         textView.setText(currentCard.getQuestion());
         textView.setFocusable(false);
@@ -67,6 +75,25 @@ public class PlayDeckActivity extends AppCompatActivity {
         editText.setText(currentCard.getAnswer());
         editText.setFocusable(false);
         editText.setVisibility(View.GONE);
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+        Log.v("THE IMAGE = ", "" + imageView);
+
+        if (currentCard.getImageByte() == null)
+        {
+            imageView.setImageResource(android.R.color.transparent);
+        }
+        else {
+            Bitmap bmp;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inMutable = true;
+            bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
+            Log.v("THE IMAGE = ", "" + bmp);
+            imageView.setImageBitmap(bmp);
+        }
+
+
+
 
 
 
@@ -100,6 +127,17 @@ public class PlayDeckActivity extends AppCompatActivity {
                         textView.setText(currentCard.getQuestion());
                         textView.setVisibility(View.VISIBLE);
                         editText.setText(currentCard.getAnswer());
+                        if (currentCard.getImageByte() == null)
+                        {
+                            imageView.setImageResource(android.R.color.transparent);
+                        }
+                        else {
+                            Bitmap bmp;
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inMutable = true;
+                            bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
+                            imageView.setImageBitmap(bmp);
+                        }
                         editText.setVisibility(View.GONE);
                         setRadioGraphic();
                     }
@@ -467,6 +505,17 @@ public class PlayDeckActivity extends AppCompatActivity {
             textView.setVisibility(View.VISIBLE);
             editText.setText(currentCard.getAnswer());
             editText.setVisibility(View.GONE);
+            if (currentCard.getImageByte() == null)
+            {
+                imageView.setImageResource(android.R.color.transparent);
+            }
+            else {
+                Bitmap bmp;
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inMutable = true;
+                bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
+                imageView.setImageBitmap(bmp);
+            }
             setRadioGraphic();
 
             editCard(v);
