@@ -9,7 +9,6 @@ import se.tda367.flashcards.services.DatabaseService;
  * Created by Razzan on 2016-04-21.
  */
 public class Singleton {
-    //gitinspector hatar mig igen, version 3.0
 
     //TODO: Inte trådsäker
     //TODO: Rename to ServiceLocator
