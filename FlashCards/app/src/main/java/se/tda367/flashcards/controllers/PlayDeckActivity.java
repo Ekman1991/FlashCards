@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Button play;
     private byte[] audio;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,28 +133,28 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         audio = currentCard.getAudioByte();
+        String outputFile=Environment.getExternalStorageDirectory().getAbsolutePath() + "/output.3gp";
+        File path = new File(outputFile);
+        FileOutputStream fos;
         try {
-            // create temp file that will hold byte array
-            File temp = File.createTempFile("music", "mp3", getCacheDir());
-            temp.deleteOnExit();
-            FileOutputStream fos = new FileOutputStream(temp);
-
+            fos = new FileOutputStream(path);
             fos.write(audio);
             fos.close();
-            //FileInputStream fis = new FileInputStream(temp);
-            mediaPlayer.setDataSource(fos.getFD());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            mediaPlayer.setDataSource(outputFile);
             mediaPlayer.prepare();
             mediaPlayer.start();
-            while (mediaPlayer.isPlaying() == true) {
-                play.setEnabled(false);
-            }
-
-
         } catch (IOException e) {
             e.printStackTrace();
-
-
         }
+
+
     }
 
     //enables swipe left inside the playDeck menu
