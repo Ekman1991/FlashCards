@@ -51,7 +51,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     private Button delButton;
     private ImageView imageView;
     private MediaPlayer mediaPlayer;
-
+    private Button play;
+    private byte[] audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         mediaPlayer = new MediaPlayer();
 
+        play = (Button) findViewById(R.id.play);
 
         mode = Singleton.getInstance().getFlashCards().getMode();
 
@@ -85,6 +87,15 @@ public class PlayDeckActivity extends AppCompatActivity {
         editText.setText(currentCard.getAnswer());
         editText.setFocusable(false);
         editText.setVisibility(View.GONE);
+
+
+        audio = currentCard.getAudioByte();
+        if (audio != null){
+            play.setEnabled(true);
+        }
+        else {
+            play.setEnabled(false);
+        }
 
         imageView = (ImageView) findViewById(R.id.imageView);
         Log.v("THE IMAGE = ", "" + imageView);
@@ -117,23 +128,30 @@ public class PlayDeckActivity extends AppCompatActivity {
     }
 
     public void play(View v){
-        byte[] audio = currentCard.getAudioByte();
+
+
+        audio = currentCard.getAudioByte();
         try {
             // create temp file that will hold byte array
             File temp = File.createTempFile("music", "mp3", getCacheDir());
             temp.deleteOnExit();
             FileOutputStream fos = new FileOutputStream(temp);
+
             fos.write(audio);
             fos.close();
-
-
-            FileInputStream fis = new FileInputStream(temp);
+            //FileInputStream fis = new FileInputStream(temp);
             mediaPlayer.setDataSource(fos.getFD());
-
             mediaPlayer.prepare();
             mediaPlayer.start();
+            while (mediaPlayer.isPlaying() == true) {
+                play.setEnabled(false);
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
+
+
         }
     }
 
@@ -156,6 +174,13 @@ public class PlayDeckActivity extends AppCompatActivity {
                         textView.setText(currentCard.getQuestion());
                         textView.setVisibility(View.VISIBLE);
                         editText.setText(currentCard.getAnswer());
+                        currentCard.getAudioByte();
+                        if (audio != null){
+                            play.setEnabled(true);
+                        }
+                        else {
+                            play.setEnabled(false);
+                        }
                         if (currentCard.getImageByte() == null)
                         {
                             imageView.setImageResource(android.R.color.transparent);
@@ -536,6 +561,13 @@ public class PlayDeckActivity extends AppCompatActivity {
             textView.setVisibility(View.VISIBLE);
             editText.setText(currentCard.getAnswer());
             editText.setVisibility(View.GONE);
+            currentCard.getAudioByte();
+            if (audio != null){
+                play.setEnabled(true);
+            }
+            else {
+                play.setEnabled(false);
+            }
             if (currentCard.getImageByte() == null)
             {
                 imageView.setImageResource(android.R.color.transparent);

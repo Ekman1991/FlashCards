@@ -89,7 +89,6 @@ public class CreateCardActivity extends AppCompatActivity {
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
-                Log.v("***********************", "" + card.getAnswer());
 
                 Intent intentMain = new Intent(CreateCardActivity.this,
                         DeckActivity.class);
@@ -101,7 +100,6 @@ public class CreateCardActivity extends AppCompatActivity {
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
-                Log.v("***********************", "" + card.getImageByte());
 
 
 
@@ -116,7 +114,6 @@ public class CreateCardActivity extends AppCompatActivity {
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
-                Log.v("***********************", "" + card.getImageByte());
 
 
 
@@ -131,7 +128,6 @@ public class CreateCardActivity extends AppCompatActivity {
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
-                Log.v("***********************", "" + card.getImageByte());
 
 
 
