@@ -146,7 +146,7 @@ public class DeckActivity extends AppCompatActivity {
         }
     }
     public void delDeck(View v){
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).deleteDeck(currentDeck.getId());
         Intent intent = new Intent(DeckActivity.this, MainActivity.class);
         startActivityForResult(intent, 0);
     }

@@ -86,7 +86,7 @@ public class CreateCardActivity extends AppCompatActivity {
 
             if (imagesByte == null && audio == null) {
                 Card card = new Card(questionText, answerText);
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
@@ -98,7 +98,7 @@ public class CreateCardActivity extends AppCompatActivity {
             }else if (imagesByte != null &&   audio!= null){
                 Card card = new Card(questionText, answerText, imagesByte, true);
 
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
@@ -112,7 +112,7 @@ public class CreateCardActivity extends AppCompatActivity {
             else if (audio == null && imagesByte != null) {
                 Card card = new Card(questionText, answerText, imagesByte, true);
 
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
@@ -127,7 +127,7 @@ public class CreateCardActivity extends AppCompatActivity {
             else if (audio != null && imagesByte == null){
                 Card card = new Card(questionText, answerText, audio, false);
 
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 

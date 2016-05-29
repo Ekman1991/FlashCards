@@ -65,8 +65,8 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
 
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
-        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).getCardsForDeck(currentDeck));
 
         currentDeck.shuffle();
         currentDeck.setCounter(0);
@@ -347,10 +347,10 @@ public class PlayDeckActivity extends AppCompatActivity {
         notificationManager.notify(1, notificationBuilder.build());
 
 
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
-        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).getCardsForDeck(currentDeck));
 
         Intent intentMain = new Intent(PlayDeckActivity.this ,
                 DeckActivity.class);
@@ -433,8 +433,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
         currentDeck = realDeck;
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
-        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).getCardsForDeck(currentDeck));
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
@@ -463,19 +463,19 @@ public class PlayDeckActivity extends AppCompatActivity {
                     //TODO Rethink this method
                     currentDeck.increaseCardDifficultyAmount(0);
                     currentCard.setDifficulty(0);
-                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.mediumButton:
                 if (isChecked)
                     currentDeck.increaseCardDifficultyAmount(1);
                     currentCard.setDifficulty(1);
-                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.hardButton:
                 if(isChecked)
                     currentDeck.increaseCardDifficultyAmount(2);
                     currentCard.setDifficulty(2);
-                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateCard(currentCard);
                     break;
         }
     }
@@ -531,7 +531,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 if(showQuestion) {
                     currentCard.setQuestion(textView.getText().toString());
                 }
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateCard(currentCard);
 
             }
         });
@@ -551,13 +551,13 @@ public class PlayDeckActivity extends AppCompatActivity {
                 if(!showQuestion) {
                     currentCard.setAnswer(editText.getText().toString());
                 }
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateCard(currentCard);
 
             }
         });
     }
     public void removeCard(View v){
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).deleteCard(currentCard.getId());
         if (currentDeck.hasNext()) {
             currentCard = currentDeck.getNextCard();
             showQuestion = true;

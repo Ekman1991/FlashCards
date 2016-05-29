@@ -30,9 +30,9 @@ public class ImportDeckActivity extends AppCompatActivity {
         JsonService jc = new JsonService();
         JSONObject object = jc.toJson(jc.fromURL(url));
         Deck deck = new Deck(object);
-        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
-        int length = ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().size() - 1;
-        ServiceLocator.getInstance().getFlashCards().setCurrentDeck(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().get(length));
+        ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createDeck(deck);
+        int length = ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).getAllDecks().size() - 1;
+        ServiceLocator.getInstance().getFlashCards().setCurrentDeck(ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).getAllDecks().get(length));
 
         Intent intentMain = new Intent(ImportDeckActivity.this ,
                 ImportCardsActivity.class);

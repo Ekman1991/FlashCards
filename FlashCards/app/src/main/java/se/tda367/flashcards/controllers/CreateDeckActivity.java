@@ -32,7 +32,7 @@ public class CreateDeckActivity extends AppCompatActivity {
             Log.d("CreateDeck", "DeckName is empty");
         } else {
             Deck deck = new Deck(deckName.getText().toString());
-            ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
+            ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createDeck(deck);
 
             //deck.setStartDay();
 
