@@ -16,8 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.models.FlashCards;
+import se.tda367.flashcards.ServiceLocator;
 
 public class AudioActivity extends AppCompatActivity {
 
@@ -110,7 +109,7 @@ public class AudioActivity extends AppCompatActivity {
                 byte[] audioBytes = out.toByteArray();
 
 
-                Singleton.getInstance().getFlashCards().setAudioByte(audioBytes);
+                ServiceLocator.getInstance().getFlashCards().setAudioByte(audioBytes);
             }
             catch (Exception e){
                 e.printStackTrace();

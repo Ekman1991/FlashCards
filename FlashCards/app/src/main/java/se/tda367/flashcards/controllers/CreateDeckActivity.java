@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Deck;
 
 public class CreateDeckActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class CreateDeckActivity extends AppCompatActivity {
             Log.d("CreateDeck", "DeckName is empty");
         } else {
             Deck deck = new Deck(deckName.getText().toString());
-            Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
+            ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
 
             //deck.setStartDay();
 

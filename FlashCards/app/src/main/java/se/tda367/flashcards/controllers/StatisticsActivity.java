@@ -2,7 +2,6 @@ package se.tda367.flashcards.controllers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -10,7 +9,7 @@ import java.text.DecimalFormat;
 import se.tda367.flashcards.BarChart;
 import se.tda367.flashcards.PieChart;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.StatisticsItem;
 import se.tda367.flashcards.models.Deck;
 
@@ -26,7 +25,7 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
         DecimalFormat df = new DecimalFormat("#.##");
-        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
         this.pieChart = (PieChart) findViewById(R.id.pieChart);
         fillPieChart();
         this.barChart = (BarChart) findViewById(R.id.barChart);

@@ -22,7 +22,7 @@ import java.io.InputStream;
 
 import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
@@ -70,8 +70,8 @@ public class CreateCardActivity extends AppCompatActivity {
         String answerText;
         Deck currentDeck;
         byte[] b = new byte[0];
-        byte[] audio = Singleton.getInstance().getFlashCards().getAudioByte();
-        Singleton.getInstance().getFlashCards().setAudioByte(b);
+        byte[] audio = ServiceLocator.getInstance().getFlashCards().getAudioByte();
+        ServiceLocator.getInstance().getFlashCards().setAudioByte(b);
 
 
 
@@ -82,10 +82,11 @@ public class CreateCardActivity extends AppCompatActivity {
 
             questionText = question.getText().toString();
             answerText = answer.getText().toString();
-            currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+            currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
+
             if (imagesByte == null && audio == null) {
                 Card card = new Card(questionText, answerText);
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
@@ -93,38 +94,11 @@ public class CreateCardActivity extends AppCompatActivity {
                 Intent intentMain = new Intent(CreateCardActivity.this,
                         DeckActivity.class);
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
-            }else if (audio == null && imagesByte != null) {
-                Card card = new Card(questionText, answerText, imagesByte, true);
 
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
-                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
-                currentDeck.addCard(card);
-
-
-
-
-                Intent intentMain = new Intent(CreateCardActivity.this,
-                        DeckActivity.class);
-                CreateCardActivity.this.startActivityForResult(intentMain, 0);
-
-            } else if (audio != null && imagesByte == null){
-                Card card = new Card(questionText, answerText, audio, false);
-
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
-                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
-                currentDeck.addCard(card);
-
-
-
-
-                Intent intentMain = new Intent(CreateCardActivity.this,
-                        DeckActivity.class);
-                CreateCardActivity.this.startActivityForResult(intentMain, 0);
-            }
-            else {
+            }else if (imagesByte != null &&   audio!= null){
                 Card card = new Card(questionText, answerText, imagesByte, audio);
 
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
                 currentDeck.addCard(card);
 
@@ -134,6 +108,36 @@ public class CreateCardActivity extends AppCompatActivity {
                 Intent intentMain = new Intent(CreateCardActivity.this,
                         DeckActivity.class);
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
+            }
+            else if (audio == null && imagesByte != null) {
+                Card card = new Card(questionText, answerText, imagesByte, true);
+
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
+
+
+
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
+            }
+            else if (audio != null && imagesByte == null){
+                Card card = new Card(questionText, answerText, audio, false);
+
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
+                //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
+                currentDeck.addCard(card);
+
+
+
+
+                Intent intentMain = new Intent(CreateCardActivity.this,
+                        DeckActivity.class);
+                CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
             }
 
         }

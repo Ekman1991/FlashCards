@@ -20,16 +20,22 @@ import se.tda367.flashcards.models.Deck;
  */
 
 public class DatabaseService extends SQLiteOpenHelper implements IPersistenceService {
+    private final Context context;
+
 
     public DatabaseService(Context context) {
         super(context, DATABASE_NAME , null, DATABASE_VERSION);
+        this.context = context;
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_DECK);
         db.execSQL(CREATE_TABLE_CARD);
         db.execSQL(CREATE_TABLE_DECK_CARDS);
+
     }
 
     @Override
@@ -152,7 +158,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setAnswer(c.getString(c.getColumnIndex(CARDS_COLUMN_ANSWER)));
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
                 card.setImageByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
-                card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
+                card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_AUDIO)));
 
 
                 card.setHasBeenPlayedOnce(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);

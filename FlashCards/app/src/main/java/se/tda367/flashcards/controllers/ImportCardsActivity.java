@@ -9,9 +9,9 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
@@ -24,7 +24,7 @@ public class ImportCardsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_import_cards);
 
         Log.v("ImportCardsActivity", "On Create");
-        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
 
         View importButton = findViewById(R.id.importButton);
         importCards(importButton);
@@ -32,12 +32,12 @@ public class ImportCardsActivity extends AppCompatActivity {
     public void importCards(View v){
         JsonService jc = new JsonService();
         Deck deck = currentDeck;
-        String url = Singleton.getInstance().getFlashCards().getUrl();
+        String url = ServiceLocator.getInstance().getFlashCards().getUrl();
         JSONObject object = jc.toJson(jc.fromURL(url));
         try {
             for(int i = 0; i<(object.length()-2)/2; i++) {
                 Card tmp = new Card(object.getString(i + "question"), object.getString(i + "answer"));
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(tmp, deck);
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(tmp, deck);
                 deck.addCard(tmp);
             }
 

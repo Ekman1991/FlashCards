@@ -1,6 +1,5 @@
 package se.tda367.flashcards.controllers;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,8 +23,7 @@ import java.util.Comparator;
 
 import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.models.Card;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Deck;
 
 public class MainActivity extends AppCompatActivity implements Comparator<Deck> {
@@ -50,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         setContentView(R.layout.activity_main);
 
         your_array_list = null;
-        your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+        your_array_list = ServiceLocator.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+//        your_array_list  = ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
         checkIfAllDecksPlayed();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 Deck selectedFromList = (Deck)(lv.getItemAtPosition(myItemInt));
-                Singleton.getInstance().getFlashCards().setCurrentDeck(selectedFromList);
+                ServiceLocator.getInstance().getFlashCards().setCurrentDeck(selectedFromList);
                 Intent intent = new Intent(MainActivity.this, DeckActivity.class);
                 startActivityForResult(intent,2);
             }
@@ -248,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         statistics = menu.findItem(R.id.action_statistics);
-        if (Singleton.getInstance().getFlashCards().hasCurrentDeck() == false) {
+        if (ServiceLocator.getInstance().getFlashCards().hasCurrentDeck() == false) {
             statistics.setVisible(false);
         }   else {
             statistics.setVisible(true);

@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Calender;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
 
 
@@ -42,10 +42,10 @@ public class DeckActivity extends AppCompatActivity {
         RadioButton regular = (RadioButton)findViewById(R.id.firstButton);
         regular.setChecked(true);
 
-        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
 
-        Singleton.getInstance().getFlashCards().setMode(0);
-        mode = Singleton.getInstance().getFlashCards().getMode();
+        ServiceLocator.getInstance().getFlashCards().setMode(0);
+        mode = ServiceLocator.getInstance().getFlashCards().getMode();
 
         name = (TextView) findViewById(R.id.deckName);
         numberOfCards = (TextView) findViewById(R.id.numberOfCards);
@@ -130,23 +130,23 @@ public class DeckActivity extends AppCompatActivity {
         switch(v.getId()) {
             case R.id.firstButton:
                 if (isChecked)
-                    Singleton.getInstance().getFlashCards().setMode(0);
+                    ServiceLocator.getInstance().getFlashCards().setMode(0);
                 setAmount(0);
                 break;
             case R.id.secondButton:
                 if (isChecked)
-                    Singleton.getInstance().getFlashCards().setMode(1);
+                    ServiceLocator.getInstance().getFlashCards().setMode(1);
                 setAmount(1);
                 break;
             case R.id.thirdButton:
                 if(isChecked)
-                    Singleton.getInstance().getFlashCards().setMode(2);
+                    ServiceLocator.getInstance().getFlashCards().setMode(2);
                 setAmount(2);
                 break;
         }
     }
     public void delDeck(View v){
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
         Intent intent = new Intent(DeckActivity.this, MainActivity.class);
         startActivityForResult(intent, 0);
     }
@@ -155,7 +155,7 @@ public class DeckActivity extends AppCompatActivity {
         EditText editAmount = (EditText)findViewById(R.id.editAmount);
         if(i == 0){
             editAmount.setText(currentDeck.getSize()+"");
-            Singleton.getInstance().getFlashCards().setAmount(currentDeck.getSize());
+            ServiceLocator.getInstance().getFlashCards().setAmount(currentDeck.getSize());
         }
         if(i == 1){
             int tmp = 0;
@@ -206,9 +206,9 @@ public class DeckActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(!editAmount.getText().toString().equals("")) {
-                    Singleton.getInstance().getFlashCards().setAmount(Integer.parseInt(s + ""));
+                    ServiceLocator.getInstance().getFlashCards().setAmount(Integer.parseInt(s + ""));
                 }
-                else Singleton.getInstance().getFlashCards().setAmount(0);
+                else ServiceLocator.getInstance().getFlashCards().setAmount(0);
             }
         });
     }

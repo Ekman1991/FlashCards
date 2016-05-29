@@ -8,23 +8,23 @@ import se.tda367.flashcards.services.DatabaseService;
 /**
  * Created by Razzan on 2016-04-21.
  */
-public class Singleton {
+public class ServiceLocator {
 
     //TODO: Inte trådsäker
     //TODO: Rename to ServiceLocator
 
-    private static Singleton singleton = null;
+    private static ServiceLocator singleton = null;
     private final FlashCards flashCards;
     //TODO: Make this final and get rid of context passing
     private DatabaseService dbController;
 
-    protected Singleton() {
+    protected ServiceLocator() {
         flashCards = new FlashCards();
     }
 
-    public static Singleton getInstance() {
+    public static ServiceLocator getInstance() {
         if(singleton == null) {
-            singleton = new Singleton();
+            singleton = new ServiceLocator();
         }
         return singleton;
     }

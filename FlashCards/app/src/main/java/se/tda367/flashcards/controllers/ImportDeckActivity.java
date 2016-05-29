@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Deck;
 
 
@@ -22,7 +22,7 @@ public class ImportDeckActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //removes the app custom uri scheme from the link so that only the actual url remains
         String url = intent.getDataString().substring(13);
-        Singleton.getInstance().getFlashCards().setUrl(url);
+        ServiceLocator.getInstance().getFlashCards().setUrl(url);
         importDeck(url);
 
     }
@@ -30,9 +30,9 @@ public class ImportDeckActivity extends AppCompatActivity {
         JsonService jc = new JsonService();
         JSONObject object = jc.toJson(jc.fromURL(url));
         Deck deck = new Deck(object);
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
-        int length = Singleton.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().size() - 1;
-        Singleton.getInstance().getFlashCards().setCurrentDeck(Singleton.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().get(length));
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createDeck(deck);
+        int length = ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().size() - 1;
+        ServiceLocator.getInstance().getFlashCards().setCurrentDeck(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks().get(length));
 
         Intent intentMain = new Intent(ImportDeckActivity.this ,
                 ImportCardsActivity.class);

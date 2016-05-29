@@ -1,10 +1,11 @@
 package se.tda367.flashcards.models;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 
 /**
  * Created by ekman on 21/04/16.
@@ -25,16 +26,19 @@ public class FlashCards {
     public ArrayList<Deck> getArrayOfDecks(Context context) {
 
         this.arrayOfDecks = null;
-        this.arrayOfDecks = Singleton.getInstance().getDatabaseController(context).getAllDecks();
+        this.arrayOfDecks = ServiceLocator.getInstance().getDatabaseController(context).getAllDecks();
         return arrayOfDecks;
 
     }
 
     public byte[] getAudioByte(){
+        Log.v("AUDIO BTE ", audioByte + "");
+
         return this.audioByte;
     }
 
     public void setAudioByte(byte[] audioByte){
+        Log.v("AUDIO BTE ", audioByte + "");
         this.audioByte = audioByte;
     }
 
@@ -46,7 +50,7 @@ public class FlashCards {
 
         //Update the current deck
         /*int deck_id = currentDeck.getId();
-        Deck newDeck = Singleton.getInstance().getDatabaseController(context).getDeck(deck_id);
+        Deck newDeck = ServiceLocator.getInstance().getDatabaseController(context).getDeck(deck_id);
         this.currentDeck = null;
         this.currentDeck = newDeck;*/
 

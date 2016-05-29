@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.services.JsonService;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
 
 public class ShareDeckActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class ShareDeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_deck);
-        Deck deck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        Deck deck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
         EditText uriText = (EditText) findViewById(R.id.uriText);
         try {
             JsonService jc = new JsonService(deck);

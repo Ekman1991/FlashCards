@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,10 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Timer;
@@ -34,7 +30,7 @@ import java.util.TimerTask;
 
 import se.tda367.flashcards.OnSwipeTouchListener;
 import se.tda367.flashcards.R;
-import se.tda367.flashcards.Singleton;
+import se.tda367.flashcards.ServiceLocator;
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
@@ -65,17 +61,17 @@ public class PlayDeckActivity extends AppCompatActivity {
 
         play = (Button) findViewById(R.id.play);
 
-        mode = Singleton.getInstance().getFlashCards().getMode();
+        mode = ServiceLocator.getInstance().getFlashCards().getMode();
 
-        currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+        currentDeck = ServiceLocator.getInstance().getFlashCards().getCurrentDeck();
 
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
-        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
 
         currentDeck.shuffle();
         currentDeck.setCounter(0);
 
-        selectMode(Singleton.getInstance().getFlashCards().getAmount());
+        selectMode(ServiceLocator.getInstance().getFlashCards().getAmount());
 
         currentCard = currentDeck.getNextCard();
 
@@ -176,6 +172,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                         textView.setText(currentCard.getQuestion());
                         textView.setVisibility(View.VISIBLE);
                         editText.setText(currentCard.getAnswer());
+
                         currentCard.getAudioByte();
                         if (audio != null){
                             play.setEnabled(true);
@@ -193,6 +190,8 @@ public class PlayDeckActivity extends AppCompatActivity {
                             options.inMutable = true;
                             bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
                             imageView.setImageBitmap(bmp);
+                            imageView.setVisibility(View.VISIBLE);
+
                         }
                         editText.setVisibility(View.GONE);
                         setRadioGraphic();
@@ -211,11 +210,14 @@ public class PlayDeckActivity extends AppCompatActivity {
             textView.setText(currentCard.getQuestion());
             textView.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
+            imageView.setVisibility(View.VISIBLE);
             showQuestion = true;
         } else {
             editText.setText(currentCard.getAnswer());
             editText.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
+
             showQuestion = false;
             //TODO Definitely change this somehow
             if (!currentCard.hasBeenPlayedOnce()) {
@@ -345,10 +347,10 @@ public class PlayDeckActivity extends AppCompatActivity {
         notificationManager.notify(1, notificationBuilder.build());
 
 
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
         //This updates the current deck so we are in phase with the database.
         //TODO: Redo this, implement a safer way of updating the deck. E.g everytime a DB CRUD is happening
-        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
 
         Intent intentMain = new Intent(PlayDeckActivity.this ,
                 DeckActivity.class);
@@ -431,8 +433,8 @@ public class PlayDeckActivity extends AppCompatActivity {
     public void backButton(View v){
         Log.v("PlayDeckActivity", "Back");
         currentDeck = realDeck;
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
-        currentDeck.setCardsArray(Singleton.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateDeck(currentDeck);
+        currentDeck.setCardsArray(ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getCardsForDeck(currentDeck));
         Intent intentPrev = new Intent(PlayDeckActivity.this, DeckActivity.class);
         PlayDeckActivity.this.startActivityForResult(intentPrev, 0);
     }
@@ -461,19 +463,19 @@ public class PlayDeckActivity extends AppCompatActivity {
                     //TODO Rethink this method
                     currentDeck.increaseCardDifficultyAmount(0);
                     currentCard.setDifficulty(0);
-                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.mediumButton:
                 if (isChecked)
                     currentDeck.increaseCardDifficultyAmount(1);
                     currentCard.setDifficulty(1);
-                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
             case R.id.hardButton:
                 if(isChecked)
                     currentDeck.increaseCardDifficultyAmount(2);
                     currentCard.setDifficulty(2);
-                    Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                    ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
                     break;
         }
     }
@@ -529,7 +531,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                 if(showQuestion) {
                     currentCard.setQuestion(textView.getText().toString());
                 }
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
 
             }
         });
@@ -549,13 +551,13 @@ public class PlayDeckActivity extends AppCompatActivity {
                 if(!showQuestion) {
                     currentCard.setAnswer(editText.getText().toString());
                 }
-                Singleton.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
+                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).updateCard(currentCard);
 
             }
         });
     }
     public void removeCard(View v){
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
+        ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).deleteCard(currentCard.getId());
         if (currentDeck.hasNext()) {
             currentCard = currentDeck.getNextCard();
             showQuestion = true;
