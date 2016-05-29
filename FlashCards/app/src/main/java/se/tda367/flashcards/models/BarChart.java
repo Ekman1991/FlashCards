@@ -23,14 +23,6 @@ public class BarChart extends View {
 
     public BarChart(Context context, AttributeSet attributes) {
         super(context, attributes);
-        TypedArray array = context.getTheme().obtainStyledAttributes(
-                attributes,
-                R.styleable.BarChart,
-                0, 0);
-        try {
-        } finally {
-            array.recycle();
-        }
         init();
     }
 

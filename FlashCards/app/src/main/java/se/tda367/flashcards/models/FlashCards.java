@@ -19,17 +19,7 @@ public class FlashCards {
     private byte[] audioByte;
 
     public FlashCards() {
-
     }
-
-    public ArrayList<Deck> getArrayOfDecks(Context context) {
-
-        this.arrayOfDecks = null;
-        this.arrayOfDecks = Singleton.getInstance().getDatabaseController(context).getAllDecks();
-        return arrayOfDecks;
-
-    }
-
     public byte[] getAudioByte(){
         return this.audioByte;
     }

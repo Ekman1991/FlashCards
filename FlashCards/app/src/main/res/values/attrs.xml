@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="PieChart">
-    <attr name="showText1" format="boolean" />
-    <attr name="labelPosition" format="enum">
-        <enum name="left" value="0"/>
-        <enum name="right" value="1"/>
-    </attr>
-</declare-styleable>
-    <declare-styleable name="BarChart">
-        <attr name="showText2" format="boolean" />
-        <attr name="labelPosition1" format="enum">
-            <enum name="left1" value="0"/>
-            <enum name="right1" value="1"/>
-        </attr>
-    </declare-styleable>
+
 </resources>

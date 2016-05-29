@@ -52,7 +52,7 @@ public class Deck extends AppCompatActivity {
         this.easyCards = 0;
         this.mediumCards = 0;
         this.hardCards = 0;
-        this.cardsPlayedPerDay = new ArrayList<>();
+        this.cardsPlayedPerDay = new ArrayList<Integer>();
     }
 
     public Deck(String name) {
@@ -68,9 +68,9 @@ public class Deck extends AppCompatActivity {
         this.easyCards = 0;
         this.mediumCards = 0;
         this.hardCards = 0;
-        this.cardsPlayedPerDay = new ArrayList<>();
+        this.cardsPlayedPerDay = new ArrayList<Integer>();
         //Testing purpose
-        for (int i = 1; i > 10; i++) {
+        for (int i = 1; i < 10; i++) {
             cardsPlayedPerDay.add(i);
         }
     }
@@ -87,7 +87,7 @@ public class Deck extends AppCompatActivity {
         this.easyCards = deck.getAmountOfCardsWithDifficulty(0);
         this.mediumCards = deck.getAmountOfCardsWithDifficulty(1);
         this.hardCards = deck.getAmountOfCardsWithDifficulty(2);
-        this.cardsPlayedPerDay = new ArrayList<>();
+        this.cardsPlayedPerDay = new ArrayList<Integer>();
     }
 
     public Deck(JSONObject object) {
@@ -343,12 +343,8 @@ public class Deck extends AppCompatActivity {
         try {
             JSONObject json = new JSONObject();
             json.put("uniqueArrays", new JSONArray(cardsPlayedPerDay));
-            for (int i = 0; cardsPlayedPerDay.size()> i; i++) {
-                Log.d("dflnv", Integer.toString(cardsPlayedPerDay.get(i)));
-            }
             String arrayList = json.toString();
             return arrayList;
-
         } catch (JSONException e) {
             Log.d("JSON", "Cards played per day error");
             return "Error";
@@ -359,10 +355,8 @@ public class Deck extends AppCompatActivity {
         try {
             JSONObject json = new JSONObject(array);
             JSONArray jArray = json.getJSONArray("uniqueArrays");
-            Log.d("dflnv", Integer.toString(jArray.length()));
             for (int i = 0; jArray.length() > i; i++) {
                  cardsPlayedPerDay.add(jArray.getInt(i));
-                 Log.d("dflnv", Integer.toString(jArray.getInt(i)));
             }
         } catch (JSONException e) {
             Log.d("Error", "JSON");

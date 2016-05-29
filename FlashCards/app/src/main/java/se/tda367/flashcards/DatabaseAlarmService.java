@@ -20,7 +20,7 @@ public class DatabaseAlarmService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.v("Does this", "work?");
-        ArrayList<Deck> decks = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+        ArrayList<Deck> decks = Singleton.getInstance().getDatabaseController(this).getAllDecks();
         for(int i = 0; i < decks.size(); i++) {;
             currentDeck = decks.get(i);
             currentDeck.addCardsPlayedPerDay(currentDeck.getNbrOfCardsPlayedToday());

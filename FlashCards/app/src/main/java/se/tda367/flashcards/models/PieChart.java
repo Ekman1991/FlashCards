@@ -32,14 +32,6 @@ public class PieChart extends View {
     //AttributeSet takes variables from XML code set in the layout xml files
     public PieChart(Context context, AttributeSet attributes) {
         super(context, attributes);
-        TypedArray array = context.getTheme().obtainStyledAttributes(
-                attributes,
-                R.styleable.PieChart,
-                0, 0);
-        try {
-        } finally {
-            array.recycle();
-        }
         init();
     }
 
