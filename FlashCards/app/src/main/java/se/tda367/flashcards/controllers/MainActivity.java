@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         statistics = menu.findItem(R.id.action_statistics);
+        //Change so that user cannot open statistics if there are no statistics to show
         if (Singleton.getInstance().getFlashCards().hasCurrentDeck() == false) {
             statistics.setVisible(false);
         }   else {

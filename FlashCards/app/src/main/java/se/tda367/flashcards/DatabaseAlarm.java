@@ -12,6 +12,7 @@ import se.tda367.flashcards.controllers.MainActivity;
 
 /**
  * Created by ZlatanH on 2016-05-29.
+ * Creates an alarm that updates the database around 2am every day
  */
 public class DatabaseAlarm extends WakefulBroadcastReceiver {
 
@@ -31,9 +32,9 @@ public class DatabaseAlarm extends WakefulBroadcastReceiver {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 48);
+        calendar.set(Calendar.HOUR_OF_DAY, 02);
+        calendar.set(Calendar.MINUTE, 00);
         alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, alarmIntent);
+                AlarmManager.INTERVAL_DAY, alarmIntent);
     }
 }

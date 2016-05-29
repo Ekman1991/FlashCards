@@ -13,39 +13,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/averageTime"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="79dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Average time to finish a card"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/averageTime"
+        android:text="Cards played each day"
+        android:id="@+id/textView"
+        android:layout_marginBottom="54dp"
+        android:layout_above="@+id/backButton"
         android:layout_centerHorizontal="true" />
-
-    <se.tda367.flashcards.models.PieChart
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/pieChart"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/averageTime"
-        android:layout_toStartOf="@+id/averageTime"
-        android:layout_alignBottom="@+id/barChart" />
-
-    <se.tda367.flashcards.models.BarChart
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/barChart"
-        android:layout_above="@+id/textView2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="150dp"
-        android:layout_toRightOf="@+id/pieChart" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,4 +28,42 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="backButton" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textView">
+
+        <se.tda367.flashcards.models.PieChart
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:id="@+id/pieChart"
+            android:layout_gravity="center_horizontal|top" />
+
+        <se.tda367.flashcards.models.BarChart
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:id="@+id/barChart"
+            android:layout_gravity="left|bottom" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average time per card"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/backButton"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/averageTime"
+        android:layout_alignTop="@+id/backButton"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

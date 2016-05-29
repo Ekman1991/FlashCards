@@ -69,8 +69,8 @@ public class Deck extends AppCompatActivity {
         this.mediumCards = 0;
         this.hardCards = 0;
         this.cardsPlayedPerDay = new ArrayList<Integer>();
-        //Testing purpose
-        for (int i = 1; i < 10; i++) {
+        //This is for demonstration purposes
+        for (int i = 1; i < 30; i++) {
             cardsPlayedPerDay.add(i);
         }
     }
@@ -339,6 +339,7 @@ public class Deck extends AppCompatActivity {
         cardsPlayedPerDay.add(i);
     }
 
+    //Creates a JSON object to be able to put the arraylist into the database
     public String CardsPlayedPerDayJSON() {
         try {
             JSONObject json = new JSONObject();
@@ -351,6 +352,7 @@ public class Deck extends AppCompatActivity {
         }
     }
 
+    //Unwraps the JSON object
     public void setCardsPlayedPerDayJSON(String array) {
         try {
             JSONObject json = new JSONObject(array);

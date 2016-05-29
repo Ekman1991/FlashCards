@@ -66,6 +66,7 @@ public class FlashCards {
     public String getUrl() {
         return this.url;
     }
+
     public Boolean hasCurrentDeck() {
         if (currentDeck == null) {
             return false;

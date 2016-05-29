@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import se.tda367.flashcards.models.BarChart;
 import se.tda367.flashcards.models.PieChart;
@@ -65,7 +66,10 @@ public class StatisticsActivity extends AppCompatActivity {
     }
 
     private void fillBarChart() {
-
+        ArrayList<Integer> arrayList= currentDeck.getCardsPlayedPerDay();
+        for (int i = 0; i < arrayList.size(); i++) {
+            barChart.addItem(new StatisticsItem((0xFFFF0000), arrayList.get(i)));
+        }
     }
 
     //Returns to the main activity

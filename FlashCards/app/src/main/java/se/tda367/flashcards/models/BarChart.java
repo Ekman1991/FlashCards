@@ -2,12 +2,14 @@ package se.tda367.flashcards.models;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import se.tda367.flashcards.R;
 
@@ -15,11 +17,16 @@ import se.tda367.flashcards.R;
  * Created by ZlatanH on 2016-05-22.
  */
 public class BarChart extends View {
-    private ArrayList<StatisticsItem> data = new ArrayList<StatisticsItem>();
     private Paint barPaint;
-    private RectF area;
 
-    private int totalItems;
+    private int[] locationOnScreen;
+
+    private float xpad;
+    private float ypad;
+    private float widthOfBar;
+    private float maxHeight;
+
+    private ArrayList<StatisticsItem> bars = new ArrayList<StatisticsItem>();
 
     public BarChart(Context context, AttributeSet attributes) {
         super(context, attributes);
@@ -33,23 +40,32 @@ public class BarChart extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        float xpad = (float) (getPaddingLeft() + getPaddingRight());
-        float ypad = (float) (getPaddingTop() + getPaddingBottom());
+        xpad = (float) (getPaddingLeft() + getPaddingRight());
+        ypad = (float) (getPaddingTop() + getPaddingBottom());
 
         float ww = (float) w - xpad;
-        float hh = (float) h - ypad;
+        maxHeight = (float) h - ypad;
 
-        float diameter = Math.min(ww, hh);
-        area = new RectF(
-                0.0f,
-                0.0f,
-                diameter,
-                diameter);
+        widthOfBar = ww/30;
+   }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        float barPositionX = xpad;
+        float barPositionY = ypad;
+
+        //Change how distance between bars is calculated
+        for (int i = 0; i < bars.size(); i++) {
+            StatisticsItem currentItem = bars.get(i);
+            float height = maxHeight-currentItem.getStatistic();
+            canvas.drawRect(barPositionX, barPositionY,barPositionX+widthOfBar,height,barPaint);
+            barPositionX += widthOfBar + 5;
+            barPositionY += widthOfBar + 5;
+        }
     }
 
-
     public void addItem(StatisticsItem newItem) {
-        data.add(newItem);
-        totalItems++;
+        bars.add(newItem);
     }
 }
