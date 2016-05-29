@@ -33,8 +33,8 @@ public class ServiceLocator {
         return this.flashCards;
     }
 
-    //TODO: Rename to getDatabaseService
-    public DatabaseService getDatabaseController(Context context) {
+
+    public DatabaseService getDatabaseService(Context context) {
         if (dbController == null) {
             dbController = new DatabaseService(context);
             return dbController;

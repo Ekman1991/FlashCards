@@ -37,7 +37,7 @@ public class ImportCardsActivity extends AppCompatActivity {
         try {
             for(int i = 0; i<(object.length()-2)/2; i++) {
                 Card tmp = new Card(object.getString(i + "question"), object.getString(i + "answer"));
-                ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(tmp, deck);
+                ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).createCardInDeck(tmp, deck);
                 deck.addCard(tmp);
             }
 
