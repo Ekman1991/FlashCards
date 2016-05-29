@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
         setContentView(R.layout.activity_main);
 
         your_array_list = null;
-        your_array_list = ServiceLocator.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
-//        your_array_list  = ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
+        //your_array_list = ServiceLocator.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+        your_array_list  = ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
         checkIfAllDecksPlayed();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
