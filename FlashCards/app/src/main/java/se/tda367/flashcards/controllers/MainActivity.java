@@ -21,36 +21,34 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import se.tda367.flashcards.DatabaseAlarm;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Deck;
 
 public class MainActivity extends AppCompatActivity implements Comparator<Deck> {
-    public final static String EXTRA_MESSAGE = "se.tda367.flashcards.MESSAGE";
     private final int OPEN_CREATE_DECK = 1;
     private String[] Spinner;
     private Spinner spinner;
-
+    DatabaseAlarm alarm = new DatabaseAlarm();
 
     private ListView lv;
     private MenuItem statistics;
 
     private ArrayList<Deck> your_array_list;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        alarm.setAlarm(this);
         your_array_list = null;
-        your_array_list = Singleton.getInstance().getFlashCards().getArrayOfDecks(getApplicationContext());
+        your_array_list = Singleton.getInstance().getDatabaseController(getApplicationContext()).getAllDecks();
         checkIfAllDecksPlayed();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         lv = (ListView) findViewById(R.id.listView);
-
 
         // This is the array adapter, it takes the context of the activity as a
         // first parameter, the type of list view as a second parameter and your
@@ -285,4 +283,5 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
     public int compare(Deck deck, Deck t1) {
         return deck.getName().compareTo(t1.getName());
     }
+
 }

@@ -7,4 +7,11 @@
         <enum name="right" value="1"/>
     </attr>
 </declare-styleable>
+    <declare-styleable name="BarChart">
+        <attr name="showText2" format="boolean" />
+        <attr name="labelPosition1" format="enum">
+            <enum name="left1" value="0"/>
+            <enum name="right1" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

@@ -22,7 +22,7 @@ public interface IPersistenceService {
     public static final String DECKS_COLUMN_DESCRIPTION = "description";
     public static final String DECKS_COLUMN_PLAYED_SINCE = "played_since";
     public static final String DECKS_COLUMN_NBR_OF_TIMES_PLAYED = "times_played";
-    public static final String DECKS_COLUMN_CARDS_PLAYED = "cards_done";
+    public static final String DECKS_COLUMN_CARDS_PLAYED_ALL_TIME = "cards_done";
     public static final String DECKS_COLUMN_TIME_PLAYED = "average_time";
     public static final String DECKS_COLUMN_EASY_CARDS = "easy_cards";
     public static final String DECKS_COLUMN_MEDIUM_CARDS = "medium_cards";
@@ -49,8 +49,7 @@ public interface IPersistenceService {
     public static final String CREATE_TABLE_DECK = "CREATE TABLE "
             + DECKS_TABLE_NAME + "(" + DECKS_COLUMN_ID + " INTEGER PRIMARY KEY," + DECKS_COLUMN_NAME
             + " TEXT," + DECKS_COLUMN_DESCRIPTION + " TEXT," + DECKS_COLUMN_PLAYED_SINCE + " INTEGER," + DECKS_COLUMN_NBR_OF_TIMES_PLAYED + " INTEGER," +  DECKS_COLUMN_CREATED_AT
-            + " INTEGER," + DECKS_COLUMN_CARDS_PLAYED + " INTEGER," + DECKS_COLUMN_TIME_PLAYED + " DOUBLE," +
-            DECKS_COLUMN_EASY_CARDS + " INTEGER," + DECKS_COLUMN_MEDIUM_CARDS + " INTEGER," + DECKS_COLUMN_HARD_CARDS + " INTEGER" + ")";
+            + " INTEGER," + DECKS_COLUMN_CARDS_PLAYED_ALL_TIME + " INTEGER," + DECKS_COLUMN_TIME_PLAYED + " DOUBLE," +
 
     public static final String CREATE_TABLE_CARD = "CREATE TABLE "
             + CARDS_TABLE_NAME + "(" + CARDS_COLUMN_ID + " INTEGER PRIMARY KEY," + CARDS_COLUMN_QUESTION

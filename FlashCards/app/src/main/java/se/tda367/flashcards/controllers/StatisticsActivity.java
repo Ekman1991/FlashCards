@@ -35,7 +35,7 @@ public class StatisticsActivity extends AppCompatActivity {
         this.barChart = (BarChart) findViewById(R.id.barChart);
         fillBarChart();
         timePlayed = (TextView) findViewById(R.id.averageTime);
-        timePlayed.setText(df.format(currentDeck.getAmountOfTimePlayed() / currentDeck.getNbrOfCardsPlayed() / 1000) + " seconds");
+        timePlayed.setText(df.format(currentDeck.getAmountOfTimePlayed() / currentDeck.getNbrOfCardsPlayedTotal() / 1000) + " seconds");
     }
 
     private void fillPieChart() {

@@ -25,7 +25,7 @@ public class BarChart extends View {
         super(context, attributes);
         TypedArray array = context.getTheme().obtainStyledAttributes(
                 attributes,
-                R.styleable.PieChart,
+                R.styleable.BarChart,
                 0, 0);
         try {
         } finally {

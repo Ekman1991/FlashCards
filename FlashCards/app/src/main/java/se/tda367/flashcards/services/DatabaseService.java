@@ -50,7 +50,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
 
 
 
-    public long createDeck(Deck deck) {
+    public long createDeck(Deck deck)  {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -60,12 +60,12 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         contentValues.put(DECKS_COLUMN_NBR_OF_TIMES_PLAYED, deck.getNbrOfTimesPlayed());
         contentValues.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
         contentValues.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
-        contentValues.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
+        contentValues.put(DECKS_COLUMN_CARDS_PLAYED_ALL_TIME, deck.getNbrOfCardsPlayedTotal());
         contentValues.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
         contentValues.put(DECKS_COLUMN_EASY_CARDS, deck.getAmountOfCardsWithDifficulty(0));
         contentValues.put(DECKS_COLUMN_MEDIUM_CARDS, deck.getAmountOfCardsWithDifficulty(1));
         contentValues.put(DECKS_COLUMN_HARD_CARDS, deck.getAmountOfCardsWithDifficulty(2));
-
+        contentValues.put(DECKS_COLUMN_CARDS_PER_TODAY, deck.CardsPlayedPerDayJSON());
         return db.insert(DECKS_TABLE_NAME, null, contentValues);
     }
 
@@ -91,7 +91,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         deck.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
         deck.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
         deck.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
-        deck.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
+        deck.setNbrOfCardsPlayedTotal(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED_ALL_TIME)));
         deck.setAmountOfEasyCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_EASY_CARDS)));
         deck.setAmountOfMediumCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_MEDIUM_CARDS)));
         deck.setAmountOfHardCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_HARD_CARDS)));
@@ -117,10 +117,11 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 d.setPlayedSince(c.getInt(c.getColumnIndex(DECKS_COLUMN_PLAYED_SINCE)));
                 d.setMade(c.getInt(c.getColumnIndex(DECKS_COLUMN_CREATED_AT)));
                 d.setAmountOfTimePlayed(c.getDouble(c.getColumnIndex(DECKS_COLUMN_TIME_PLAYED)));
-                d.setNbrOfCardsPlayed(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED)));
+                d.setNbrOfCardsPlayedTotal(c.getInt(c.getColumnIndex(DECKS_COLUMN_CARDS_PLAYED_ALL_TIME)));
                 d.setAmountOfEasyCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_EASY_CARDS)));
                 d.setAmountOfMediumCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_MEDIUM_CARDS)));
                 d.setAmountOfHardCards(c.getInt(c.getColumnIndex(DECKS_COLUMN_HARD_CARDS)));
+                d.setCardsPlayedPerDayJSON(c.getString(c.getColumnIndex(DECKS_COLUMN_CARDS_PER_TODAY)));
                 d.setCardsArray(getCardsForDeck(d));
 
                 decks.add(d);
@@ -155,7 +156,6 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setImageByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
                 card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
                 card.setHasBeenPlayedOnce((c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1));
-                Log.d("OK",Boolean.toString((c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1)));
                 list.add(card);
             } while (c.moveToNext());
         }
@@ -174,10 +174,12 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
         values.put(DECKS_COLUMN_PLAYED_SINCE, deck.getPlayedSince());
         values.put(DECKS_COLUMN_CREATED_AT, deck.getMade());
         values.put(DECKS_COLUMN_TIME_PLAYED, deck.getAmountOfTimePlayed());
-        values.put(DECKS_COLUMN_CARDS_PLAYED, deck.getNbrOfCardsPlayed());
+        values.put(DECKS_COLUMN_CARDS_PLAYED_ALL_TIME, deck.getNbrOfCardsPlayedTotal());
         values.put(DECKS_COLUMN_EASY_CARDS, deck.getAmountOfCardsWithDifficulty(0));
         values.put(DECKS_COLUMN_MEDIUM_CARDS, deck.getAmountOfCardsWithDifficulty(1));
         values.put(DECKS_COLUMN_HARD_CARDS, deck.getAmountOfCardsWithDifficulty(2));
+        values.put(DECKS_COLUMN_CARDS_PER_TODAY, deck.CardsPlayedPerDayJSON());
+
 
         return db.update(DECKS_TABLE_NAME, values, DECKS_COLUMN_ID + " = ?",
                 new String[] { String.valueOf(deck.getId()) });

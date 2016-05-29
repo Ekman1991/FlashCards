@@ -1,32 +1,22 @@
 package se.tda367.flashcards.models;
 
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
-import java.util.TimerTask;
-
-import se.tda367.flashcards.R;
-import se.tda367.flashcards.controllers.MainActivity;
-
-import se.tda367.flashcards.Singleton;
 
 
 /**
  * Created by ZlatanH on 2016-04-19.
  */
-public class Deck extends AppCompatActivity{
+public class Deck extends AppCompatActivity {
     private int id;
     private String name;
     private String description;
@@ -43,10 +33,11 @@ public class Deck extends AppCompatActivity{
 
 
     private int nbrOfTimesPlayed;
-    private int nbrOfCardsPlayed;
+    private int nbrOfCardsPlayedTotal;
+    private int nbrOfCardsPlayedToday;
     private double timePlayed;
     private Calender c = new Calender();
-
+    private ArrayList<Integer> cardsPlayedPerDay;
 
     public Deck() {
         this.name = "";
@@ -56,11 +47,12 @@ public class Deck extends AppCompatActivity{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
-        this.nbrOfCardsPlayed = 0;
+        this.nbrOfCardsPlayedTotal = 0;
         this.timePlayed = 0;
         this.easyCards = 0;
         this.mediumCards = 0;
         this.hardCards = 0;
+        this.cardsPlayedPerDay = new ArrayList<>();
     }
 
     public Deck(String name) {
@@ -71,26 +63,34 @@ public class Deck extends AppCompatActivity{
         //-1 indicates that the deck have not been played yet.
         this.playedSince = -1;
         this.made = System.currentTimeMillis() / 1000L;
-        this.nbrOfCardsPlayed = 0;
+        this.nbrOfCardsPlayedTotal = 0;
         this.timePlayed = 0;
         this.easyCards = 0;
         this.mediumCards = 0;
         this.hardCards = 0;
+        this.cardsPlayedPerDay = new ArrayList<>();
+        //Testing purpose
+        for (int i = 1; i > 10; i++) {
+            cardsPlayedPerDay.add(i);
+        }
     }
-    public Deck(Deck deck){
+
+    public Deck(Deck deck) {
         this.name = deck.getName();
         this.list = new ArrayList<Card>();
         this.counter = deck.getCounter();
         this.nbrOfTimesPlayed = deck.getNbrOfTimesPlayed();
         this.playedSince = deck.getPlayedSince();
         this.made = deck.getMade();
-        this.nbrOfCardsPlayed = deck.getNbrOfCardsPlayed();
+        this.nbrOfCardsPlayedTotal = deck.getNbrOfCardsPlayedTotal();
         this.timePlayed = deck.getAmountOfTimePlayed();
         this.easyCards = deck.getAmountOfCardsWithDifficulty(0);
         this.mediumCards = deck.getAmountOfCardsWithDifficulty(1);
         this.hardCards = deck.getAmountOfCardsWithDifficulty(2);
+        this.cardsPlayedPerDay = new ArrayList<>();
     }
-    public Deck(JSONObject object){
+
+    public Deck(JSONObject object) {
         try {
             this.name = object.getString("name");
             this.made = object.getLong("made");
@@ -99,41 +99,41 @@ public class Deck extends AppCompatActivity{
             this.counter = 0;
             this.nbrOfTimesPlayed = 0;
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
-    public boolean hasNext(){
-        return counter<list.size();
+
+    public boolean hasNext() {
+        return counter < list.size();
     }
 
     public int getId() {
         return this.id;
     }
 
-    public long getMade(){
+    public long getMade() {
         return made;
     }
 
-    public void playedDeck(){
+    public void playedDeck() {
         nbrOfTimesPlayed++;
     }
 
-    public int getNbrOfTimesPlayed(){
+    public int getNbrOfTimesPlayed() {
         return this.nbrOfTimesPlayed;
     }
 
-    public int getNbrOfCardsPlayed() {
-        return this.nbrOfCardsPlayed;
+    public int getNbrOfCardsPlayedTotal() {
+        return this.nbrOfCardsPlayedTotal;
     }
 
-    public void setNbrOfCardsPlayed(int cardsPlayed) {
-        this.nbrOfCardsPlayed = cardsPlayed;
+    public void setNbrOfCardsPlayedTotal(int cardsPlayed) {
+        this.nbrOfCardsPlayedTotal = cardsPlayed;
     }
 
     public void increaseNbrOfCardsPlayed() {
-        this.nbrOfCardsPlayed++;
+        this.nbrOfCardsPlayedTotal++;
     }
 
     public double getAmountOfTimePlayed() {
@@ -152,19 +152,19 @@ public class Deck extends AppCompatActivity{
         this.nbrOfTimesPlayed = nbrOfTimesPlayed;
     }
 
-    public long getPlayedSince(){
+    public long getPlayedSince() {
         return playedSince;
     }
 
-    public void setPlayedSince(long time){
+    public void setPlayedSince(long time) {
         this.playedSince = time;
     }
 
-    public void setPlayedNow(){
+    public void setPlayedNow() {
         this.playedSince = System.currentTimeMillis() / 1000L;
     }
 
-    public void setMade(long time){
+    public void setMade(long time) {
         this.made = time;
     }
 
@@ -172,7 +172,7 @@ public class Deck extends AppCompatActivity{
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
@@ -180,15 +180,15 @@ public class Deck extends AppCompatActivity{
         this.name = name;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public void addCard(Card card){
+    public void addCard(Card card) {
         list.add(card);
     }
 
@@ -200,7 +200,7 @@ public class Deck extends AppCompatActivity{
         this.counter = counter;
     }
 
-    public int getCounter(){
+    public int getCounter() {
         return this.counter;
     }
 
@@ -219,11 +219,15 @@ public class Deck extends AppCompatActivity{
 
     //TODO Rethink everything about these
     public int getAmountOfCardsWithDifficulty(int difficulty) {
-        switch(difficulty) {
-            case 0: return this.easyCards;
-            case 1: return this.mediumCards;
-            case 2: return this.hardCards;
-            default: return 0;
+        switch (difficulty) {
+            case 0:
+                return this.easyCards;
+            case 1:
+                return this.mediumCards;
+            case 2:
+                return this.hardCards;
+            default:
+                return 0;
         }
     }
 
@@ -240,23 +244,29 @@ public class Deck extends AppCompatActivity{
     }
 
     public void increaseCardDifficultyAmount(int difficulty) {
-        switch(difficulty) {
-            case 0: this.easyCards++;
-                    break;
-            case 1: this.mediumCards++;
-                    break;
-            case 2: this.hardCards++;
-                    break;
+        switch (difficulty) {
+            case 0:
+                this.easyCards++;
+                break;
+            case 1:
+                this.mediumCards++;
+                break;
+            case 2:
+                this.hardCards++;
+                break;
         }
     }
 
     public void decreaseCardDifficultyAmount(int difficulty) {
-        switch(difficulty) {
-            case 0: this.easyCards--;
+        switch (difficulty) {
+            case 0:
+                this.easyCards--;
                 break;
-            case 1: this.mediumCards--;
+            case 1:
+                this.mediumCards--;
                 break;
-            case 2: this.hardCards--;
+            case 2:
+                this.hardCards--;
                 break;
         }
     }
@@ -287,22 +297,23 @@ public class Deck extends AppCompatActivity{
         }
     }
 
-    public void shuffle(){
+    public void shuffle() {
         Random r = new Random();
         int size = list.size();
         ArrayList<Card> tmp = new ArrayList<Card>();
-        for(int i = 0; i<size; i++){
+        for (int i = 0; i < size; i++) {
             int pos = r.nextInt(list.size());
             tmp.add(list.get(pos));
             list.remove(pos);
         }
-        for(int j = 0; j<tmp.size(); j++){
+        for (int j = 0; j < tmp.size(); j++) {
             list.add(tmp.get(j));
         }
 
 
     }
-    public ArrayList<Card> getList(){
+
+    public ArrayList<Card> getList() {
         return list;
     }
 
@@ -312,4 +323,49 @@ public class Deck extends AppCompatActivity{
         return getName();
     }
 
+    public void setNbrOfCardsPlayedToday(int i) {
+        this.nbrOfCardsPlayedToday = i;
+    }
+
+    public int getNbrOfCardsPlayedToday() {
+        return this.nbrOfCardsPlayedToday;
+    }
+
+    public ArrayList<Integer> getCardsPlayedPerDay() {
+        return cardsPlayedPerDay;
+    }
+
+    public void addCardsPlayedPerDay(int i) {
+        cardsPlayedPerDay.add(i);
+    }
+
+    public String CardsPlayedPerDayJSON() {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("uniqueArrays", new JSONArray(cardsPlayedPerDay));
+            for (int i = 0; cardsPlayedPerDay.size()> i; i++) {
+                Log.d("dflnv", Integer.toString(cardsPlayedPerDay.get(i)));
+            }
+            String arrayList = json.toString();
+            return arrayList;
+
+        } catch (JSONException e) {
+            Log.d("JSON", "Cards played per day error");
+            return "Error";
+        }
+    }
+
+    public void setCardsPlayedPerDayJSON(String array) {
+        try {
+            JSONObject json = new JSONObject(array);
+            JSONArray jArray = json.getJSONArray("uniqueArrays");
+            Log.d("dflnv", Integer.toString(jArray.length()));
+            for (int i = 0; jArray.length() > i; i++) {
+                 cardsPlayedPerDay.add(jArray.getInt(i));
+                 Log.d("dflnv", Integer.toString(jArray.getInt(i)));
+            }
+        } catch (JSONException e) {
+            Log.d("Error", "JSON");
+        }
+    }
 }
