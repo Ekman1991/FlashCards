@@ -96,7 +96,7 @@ public class CreateCardActivity extends AppCompatActivity {
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
             }else if (imagesByte != null &&   audio!= null){
-                Card card = new Card(questionText, answerText, imagesByte, audio);
+                Card card = new Card(questionText, answerText, imagesByte, true);
 
                 ServiceLocator.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
                 //TODO: Replace this, will easily be duplicates of cards. Refetch from database instead.
