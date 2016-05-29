@@ -55,7 +55,7 @@ public interface IPersistenceService {
     public static final String CREATE_TABLE_CARD = "CREATE TABLE "
             + CARDS_TABLE_NAME + "(" + CARDS_COLUMN_ID + " INTEGER PRIMARY KEY," + CARDS_COLUMN_QUESTION
             + " TEXT," + CARDS_COLUMN_ANSWER + " TEXT," + CARDS_COLUMN_DIFFICULTY + " INTEGER," + CARDS_COLUMN_CREATED_AT
-            + " DATETIME," + CARDS_COLUMN_PLAYED + " BOOLEAN," + CARDS_COLUMN_AUDIO + " BLOB," +  CARDS_COLUMN_IMAGE + " BLOB"
+            + " DATETIME," + CARDS_COLUMN_PLAYED + " INTEGER," + CARDS_COLUMN_AUDIO + " BLOB," +  CARDS_COLUMN_IMAGE + " BLOB"
             +")" ;
 
     public static final String CREATE_TABLE_DECK_CARDS = "CREATE TABLE "

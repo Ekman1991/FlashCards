@@ -208,20 +208,24 @@ public class PlayDeckActivity extends AppCompatActivity {
     //flips the card
     public void setAnswerOrQuestion() {
         if (!showQuestion) {
-            textView.setText(currentCard.getQuestion());
+            if (currentCard.hasQuestion() == true) {
+                textView.setText(currentCard.getQuestion());
+            }
             textView.setVisibility(View.VISIBLE);
             editText.setVisibility(View.INVISIBLE);
+            imageView.setVisibility(View.VISIBLE);
             showQuestion = true;
         } else {
-            editText.setText(currentCard.getAnswer());
-            editText.setVisibility(View.VISIBLE);
-            textView.setVisibility(View.GONE);
-            showQuestion = false;
-            //TODO Definitely change this somehow
-            if (!currentCard.hasBeenPlayedOnce()) {
+            if (currentCard.hasBeenPlayedOnce() == 0) {
                 currentDeck.increaseCardDifficultyAmount(2);
                 currentCard.setHasBeenPlayedOnce(true);
             }
+            editText.setText(currentCard.getAnswer());
+            editText.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            imageView.setVisibility(View.INVISIBLE);
+            showQuestion = false;
+            //TODO Definitely change this somehow
         }
     }
 

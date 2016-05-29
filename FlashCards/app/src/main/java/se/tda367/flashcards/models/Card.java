@@ -10,7 +10,7 @@ public class Card extends AppCompatActivity {
     private String answer;
     private int id;
     private int difficulty;
-    private boolean hasBeenPlayed;
+    private boolean hasBeenPlayedOnce;
     private byte[] imagesByte;
     private byte[] audioByte;
 
@@ -39,7 +39,7 @@ public class Card extends AppCompatActivity {
         this.question = "";
         this.answer = "";
         this.difficulty = 2;
-        this.hasBeenPlayed = false;
+        this.hasBeenPlayedOnce = false;
         this.imagesByte = new byte[0];
         this.audioByte = new byte[0];
 
@@ -50,7 +50,7 @@ public class Card extends AppCompatActivity {
         this.question = question;
         this.answer = answer;
         this.difficulty = 2;
-        this.hasBeenPlayed = false;
+        this.hasBeenPlayedOnce = false;
         this.imagesByte = new byte[0];
         this.audioByte = new byte[0];
     }
@@ -60,7 +60,7 @@ public class Card extends AppCompatActivity {
           this.question = question;
           this.answer = answer;
           this.difficulty = 2;
-          this.hasBeenPlayed = false;
+          this.hasBeenPlayedOnce = false;
           if (audioPic == false) {
               this.imagesByte = new byte[0];
               this.audioByte = bytes;
@@ -74,7 +74,7 @@ public class Card extends AppCompatActivity {
           this.question = question;
           this.answer = answer;
           this.difficulty = 2;
-          this.hasBeenPlayed = false;
+          this.hasBeenPlayedOnce = false;
           this.imagesByte = imagesByte;
           this.audioByte = audioByte;
 
@@ -129,13 +129,18 @@ public class Card extends AppCompatActivity {
         this.id = id;
     }
 
-    public boolean hasBeenPlayedOnce() {
-        return this.hasBeenPlayed;
-    }
-
     public void setHasBeenPlayedOnce(boolean b) {
-        this.hasBeenPlayed = b;
+        this.hasBeenPlayedOnce = b;
     }
 
+    //Database did not work with booleans for some reason, had to resort to integers
+    public int hasBeenPlayedOnce() {
+        if (hasBeenPlayedOnce == true) {
+            return 1;
+        }   else return 0;
+    }
 
+    public boolean hasQuestion() {
+        return question.length() > 0;
+    }
 }

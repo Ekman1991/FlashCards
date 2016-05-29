@@ -146,6 +146,7 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
 
         if (c.moveToFirst()) {
             do {
+
                 Card card = new Card();
                 card.setId(c.getInt((c.getColumnIndex(CARDS_COLUMN_ID))));
                 card.setQuestion((c.getString(c.getColumnIndex(CARDS_COLUMN_QUESTION))));
@@ -153,9 +154,8 @@ public class DatabaseService extends SQLiteOpenHelper implements IPersistenceSer
                 card.setDifficulty(c.getInt(c.getColumnIndex(CARDS_COLUMN_DIFFICULTY)));
                 card.setImageByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
                 card.setAudioByte(c.getBlob(c.getColumnIndex(CARDS_COLUMN_IMAGE)));
-
-
-                card.setHasBeenPlayedOnce(c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1);
+                card.setHasBeenPlayedOnce((c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1));
+                Log.d("OK",Boolean.toString((c.getInt(c.getColumnIndex(CARDS_COLUMN_PLAYED)) == 1)));
                 list.add(card);
             } while (c.moveToNext());
         }

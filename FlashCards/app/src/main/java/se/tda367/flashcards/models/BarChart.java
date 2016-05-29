@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
+
+import se.tda367.flashcards.R;
 
 /**
  * Created by ZlatanH on 2016-05-22.

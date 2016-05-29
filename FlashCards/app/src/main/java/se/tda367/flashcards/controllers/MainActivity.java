@@ -1,6 +1,5 @@
 package se.tda367.flashcards.controllers;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -23,10 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
 public class MainActivity extends AppCompatActivity implements Comparator<Deck> {
@@ -40,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
     private MenuItem statistics;
 
     private ArrayList<Deck> your_array_list;
-    CardFactory factory = new CardFactory();
 
 
     @Override
@@ -268,9 +263,11 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             case (R.id.action_help):
                 Intent intentHelp = new Intent(this, HelpActivity.class);
                 this.startActivity(intentHelp);
+                return true;
             case (R.id.action_statistics):
                 Intent intent = new Intent(this, StatisticsActivity.class);
                 this.startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

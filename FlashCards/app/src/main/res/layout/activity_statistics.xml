@@ -27,7 +27,7 @@
         android:layout_above="@+id/averageTime"
         android:layout_centerHorizontal="true" />
 
-    <se.tda367.flashcards.PieChart
+    <se.tda367.flashcards.models.PieChart
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/pieChart"
@@ -37,7 +37,7 @@
         android:layout_toStartOf="@+id/averageTime"
         android:layout_alignBottom="@+id/barChart" />
 
-    <se.tda367.flashcards.BarChart
+    <se.tda367.flashcards.models.BarChart
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/barChart"
@@ -46,4 +46,14 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="150dp"
         android:layout_toRightOf="@+id/pieChart" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:id="@+id/backButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="backButton" />
 </RelativeLayout>

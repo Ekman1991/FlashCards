@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
 import android.graphics.Shader;
 

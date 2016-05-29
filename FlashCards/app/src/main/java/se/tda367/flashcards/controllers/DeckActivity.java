@@ -146,10 +146,20 @@ public class DeckActivity extends AppCompatActivity {
         }
     }
     public void delDeck(View v){
-        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
-        Intent intent = new Intent(DeckActivity.this, MainActivity.class);
-        startActivityForResult(intent, 0);
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to delete this deck?")
+                .setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Singleton.getInstance().getDatabaseController(getApplicationContext()).deleteDeck(currentDeck.getId());
+                        Intent intent = new Intent(DeckActivity.this, MainActivity.class);
+                        startActivityForResult(intent, 0);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
+
     //sets the text for how many cards you can play at most
     public void setAmount(int i){
         EditText editAmount = (EditText)findViewById(R.id.editAmount);

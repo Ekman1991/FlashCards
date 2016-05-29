@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import se.tda367.flashcards.CardFactory;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
 import se.tda367.flashcards.models.Card;
@@ -31,7 +30,6 @@ public class CreateCardActivity extends AppCompatActivity {
     public static final int CAM_REQUEST = 21;
     EditText question;
     EditText answer;
-    CardFactory cardFactory;
     private ImageView imgPicture;
     private byte[] imagesByte;
     Button takePhoto;
@@ -44,7 +42,6 @@ public class CreateCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_card);
         question = (EditText)findViewById(R.id.questionField);
         answer = (EditText)findViewById(R.id.answerField);
-        cardFactory = new CardFactory();
 
         //see pic
         imgPicture = (ImageView) findViewById(R.id.imgPic);
@@ -76,13 +73,19 @@ public class CreateCardActivity extends AppCompatActivity {
 
 
         //TODO: Move this to a utility class. Will be duplicated all over the codebase
-        if ((question == null || question.getText().toString().trim().length() == 0) && (answer == null || answer.getText().toString().trim().length() == 0)) {
+        if ((question == null || question.getText().toString().trim().length() == 0) && (answer == null || answer.getText().toString().trim().length() == 0
+        && imagesByte == null)) {
             Log.d("CreateCard", "DeckName is empty");
         } else {
-
-            questionText = question.getText().toString();
+            if (question.getText().toString() == null) {
+                questionText = "";
+            } else {
+                questionText = question.getText().toString();
+            }
             answerText = answer.getText().toString();
             currentDeck = Singleton.getInstance().getFlashCards().getCurrentDeck();
+
+            //Creates a card without an image or audio
             if (imagesByte == null && audio == null) {
                 Card card = new Card(questionText, answerText);
                 Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
@@ -93,6 +96,8 @@ public class CreateCardActivity extends AppCompatActivity {
                 Intent intentMain = new Intent(CreateCardActivity.this,
                         DeckActivity.class);
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
+
+                //Creates a card with an image but no audio
             }else if (audio == null && imagesByte != null) {
                 Card card = new Card(questionText, answerText, imagesByte, true);
 
@@ -107,6 +112,7 @@ public class CreateCardActivity extends AppCompatActivity {
                         DeckActivity.class);
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
 
+                //Creates an image with audio but no image
             } else if (audio != null && imagesByte == null){
                 Card card = new Card(questionText, answerText, audio, false);
 
@@ -122,6 +128,7 @@ public class CreateCardActivity extends AppCompatActivity {
                 CreateCardActivity.this.startActivityForResult(intentMain, 0);
             }
             else {
+                //Creates a card with both an image and audio
                 Card card = new Card(questionText, answerText, imagesByte, audio);
 
                 Singleton.getInstance().getDatabaseController(getApplicationContext()).createCardInDeck(card, currentDeck);
@@ -154,25 +161,6 @@ public class CreateCardActivity extends AppCompatActivity {
 
         //get all imagestypes
         photoPicIntent.setDataAndType(data, "image/*");
-
-        //invoke activity
-        startActivityForResult(photoPicIntent, IMAGE_GALLERY_REQUEST);
-    }
-
-    public void onCameraClicked(View v){
-
-        //invoke imagegallry with intent
-        Intent photoPicIntent = new Intent(Intent.ACTION_PICK);
-
-        //where we find the data
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String pictureDirectoryPath = pictureDirectory.getPath();
-
-        Uri data = Uri.parse(pictureDirectoryPath);
-
-        //get all imagestypes
-        photoPicIntent.setDataAndType(data, "image/*");
-
         //invoke activity
         startActivityForResult(photoPicIntent, IMAGE_GALLERY_REQUEST);
     }
@@ -182,7 +170,6 @@ public class CreateCardActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_GALLERY_REQUEST || requestCode == CAM_REQUEST){
-
                 //SDcard adress
                 Uri imageUri = data.getData();
 
@@ -191,7 +178,6 @@ public class CreateCardActivity extends AppCompatActivity {
 
                 try {
                     if (requestCode == IMAGE_GALLERY_REQUEST) {
-
 
                         inputS = getContentResolver().openInputStream(imageUri);
 

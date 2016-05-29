@@ -1,17 +1,19 @@
 package se.tda367.flashcards.controllers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-import se.tda367.flashcards.BarChart;
-import se.tda367.flashcards.PieChart;
+import se.tda367.flashcards.models.BarChart;
+import se.tda367.flashcards.models.PieChart;
 import se.tda367.flashcards.R;
 import se.tda367.flashcards.Singleton;
-import se.tda367.flashcards.StatisticsItem;
+import se.tda367.flashcards.models.StatisticsItem;
 import se.tda367.flashcards.models.Deck;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class StatisticsActivity extends AppCompatActivity {
     private TextView timePlayed;
     private PieChart pieChart;
     private BarChart barChart;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,9 @@ public class StatisticsActivity extends AppCompatActivity {
         }
     }
 
+    //Sets different colors to the difficulty slices, red for hard,  yellow for normal and blue for easy
     private int setPieChartColors(int i) {
+        //Initializes the variable, could be moved to onCreate
         int color = 1;
         switch (i) {
             case 0:
@@ -61,5 +66,12 @@ public class StatisticsActivity extends AppCompatActivity {
 
     private void fillBarChart() {
 
+    }
+
+    //Returns to the main activity
+    public void backButton(View v) {
+        Intent intentMain = new Intent(StatisticsActivity.this ,
+                MainActivity.class);
+        StatisticsActivity.this.startActivity(intentMain);
     }
 }

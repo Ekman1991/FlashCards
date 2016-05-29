@@ -1,4 +1,4 @@
-package se.tda367.flashcards;
+package se.tda367.flashcards.models;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import se.tda367.flashcards.R;
 
 /**
  * Created by ZlatanH on 2016-05-15.
@@ -27,8 +29,7 @@ public class PieChart extends View {
 
     private List<StatisticsItem> slices = new ArrayList<StatisticsItem>();
 
-    //TODO Add the XML AttributeSet values
-    //TODO Add text and shading to chart
+    //AttributeSet takes variables from XML code set in the layout xml files
     public PieChart(Context context, AttributeSet attributes) {
         super(context, attributes);
         TypedArray array = context.getTheme().obtainStyledAttributes(
@@ -52,6 +53,7 @@ public class PieChart extends View {
         shadowPaint.setColor(0xFFD9D9D9);
     }
 
+    //calculates the size of the view
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         float xpad = (float)(getPaddingLeft() + getPaddingRight());
@@ -80,6 +82,8 @@ public class PieChart extends View {
         super.onDraw(canvas);
         canvas.drawOval(shadowDiameter,shadowPaint);
 
+        //Calculates and draws the slices of the PieChart, with the starting angle
+        //corresponding to 12 o' clock.
         for (int i = 0; i < slices.size(); i++) {
             StatisticsItem currentItem = slices.get(i);
             changePiePaint(currentItem);
@@ -92,7 +96,6 @@ public class PieChart extends View {
         }
     }
 
-    @Override
     protected void onMeasure(int w, int h) {
         setMeasuredDimension(w, h);
     }
