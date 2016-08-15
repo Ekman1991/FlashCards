@@ -18,6 +18,7 @@ public class FlashCards {
     private int amount;
     private String url;
     private byte[] audioByte;
+    private boolean editMode;
 
     public FlashCards() {
 
@@ -77,6 +78,15 @@ public class FlashCards {
         if (currentDeck == null) {
             return false;
         }   else return true;
+    }
+    public Boolean getEditMode(){
+        return this.editMode;
+    }
+    public void setEditMode(Boolean b){
+        editMode = b;
+    }
+    public void reverseEditMode(){
+        editMode = !editMode;
     }
 
 }

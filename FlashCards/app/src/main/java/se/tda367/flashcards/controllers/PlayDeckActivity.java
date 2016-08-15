@@ -50,6 +50,7 @@ public class PlayDeckActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Button play;
     private byte[] audio;
+    CardEditor cardE;
 
 
     @Override
@@ -124,6 +125,9 @@ public class PlayDeckActivity extends AppCompatActivity {
         startTime = System.currentTimeMillis();
         activateSwipe();
         setRadioGraphic();
+
+        cardE = new CardEditor();
+        ServiceLocator.getInstance().getFlashCards().setEditMode(false);
     }
 
     public void play(View v){
@@ -513,41 +517,7 @@ public class PlayDeckActivity extends AppCompatActivity {
                     break;
         }
     }
-    public void editCard(View v){
-        if(!editMode) {
-            textView.clearFocus();
-            textView.setFocusable(true);
-            textView.setFocusableInTouchMode(true);
-            textView.requestFocus();
 
-            editText.clearFocus();
-            editText.setFocusable(true);
-            editText.setFocusableInTouchMode(true);
-            editText.requestFocus();
-
-            delButton.setVisibility(View.VISIBLE);
-
-            editMode = !editMode;
-        }
-        else if(editMode) {
-            textView.setFocusable(false);
-            textView.clearFocus();
-            textView.setFocusableInTouchMode(false);
-
-            editText.setFocusable(false);
-            editText.clearFocus();
-            editText.setFocusableInTouchMode(false);
-
-            delButton.setVisibility(View.GONE);
-
-            //hides the keyboard after clearing focus and making it non focusable so it cannot be edited
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-            imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-
-            editMode = !editMode;
-        }
-    }
     public void textChanged(){
         textView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -622,10 +592,19 @@ public class PlayDeckActivity extends AppCompatActivity {
             }
             setRadioGraphic();
 
-            editCard(v);
+
 
         }
         else finishedDeck(v);
+    }
+    public void editCard(View v){
+        if(!ServiceLocator.getInstance().getFlashCards().getEditMode()){
+            cardE.firstEdit(v);
+        }
+        else {
+            cardE.secondEdit(v);
+        }
+
     }
 
 }
