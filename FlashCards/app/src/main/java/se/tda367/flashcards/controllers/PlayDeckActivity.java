@@ -159,50 +159,59 @@ public class PlayDeckActivity extends AppCompatActivity {
         final View background = findViewById(R.id.background);
 
         background.setOnTouchListener(new OnSwipeTouchListener(PlayDeckActivity.this) {
-            public void onSwipeRight() {
-
-            }
 
             public void onSwipeLeft() {
-                currentDeck.increaseNbrOfCardsPlayed();
-                if (currentDeck.hasNext()) {
-                    if (!showQuestion) {
-                        currentCard = currentDeck.getNextCard();
-                        showQuestion = true;
-                        textView.setText(currentCard.getQuestion());
-                        textView.setVisibility(View.VISIBLE);
-                        editText.setText(currentCard.getAnswer());
-
-                        currentCard.getAudioByte();
-                        if (audio != null){
-                            play.setEnabled(true);
-                        }
-                        else {
-                            play.setEnabled(false);
-                        }
-                        if (currentCard.getImageByte() == null)
-                        {
-                            imageView.setImageResource(android.R.color.transparent);
-                        }
-                        else {
-                            Bitmap bmp;
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inMutable = true;
-                            bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
-                            imageView.setImageBitmap(bmp);
-                            imageView.setVisibility(View.VISIBLE);
-
-                        }
-                        editText.setVisibility(View.GONE);
-                        setRadioGraphic();
-                    }
-                }
-                else finishedDeck(background);
+                activateLeft(background);
             }
 
 
         });
 
+    }
+    public void activateLeft(View background){
+        currentDeck.increaseNbrOfCardsPlayed();
+        if (currentDeck.hasNext()) {
+            if (!showQuestion) {
+                currentCard = currentDeck.getNextCard();
+                showQuestion = true;
+                textView.setText(currentCard.getQuestion());
+                textView.setVisibility(View.VISIBLE);
+                editText.setText(currentCard.getAnswer());
+
+                currentCard.getAudioByte();
+
+                activateAudio();
+
+                activateImage();
+
+                editText.setVisibility(View.GONE);
+                setRadioGraphic();
+            }
+        }
+        else finishedDeck(background);
+    }
+    public void activateAudio(){
+        if (audio != null){
+            play.setEnabled(true);
+        }
+        else {
+            play.setEnabled(false);
+        }
+    }
+    public void activateImage(){
+        if (currentCard.getImageByte() == null)
+        {
+            imageView.setImageResource(android.R.color.transparent);
+        }
+        else {
+            Bitmap bmp;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inMutable = true;
+            bmp = BitmapFactory.decodeByteArray(currentCard.getImageByte(), 0, currentCard.getImageByte().length, options);
+            imageView.setImageBitmap(bmp);
+            imageView.setVisibility(View.VISIBLE);
+
+        }
     }
     //flips the card
     public void setAnswerOrQuestion() {
