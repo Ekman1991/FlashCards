@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements Comparator<Deck> 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String itemSelected = parentView.getItemAtPosition(position).toString();
-                new SortDecks(your_array_list, itemSelected, lv);
             }
 
 
