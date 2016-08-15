@@ -393,52 +393,67 @@ public class PlayDeckActivity extends AppCompatActivity {
 
 
         if (currentDeck.getList().size() >= 3){
-            if (hard >= 2*currentDeck.getList().size()-2) {
-                    TimerTask t = new TimerTask() {
-                        @Override
-                        public void run() {
-
-                        }
-                };
-                //notification in 1 day
-                timer.schedule (t, 0l, 1000*60*60*24);
-            }
-            else if (hard >= currentDeck.getList().size()-2) {
-                TimerTask t = new TimerTask () {
-                    @Override
-                    public void run () {
-                        notification();
-                    }
-                };
-                //notification in 3 days
-                timer.schedule (t, 0l, 1000*60*60*24*3);
-            }
-            else {
-                TimerTask t = new TimerTask () {
-                    @Override
-                    public void run () {
-                        notification();
-                    }
-                };
-                //notification in 7 days
-                timer.schedule (t, 0l, 1000*60*60*24*7);
-            }
+            firstNotifyOption(hard);
 
         }
 
         else {
-            TimerTask t = new TimerTask () {
-                @Override
-                public void run () {
-                    notification();
-                }
-            };
-            //notification in 5 days
-            timer.schedule (t, 0l, 1000*60*60*24*5);
+            secondNotifyOption(hard);
         }
 
 
 
+    }
+    public void firstNotifyOption(int hard){
+        if (hard >= 2*currentDeck.getList().size()-2) {
+            firstNotify();
+        }
+        else if (hard >= currentDeck.getList().size()-2) {
+            secondNotify();
+        }
+        else {
+            thirdNotify();
+        }
+    }
+    public void secondNotifyOption(int hard){
+        TimerTask t = new TimerTask () {
+            @Override
+            public void run () {
+                notification();
+            }
+        };
+        //notification in 5 days
+        timer.schedule (t, 0l, 1000*60*60*24*5);
+    }
+    public void firstNotify(){
+        TimerTask t = new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        };
+        //notification in 1 day
+        timer.schedule (t, 0l, 1000*60*60*24);
+    }
+    public void secondNotify(){
+        TimerTask t = new TimerTask () {
+            @Override
+            public void run () {
+                notification();
+            }
+        };
+        //notification in 3 days
+        timer.schedule (t, 0l, 1000*60*60*24*3);
+    }
+    public void thirdNotify(){
+        TimerTask t = new TimerTask () {
+            @Override
+            public void run () {
+                notification();
+            }
+        };
+        //notification in 7 days
+        timer.schedule (t, 0l, 1000*60*60*24*7);
     }
 
     public void flipCard(View v) {
