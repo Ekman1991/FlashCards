@@ -23,13 +23,6 @@ public class FlashCards {
 
     }
 
-    public ArrayList<Deck> getArrayOfDecks(Context context) {
-
-        this.arrayOfDecks = null;
-        this.arrayOfDecks = ServiceLocator.getInstance().getDatabaseService(context).getAllDecks();
-        return arrayOfDecks;
-
-    }
 
     public byte[] getAudioByte(){
         Log.v("AUDIO BTE ", audioByte + "");
