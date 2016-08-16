@@ -7,6 +7,7 @@ import org.junit.Test;
 import se.tda367.flashcards.models.Card;
 import se.tda367.flashcards.models.Deck;
 
+import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.*;
 
 public class FlashCardUnitTest {
@@ -15,6 +16,8 @@ public class FlashCardUnitTest {
     private Card card1;
     private Card card2;
     private Card card3;
+
+    private long createdAt = 0;
 
     /**
      * Sets up the test fixture.
@@ -25,6 +28,8 @@ public class FlashCardUnitTest {
 
         deck = new Deck("TestDeck");
         deck.setDescription("Description");
+
+        this.createdAt = deck.getMade();
 
         card1 = new Card("Dog", "Animal");
         card2 = new Card("Cat", "Animal");
@@ -56,6 +61,13 @@ public class FlashCardUnitTest {
     public void createDeck_nameIsCorrect() throws Exception {
 
         assertEquals(deck.getName(), "TestDeck");
+
+    }
+
+    @Test
+    public void createDeck_madeIsCorrect() throws Exception {
+
+        assertEquals(deck.getMade(), this.createdAt);
 
     }
 
