@@ -120,6 +120,15 @@ public class FlashCardUnitTest {
     }
 
     @Test
+    public void removeCard_sizeIsCorrect() throws Exception {
+
+        deck.getList().remove(0);
+
+        assertEquals(deck.getSize(), 2);
+
+    }
+
+    @Test
     public void createCard_isCorrectQuestion() throws Exception {
 
         assertEquals(card1.getQuestion(), "Dog");
