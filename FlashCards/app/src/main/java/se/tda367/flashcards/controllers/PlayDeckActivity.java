@@ -241,28 +241,6 @@ public class PlayDeckActivity extends AppCompatActivity {
         }
     }
 
-    public void notification (){
-        //start of a notification
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle("Time for you to play" + currentDeck)
-                .setContentText("It's scheduldge that you learn best if you play this Deck now")
-                .setAutoCancel(true)
-                .setColor(Color.BLUE);
-
-        //start program when active
-        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-
-        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(content);
-
-        // Add a notification
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notificationBuilder.build());
-        //end of a notificaiton
-    }
-
     public void selectMode(int amount){
         if(amount == 0){
             backButton(findViewById(R.id.background));
@@ -350,24 +328,7 @@ public class PlayDeckActivity extends AppCompatActivity {
         currentDeck.setNbrOfTimesPlayed(currentDeck.getNbrOfTimesPlayed() + 1);
         currentDeck.setPlayedNow();
         currentDeck.increaseAmountOfTimePlayed((System.currentTimeMillis()-startTime));
-        startTimeToNotify();
 
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle("Fun that you played" + currentDeck)
-                .setContentText("We will notify you when it's time to play this deck again")
-                .setAutoCancel(true)
-                .setColor(Color.BLUE);
-
-        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-
-        PendingIntent content = PendingIntent.getActivity(getApplicationContext(), 1, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(content);
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notificationBuilder.build());
 
 
         ServiceLocator.getInstance().getDatabaseService(getApplicationContext()).updateDeck(currentDeck);
@@ -381,84 +342,7 @@ public class PlayDeckActivity extends AppCompatActivity {
 
     }
 
-    public void startTimeToNotify(){
-        int hard = 0;
 
-        for (Card c : currentDeck.getList()) {
-            if (c.getDifficulty() == 0) {
-                hard = hard + 2;
-            } else if (c.getDifficulty() == 1) {
-                hard = hard + 1;
-            } else {
-                hard = hard + 0;
-            }
-        }
-        timer = new Timer();
-
-
-        if (currentDeck.getList().size() >= 3){
-            firstNotifyOption(hard);
-
-        }
-
-        else {
-            secondNotifyOption(hard);
-        }
-
-
-
-    }
-    public void firstNotifyOption(int hard){
-        if (hard >= 2*currentDeck.getList().size()-2) {
-            firstNotify();
-        }
-        else if (hard >= currentDeck.getList().size()-2) {
-            secondNotify();
-        }
-        else {
-            thirdNotify();
-        }
-    }
-    public void secondNotifyOption(int hard){
-        TimerTask t = new TimerTask () {
-            @Override
-            public void run () {
-                notification();
-            }
-        };
-        //notification in 5 days
-        timer.schedule (t, 0l, 1000*60*60*24*5);
-    }
-    public void firstNotify(){
-        TimerTask t = new TimerTask() {
-            @Override
-            public void run() {
-
-            }
-        };
-        //notification in 1 day
-        timer.schedule (t, 0l, 1000*60*60*24);
-    }
-    public void secondNotify(){
-        TimerTask t = new TimerTask () {
-            @Override
-            public void run () {
-                notification();
-            }
-        };
-        //notification in 3 days
-        timer.schedule (t, 0l, 1000*60*60*24*3);
-    }
-    public void thirdNotify(){
-        TimerTask t = new TimerTask () {
-            @Override
-            public void run () {
-                notification();
-            }
-        };
-        //notification in 7 days
-        timer.schedule (t, 0l, 1000*60*60*24*7);
-    }
 
     public void flipCard(View v) {
         if (currentCard != null) {
