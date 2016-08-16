@@ -204,14 +204,17 @@ public class Deck extends AppCompatActivity{
         return list != null ? list.equals(deck.list) : deck.list == null;
     }
 
-    //TODO Rethink everything about these
     public int getAmountOfCardsWithDifficulty(int difficulty) {
-        switch(difficulty) {
-            case 0: return this.easyCards;
-            case 1: return this.mediumCards;
-            case 2: return this.hardCards;
-            default: return 0;
+
+        int returnValue = 0;
+
+        for (int i = 0; i < this.list.size(); i++) {
+            if (this.list.get(i).getDifficulty() == difficulty) {
+                returnValue++;
+            }
         }
+
+        return returnValue;
     }
 
     public void setAmountOfEasyCards(int amount) {
