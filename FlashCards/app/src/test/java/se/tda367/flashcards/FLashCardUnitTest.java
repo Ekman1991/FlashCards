@@ -24,10 +24,15 @@ public class FlashCardUnitTest {
     public void setUp() {
 
         deck = new Deck("TestDeck");
+        deck.setDescription("Description");
 
         card1 = new Card("Dog", "Animal");
         card2 = new Card("Cat", "Animal");
         card3 = new Card("Parrot", "Animal");
+
+        card1.setDifficulty(0);
+        card2.setDifficulty(1);
+        card3.setDifficulty(2);
 
         deck.addCard(card1);
         deck.addCard(card2);
@@ -51,6 +56,34 @@ public class FlashCardUnitTest {
     public void createDeck_nameIsCorrect() throws Exception {
 
         assertEquals(deck.getName(), "TestDeck");
+
+    }
+
+    @Test
+    public void testDeckDescription() throws Exception {
+
+        assertEquals(deck.getDescription(), "Description");
+
+    }
+
+    @Test
+    public void testDeckDifficultyEasy() throws Exception {
+
+        assertEquals(deck.getAmountOfCardsWithDifficulty(0), 1);
+
+    }
+
+    @Test
+    public void testDeckDifficultyMedium() throws Exception {
+
+        assertEquals(deck.getAmountOfCardsWithDifficulty(1), 1);
+
+    }
+
+    @Test
+    public void testDeckDifficultyHard() throws Exception {
+
+        assertEquals(deck.getAmountOfCardsWithDifficulty(2), 1);
 
     }
 
